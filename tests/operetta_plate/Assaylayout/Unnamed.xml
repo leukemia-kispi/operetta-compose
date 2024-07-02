@@ -1,0 +1,585 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AssayLayout xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.perkinelmer.com/PEHH/HarmonyV5">
+  <PlateCols>24</PlateCols>
+  <PlateRows>16</PlateRows>
+  <Layer>
+    <Name>Compound</Name>
+    <ValueType>string</ValueType>
+    <Well>
+      <Row>1</Row>
+      <Col>1</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>1</Row>
+      <Col>2</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>1</Row>
+      <Col>3</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>1</Row>
+      <Col>4</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>1</Row>
+      <Col>5</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>1</Row>
+      <Col>6</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>1</Row>
+      <Col>7</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>1</Row>
+      <Col>8</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>1</Row>
+      <Col>9</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>1</Row>
+      <Col>10</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>1</Row>
+      <Col>11</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>1</Row>
+      <Col>12</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>1</Row>
+      <Col>13</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>1</Row>
+      <Col>14</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>1</Row>
+      <Col>15</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>1</Row>
+      <Col>16</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>1</Row>
+      <Col>17</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>1</Row>
+      <Col>18</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>1</Row>
+      <Col>19</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>1</Row>
+      <Col>20</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>1</Row>
+      <Col>21</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>1</Row>
+      <Col>22</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>1</Row>
+      <Col>23</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>1</Row>
+      <Col>24</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>2</Row>
+      <Col>1</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>2</Row>
+      <Col>2</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>2</Row>
+      <Col>3</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>2</Row>
+      <Col>4</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>2</Row>
+      <Col>5</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>2</Row>
+      <Col>6</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>2</Row>
+      <Col>7</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>2</Row>
+      <Col>8</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>2</Row>
+      <Col>9</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>2</Row>
+      <Col>10</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>2</Row>
+      <Col>11</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>2</Row>
+      <Col>12</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>2</Row>
+      <Col>13</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>2</Row>
+      <Col>14</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>2</Row>
+      <Col>15</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>2</Row>
+      <Col>16</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>2</Row>
+      <Col>17</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>2</Row>
+      <Col>18</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>2</Row>
+      <Col>19</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>2</Row>
+      <Col>20</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>2</Row>
+      <Col>21</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>2</Row>
+      <Col>22</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>2</Row>
+      <Col>23</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>2</Row>
+      <Col>24</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>3</Row>
+      <Col>1</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>3</Row>
+      <Col>2</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>3</Row>
+      <Col>3</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>3</Row>
+      <Col>4</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>3</Row>
+      <Col>5</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>3</Row>
+      <Col>6</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>3</Row>
+      <Col>7</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>3</Row>
+      <Col>8</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>3</Row>
+      <Col>9</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>3</Row>
+      <Col>10</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>3</Row>
+      <Col>11</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>3</Row>
+      <Col>12</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>3</Row>
+      <Col>13</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>3</Row>
+      <Col>14</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>3</Row>
+      <Col>15</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>3</Row>
+      <Col>16</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>3</Row>
+      <Col>17</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>3</Row>
+      <Col>18</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>3</Row>
+      <Col>19</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>3</Row>
+      <Col>20</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>3</Row>
+      <Col>21</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>3</Row>
+      <Col>22</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>3</Row>
+      <Col>23</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>3</Row>
+      <Col>24</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>4</Row>
+      <Col>1</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>4</Row>
+      <Col>2</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>4</Row>
+      <Col>3</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>4</Row>
+      <Col>4</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>4</Row>
+      <Col>5</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>4</Row>
+      <Col>6</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>4</Row>
+      <Col>7</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>4</Row>
+      <Col>8</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>4</Row>
+      <Col>9</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>4</Row>
+      <Col>10</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>4</Row>
+      <Col>11</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>4</Row>
+      <Col>12</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>4</Row>
+      <Col>13</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>4</Row>
+      <Col>14</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>4</Row>
+      <Col>15</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>4</Row>
+      <Col>16</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>4</Row>
+      <Col>17</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>4</Row>
+      <Col>18</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>4</Row>
+      <Col>19</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>4</Row>
+      <Col>20</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>4</Row>
+      <Col>21</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>4</Row>
+      <Col>22</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>4</Row>
+      <Col>23</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+    <Well>
+      <Row>4</Row>
+      <Col>24</Col>
+      <Value />
+      <Color>4294967295</Color>
+    </Well>
+  </Layer>
+</AssayLayout>

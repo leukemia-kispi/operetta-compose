@@ -1,9 +1,5 @@
-"""
-Generate JSON schemas for task arguments afresh, and write them
-to the package manifest.
-"""
 from fractal_tasks_core.dev.create_manifest import create_manifest
+from operetta_compose import PACKAGE
 
 if __name__ == "__main__":
-    PACKAGE = "operio_fractal"
     create_manifest(package=PACKAGE)

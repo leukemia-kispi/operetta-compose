@@ -1,7 +1,7 @@
-# Project metadata (see https://peps.python.org/pep-0621)
+# Project metadata (see https://packaging.python.org/en/latest/guides/writing-pyproject-toml/)
 [project]
-name = "operio-fractal"
-version = "0.0.1"
+name = "operetta-compose"
+version = "0.1.0"
 description = "Fractal tasks for the Opera/Operetta microscope and drug response profiling"
 readme = "README.md"
 license = { text = "BSD-3-Clause" }
@@ -11,22 +11,64 @@ authors = [
 
 # Required Python version and dependencies
 requires-python = ">=3.8"
-dependencies = ["fractal-tasks-core == 1.0.0a3", "scikit-image"]
+dependencies = ["fractal-tasks-core", 
+                "ome-zarr", 
+                "imagecodecs", 
+                "tqdm", 
+                "xmltodict", 
+                "csbdeep", 
+                "stardist", 
+                "tensorflow",
+                "tensorflow-metal ; platform_system == 'Darwin'"
+               ]
 
-# Optional dependencies (e.g. for `pip install -e ".[dev]"`, see
-# https://peps.python.org/pep-0621/#dependencies-optional-dependencies)
+
+# Optional dependencies (e.g. for `pip install -e ".[dev]"`
 [project.optional-dependencies]
-dev = ["devtools", "pytest", "requests", "build", "jsonschema"]
+dev = ["devtools", 
+       "pytest", 
+       "requests", 
+       "build", 
+       "jsonschema", 
+       "bumpver", 
+       "pre-commit",
+       "coverage",
+       "pytest-dependency"
+      ]
 
-# Build options (see https://peps.python.org/pep-0517)
+[project.urls]
+Documentation = "https://github.com/leukemia-kispi/operetta-compose"
+Repository = "https://github.com/leukemia-kispi/operetta-compose.git"
+Issues = "https://github.com/leukemia-kispi/operetta-compose/issues"
+
 [build-system]
 requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
 where = ["src"]
-include = ["operio_fractal"]
+include = ["operetta_compose", "operetta_compose.io", "operetta_compose.tasks"]
 
 # Always include the __FRACTAL_MANIFEST__.json file in the package
 [tool.setuptools.package-data]
 "*" = ["__FRACTAL_MANIFEST__.json"]
+
+[tool.bumpver]
+current_version = "0.1.0"
+version_pattern = "MAJOR.MINOR.PATCH"
+commit_message = "bump version {old_version} -> {new_version}"
+commit = true
+tag = true
+push = true
+
+[tool.bumpver.file_patterns]
+"pyproject.toml" = [
+    'version = "{version}"$',
+]
+
+[tool.coverage.run]
+branch = true
+parallel = true
+relative_files = true
+source = ["src/operetta_compose"]
+omit = ["tests/*", "operetta_compose/dev/*"]

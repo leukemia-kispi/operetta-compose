@@ -1,0 +1,278 @@
+{
+  "manifest_version": "2",
+  "task_list": [
+    {
+      "name": "Harmony to OME-Zarr",
+      "executable_non_parallel": "tasks/harmony_to_ome_zarr.py",
+      "meta_non_parallel": {
+        "cpus_per_task": 1,
+        "mem": 4000
+      },
+      "args_schema_non_parallel": {
+        "title": "HarmonyToOmeZarr",
+        "type": "object",
+        "properties": {
+          "zarr_urls": {
+            "title": "Zarr Urls",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of zarr urls to be processed (not used by converter task)"
+          },
+          "zarr_dir": {
+            "title": "Zarr Dir",
+            "type": "string",
+            "description": "Path to the new OME-ZARR output directory"
+          },
+          "img_path": {
+            "title": "Img Path",
+            "type": "string",
+            "description": "Path to the input directory with the image files"
+          },
+          "overwrite": {
+            "title": "Overwrite",
+            "default": false,
+            "type": "boolean",
+            "description": "Whether to overwrite any existing OME-ZARR directory"
+          },
+          "coarsening_xy": {
+            "title": "Coarsening Xy",
+            "default": 2,
+            "type": "integer",
+            "description": "Coarsening factor in XY to use for downsampling when building the pyramids"
+          },
+          "compute": {
+            "title": "Compute",
+            "default": true,
+            "type": "boolean",
+            "description": "Wether to compute a numpy array from the dask array while saving the image to the zarr fileset (compute = TRUE is faster given that images fit into memory)"
+          }
+        },
+        "required": [
+          "zarr_urls",
+          "zarr_dir",
+          "img_path"
+        ],
+        "additionalProperties": false
+      },
+      "docs_info": "## harmony_to_ome_zarr\nConvert TIFFs which were exported from Harmony (Operetta/Opera, Perkin-Elmer) to OME-ZARR\n"
+    },
+    {
+      "name": "Stardist segmentation",
+      "executable_parallel": "tasks/stardist_segmentation.py",
+      "meta_parallel": {
+        "cpus_per_task": 4,
+        "mem": 16000,
+        "needs_gpu": true
+      },
+      "args_schema_parallel": {
+        "title": "StardistSegmentation",
+        "type": "object",
+        "properties": {
+          "zarr_url": {
+            "title": "Zarr Url",
+            "type": "string",
+            "description": "Path to an OME-ZARR Image"
+          },
+          "channel": {
+            "$ref": "#/definitions/ChannelInputModel",
+            "title": "Channel",
+            "description": "Channel for segmentation; requires either `wavelength_id` (e.g. `A01_C01`) or `label` (e.g. `DAPI`) but not both"
+          },
+          "roi_table": {
+            "title": "Roi Table",
+            "default": "FOV_ROI_table",
+            "type": "string",
+            "description": "Name of the ROI table"
+          },
+          "model_name": {
+            "title": "Model Name",
+            "default": "2D_versatile_fluo",
+            "type": "string",
+            "description": "Name of the Stardist model (\"2D_versatile_fluo\", \"2D_versatile_he\", \"2D_demo\", \"3D_demo\")"
+          },
+          "label_name": {
+            "title": "Label Name",
+            "default": "nuclei",
+            "type": "string",
+            "description": "Name of the labels folder"
+          },
+          "prob_thresh": {
+            "title": "Prob Thresh",
+            "type": "number",
+            "description": "prob_thresh: Only consider objects with predicted object probability above this threshold"
+          },
+          "nms_thresh": {
+            "title": "Nms Thresh",
+            "type": "number",
+            "description": "Perform non-maximum suppression (NMS) that considers two objects to be the same when their area/surface overlap exceeds this threshold"
+          },
+          "scale": {
+            "title": "Scale",
+            "default": 1,
+            "type": "integer",
+            "description": "Scale the input image internally by a factor and rescale the output accordingly."
+          },
+          "level": {
+            "title": "Level",
+            "default": 0,
+            "type": "integer",
+            "description": "Resolution level (0 = full resolution)"
+          },
+          "overwrite": {
+            "title": "Overwrite",
+            "default": false,
+            "type": "boolean",
+            "description": "Whether to overwrite any existing OME-ZARR segmentations"
+          }
+        },
+        "required": [
+          "zarr_url",
+          "channel"
+        ],
+        "additionalProperties": false,
+        "definitions": {
+          "ChannelInputModel": {
+            "title": "ChannelInputModel",
+            "description": "A channel which is specified by either `wavelength_id` or `label`.",
+            "type": "object",
+            "properties": {
+              "wavelength_id": {
+                "title": "Wavelength Id",
+                "type": "string",
+                "description": "Unique ID for the channel wavelength, e.g. `A01_C01`."
+              },
+              "label": {
+                "title": "Label",
+                "type": "string",
+                "description": "Name of the channel."
+              }
+            }
+          }
+        }
+      },
+      "docs_info": "## stardist_segmentation\nSegment cells with Stardist\n"
+    },
+    {
+      "name": "Regionprops measurement",
+      "executable_parallel": "tasks/regionprops_measurement.py",
+      "meta_parallel": {
+        "cpus_per_task": 1,
+        "mem": 4000
+      },
+      "args_schema_parallel": {
+        "title": "RegionpropsMeasurement",
+        "type": "object",
+        "properties": {
+          "zarr_url": {
+            "title": "Zarr Url",
+            "type": "string",
+            "description": "Path to an OME-ZARR Image"
+          },
+          "feature_name": {
+            "title": "Feature Name",
+            "default": "regionprops",
+            "type": "string",
+            "description": "Folder name of the measured regionprobs features"
+          },
+          "level": {
+            "title": "Level",
+            "default": 0,
+            "type": "integer",
+            "description": "Resolution level (0 = full resolution)"
+          },
+          "overwrite": {
+            "title": "Overwrite",
+            "default": false,
+            "description": "Whether to overwrite any existing OME-ZARR feature table"
+          }
+        },
+        "required": [
+          "zarr_url"
+        ],
+        "additionalProperties": false
+      },
+      "docs_info": "## regionprops_measurement\nTake measurements using regionprobs and write the features to the OME-ZARR fileset\n"
+    },
+    {
+      "name": "Label prediction",
+      "executable_parallel": "tasks/label_prediction.py",
+      "meta_parallel": {
+        "cpus_per_task": 1,
+        "mem": 4000
+      },
+      "args_schema_parallel": {
+        "title": "LabelPrediction",
+        "type": "object",
+        "properties": {
+          "zarr_url": {
+            "title": "Zarr Url",
+            "type": "string",
+            "description": "Path to an OME-ZARR Image"
+          },
+          "classifier_path": {
+            "title": "Classifier Path",
+            "type": "string",
+            "description": "Path to the pickled scikit-learn classifier"
+          },
+          "feature_name": {
+            "title": "Feature Name",
+            "default": "regionprops",
+            "type": "string",
+            "description": "Folder name of the measured regionprobs features"
+          }
+        },
+        "required": [
+          "zarr_url",
+          "classifier_path"
+        ],
+        "additionalProperties": false
+      },
+      "docs_info": "## label_prediction\nMake predictions on the selected wells and write them to the OME-ZARR fileset\n"
+    },
+    {
+      "name": "Drug layout registration",
+      "executable_parallel": "tasks/drug_layout_registration.py",
+      "meta_parallel": {
+        "cpus_per_task": 1,
+        "mem": 4000
+      },
+      "args_schema_parallel": {
+        "title": "DrugLayoutRegistration",
+        "type": "object",
+        "properties": {
+          "zarr_url": {
+            "title": "Zarr Url",
+            "type": "string",
+            "description": "Path to an OME-ZARR Image"
+          },
+          "layout_path": {
+            "title": "Layout Path",
+            "type": "string",
+            "description": "Path to a drug layout file (.csv) with at least the columns: row, col, drug, concentration and unit"
+          },
+          "condition_name": {
+            "title": "Condition Name",
+            "default": "condition",
+            "type": "string",
+            "description": "Missing description"
+          },
+          "overwrite": {
+            "title": "Overwrite",
+            "default": false,
+            "description": "Missing description"
+          }
+        },
+        "required": [
+          "zarr_url",
+          "layout_path"
+        ],
+        "additionalProperties": false
+      },
+      "docs_info": "## drug_layout_registration\nRegister the experimental (drug layout) in the OME-ZARR\n"
+    }
+  ],
+  "has_args_schemas": true,
+  "args_schema_version": "pydantic_v1"
+}
