@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 
 
 @validate_arguments
-def drug_layout_registration(
+def condition_registration(
     *,
     zarr_url: str,
     layout_path: str,
@@ -62,6 +62,6 @@ if __name__ == "__main__":
     from fractal_tasks_core.tasks._utils import run_fractal_task
 
     run_fractal_task(
-        task_function=drug_layout_registration,
+        task_function=condition_registration,
         logger_name=logger.name,
     )

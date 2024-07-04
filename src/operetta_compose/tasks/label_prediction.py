@@ -22,7 +22,7 @@ def label_prediction(
     classifier_path: str,
     feature_name: str = "regionprops",
 ) -> None:
-    """Make predictions on the selected wells and write them to the OME-ZARR fileset
+    """Make predictions on the selected wells and write them to the OME-ZARR
 
     Args:
         zarr_url: Path to an OME-ZARR Image

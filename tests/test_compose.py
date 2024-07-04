@@ -7,7 +7,7 @@ from operetta_compose.tasks.harmony_to_ome_zarr import harmony_to_ome_zarr
 from operetta_compose.tasks.stardist_segmentation import stardist_segmentation
 from operetta_compose.tasks.regionprops_measurement import regionprops_measurement
 from operetta_compose.tasks.label_prediction import label_prediction
-from operetta_compose.tasks.drug_layout_registration import drug_layout_registration
+from operetta_compose.tasks.condition_registration import condition_registration
 
 TEST_DIR = Path(__file__).resolve().parent
 OUTPUT_PATH = Path(TEST_DIR).joinpath("test_output", "operetta_plate.zarr")
@@ -69,7 +69,7 @@ def test_predict():
 
 @pytest.mark.dependency(depends=["test_converter"])
 def test_register_layout():
-    drug_layout_registration(
+    condition_registration(
         zarr_url=str(OUTPUT_PATH.joinpath("C", "3", "0")),
         layout_path=str(Path(TEST_DIR).joinpath("drug_layout.csv")),
         condition_name="condition",

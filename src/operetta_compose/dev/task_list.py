@@ -22,8 +22,8 @@ TASK_LIST = [
         meta={"cpus_per_task": 1, "mem": 4000},
     ),
     ParallelTask(
-        name="Drug layout registration",
-        executable="tasks/drug_layout_registration.py",
+        name="Condition registration",
+        executable="tasks/condition_registration.py",
         meta={"cpus_per_task": 1, "mem": 4000},
     ),
 ]

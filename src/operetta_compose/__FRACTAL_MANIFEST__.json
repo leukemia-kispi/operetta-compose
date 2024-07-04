@@ -63,8 +63,7 @@
       "executable_parallel": "tasks/stardist_segmentation.py",
       "meta_parallel": {
         "cpus_per_task": 4,
-        "mem": 16000,
-        "needs_gpu": true
+        "mem": 16000
       },
       "args_schema_parallel": {
         "title": "StardistSegmentation",
@@ -193,7 +192,7 @@
         ],
         "additionalProperties": false
       },
-      "docs_info": "## regionprops_measurement\nTake measurements using regionprobs and write the features to the OME-ZARR fileset\n"
+      "docs_info": "## regionprops_measurement\nTake measurements using regionprobs and write the features to the OME-ZARR\n"
     },
     {
       "name": "Label prediction",
@@ -229,17 +228,17 @@
         ],
         "additionalProperties": false
       },
-      "docs_info": "## label_prediction\nMake predictions on the selected wells and write them to the OME-ZARR fileset\n"
+      "docs_info": "## label_prediction\nMake predictions on the selected wells and write them to the OME-ZARR\n"
     },
     {
-      "name": "Drug layout registration",
-      "executable_parallel": "tasks/drug_layout_registration.py",
+      "name": "Condition registration",
+      "executable_parallel": "tasks/condition_registration.py",
       "meta_parallel": {
         "cpus_per_task": 1,
         "mem": 4000
       },
       "args_schema_parallel": {
-        "title": "DrugLayoutRegistration",
+        "title": "ConditionRegistration",
         "type": "object",
         "properties": {
           "zarr_url": {
@@ -270,7 +269,7 @@
         ],
         "additionalProperties": false
       },
-      "docs_info": "## drug_layout_registration\nRegister the experimental (drug layout) in the OME-ZARR\n"
+      "docs_info": "## condition_registration\nRegister the experimental (drug layout) in the OME-ZARR\n"
     }
   ],
   "has_args_schemas": true,

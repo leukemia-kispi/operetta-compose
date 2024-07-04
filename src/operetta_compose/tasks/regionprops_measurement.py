@@ -62,7 +62,7 @@ PROPS = [
 def regionprops_measurement(
     *, zarr_url: str, feature_name: str = "regionprops", level: int = 0, overwrite=False
 ) -> None:
-    """Take measurements using regionprobs and write the features to the OME-ZARR fileset
+    """Take measurements using regionprobs and write the features to the OME-ZARR
 
     Args:
         zarr_url: Path to an OME-ZARR Image
@@ -79,7 +79,7 @@ def regionprops_measurement(
         io.features_to_ome_zarr(zarr_url, tbl, feature_name)
     else:
         raise FileExistsError(
-            f"{zarr_url} already contains a feature table in the OME-ZARR fileset. To ignore the existing table set `overwrite = True`."
+            f"{zarr_url} already contains a feature table in the OME-ZARR. To ignore the existing table set `overwrite = True`."
         )
 
 
