@@ -1,0 +1,17 @@
+# utils.numeric_to_alpha { #operetta_compose.utils.numeric_to_alpha }
+
+`utils.numeric_to_alpha(numeric, upper=True)`
+
+Return the upper or lowercase character for a given position in the alphabet
+
+## Parameters
+
+| Name      | Type   | Description                      | Default    |
+|-----------|--------|----------------------------------|------------|
+| `numeric` | int    | Integer position in the alphabet | _required_ |
+
+## Returns
+
+| Type   | Description               |
+|--------|---------------------------|
+| str    | Single alphabet character |

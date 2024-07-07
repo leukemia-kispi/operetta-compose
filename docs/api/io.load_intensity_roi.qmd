@@ -1,0 +1,21 @@
+# io.load_intensity_roi { #operetta_compose.io.load_intensity_roi }
+
+`io.load_intensity_roi(roi_url, roi_idx, roi=0, channel=0, timepoint=0)`
+
+Load the intensity array of the selected ROI
+
+## Parameters
+
+| Name        | Type         | Description                                   | Default    |
+|-------------|--------------|-----------------------------------------------|------------|
+| `roi_url`   | Path         | zarr url to the selected ROI                  | _required_ |
+| `roi_idx`   | pd.DataFrame | Dataframe with the x/yZ start and end indices | _required_ |
+| `roi`       | int          | Index of the ROI in the selected well         | `0`        |
+| `channel`   | int          | Channel index                                 | `0`        |
+| `timepoint` | int          | Timepoint index                               | `0`        |
+
+## Returns
+
+| Type       | Description                          |
+|------------|--------------------------------------|
+| np.ndarray | Numpy array with the ROI intensities |

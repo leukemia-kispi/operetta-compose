@@ -1,0 +1,11 @@
+# utils.colorbrewer { #operetta_compose.utils.colorbrewer }
+
+`utils.colorbrewer(name)`
+
+Get all colors from a colormap in matplotlib
+
+## Parameters
+
+| Name   | Type   | Description          | Default    |
+|--------|--------|----------------------|------------|
+| `name` | str    | Name of the colormap | _required_ |

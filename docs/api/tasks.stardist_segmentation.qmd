@@ -1,0 +1,33 @@
+# tasks.stardist_segmentation { #operetta_compose.tasks.stardist_segmentation }
+
+`tasks.stardist_segmentation`
+
+
+
+## Functions
+
+| Name | Description |
+| --- | --- |
+| [stardist_segmentation](#operetta_compose.tasks.stardist_segmentation.stardist_segmentation) | Segment cells with Stardist |
+
+### stardist_segmentation { #operetta_compose.tasks.stardist_segmentation.stardist_segmentation }
+
+`tasks.stardist_segmentation.stardist_segmentation(zarr_url, channel, roi_table='FOV_ROI_table', stardist_model='2D_versatile_fluo', label_name='nuclei', prob_thresh=None, nms_thresh=None, scale=1, level=0, overwrite=False)`
+
+Segment cells with Stardist
+
+#### Parameters
+
+| Name             | Type              | Description                                                                                                                            | Default               |
+|------------------|-------------------|----------------------------------------------------------------------------------------------------------------------------------------|-----------------------|
+| `zarr_url`       | str               | Path to an OME-ZARR Image                                                                                                              | _required_            |
+| `roi_table`      | str               | Name of the ROI table                                                                                                                  | `'FOV_ROI_table'`     |
+| `roi`            |                   | Index of the ROI in the selected well                                                                                                  | _required_            |
+| `channel`        | ChannelInputModel | Channel for segmentation; requires either `wavelength_id` (e.g. `A01_C01`) or `label` (e.g. `DAPI`) but not both                       | _required_            |
+| `stardist_model` | str               | Name of the Stardist model ("2D_versatile_fluo", "2D_versatile_he", "2D_demo", "3D_demo")                                              | `'2D_versatile_fluo'` |
+| `label_name`     | str               | Name of the labels folder                                                                                                              | `'nuclei'`            |
+| `prob_thresh`    | float             | prob_thresh: Only consider objects with predicted object probability above this threshold                                              | `None`                |
+| `nms_thresh`     | float             | Perform non-maximum suppression (NMS) that considers two objects to be the same when their area/surface overlap exceeds this threshold | `None`                |
+| `scale`          | int               | Scale the input image internally by a factor and rescale the output accordingly.                                                       | `1`                   |
+| `level`          | int               | Resolution level (0 = full resolution)                                                                                                 | `0`                   |
+| `overwrite`      | bool              | Whether to overwrite any existing OME-ZARR segmentations                                                                               | `False`               |

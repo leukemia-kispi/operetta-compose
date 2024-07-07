@@ -1,0 +1,28 @@
+---
+title: "Contributing"
+execute:
+  eval: false
+jupyter: python3
+---
+
+### Package development and installation in Fractal
+
+1. Install the package in dev mode with `python -m pip install -e ".[dev]"`
+2. Develop the function according to the [Fractal API](https://fractal-analytics-platform.github.io/version_2/)
+3. Update the image list and the Fractal manifest with `python src/operio_fractal/dev/create_manifest.py`
+4. Build a wheel file in the `dist` folder of the package with `python -m build`
+5. Collect the tasks on a Fractal server
+
+::: {.callout-note}
+As Fractal task are Python function they can also be execute independently of Fractal e.g. by running
+
+```{python, eval=false}
+from operetta_compose.tasks.harmony_to_ome_zarr import harmony_to_ome_zarr
+
+harmony_to_ome_zarr(
+  img_path="operetta_plate/Images",
+  zarr_dir="operetta_plate.zarr"
+)
+```
+
+:::

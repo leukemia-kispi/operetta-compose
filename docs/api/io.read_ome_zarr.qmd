@@ -1,0 +1,18 @@
+# io.read_ome_zarr { #operetta_compose.io.read_ome_zarr }
+
+`io.read_ome_zarr(zarr_url)`
+
+Read an OME-ZARR fileset
+
+## Parameters
+
+| Name            | Type               | Description                | Default    |
+|-----------------|--------------------|----------------------------|------------|
+| `zarr_url`      | Union\[str, Path\] | Path to an OME-ZARR        | _required_ |
+| `storage_class` |                    | Type of zarr storage class | _required_ |
+
+## Returns
+
+| Type   | Description            |
+|--------|------------------------|
+| Node   | An ome_zarr image node |

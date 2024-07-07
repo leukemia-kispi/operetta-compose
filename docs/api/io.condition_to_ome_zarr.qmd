@@ -1,0 +1,13 @@
+# io.condition_to_ome_zarr { #operetta_compose.io.condition_to_ome_zarr }
+
+`io.condition_to_ome_zarr(zarr_url, condition_table, condition_name='condition')`
+
+Save experimental conditions (drug, concentration, etc.) to the OME-ZARR fileset
+
+## Parameters
+
+| Name              | Type               | Description                                     | Default       |
+|-------------------|--------------------|-------------------------------------------------|---------------|
+| `zarr_url`        | Union\[str, Path\] | Path to an OME-ZARR                             | _required_    |
+| `condition_table` | pd.DataFrame       | Dataframe with experimental conditions          | _required_    |
+| `condition_name`  | str                | Folder name of the experimental condition table | `'condition'` |

@@ -1,0 +1,47 @@
+# tasks.regionprops_measurement { #operetta_compose.tasks.regionprops_measurement }
+
+`tasks.regionprops_measurement`
+
+
+
+## Functions
+
+| Name | Description |
+| --- | --- |
+| [feature_table](#operetta_compose.tasks.regionprops_measurement.feature_table) | Generate a regionprobs feature table |
+| [regionprops_measurement](#operetta_compose.tasks.regionprops_measurement.regionprops_measurement) | Take measurements using regionprobs and write the features to the OME-ZARR |
+
+### feature_table { #operetta_compose.tasks.regionprops_measurement.feature_table }
+
+`tasks.regionprops_measurement.feature_table(labels, img, properties=['label', 'area', 'intensity_mean', 'intensity_max', 'intensity_min', 'eccentricity', 'perimeter', 'centroid', 'solidity'])`
+
+Generate a regionprobs feature table
+
+#### Parameters
+
+| Name         | Type        | Description                      | Default                                                                                                                      |
+|--------------|-------------|----------------------------------|------------------------------------------------------------------------------------------------------------------------------|
+| `labels`     | np.ndarray  | A labels array                   | _required_                                                                                                                   |
+| `img`        | np.ndarray  | An intensity array               | _required_                                                                                                                   |
+| `properties` | list\[str\] | A list of regionprobs properties | `['label', 'area', 'intensity_mean', 'intensity_max', 'intensity_min', 'eccentricity', 'perimeter', 'centroid', 'solidity']` |
+
+#### Returns
+
+| Type         | Description                                                 |
+|--------------|-------------------------------------------------------------|
+| pd.DataFrame | A feature dataframe including a column with the label index |
+
+### regionprops_measurement { #operetta_compose.tasks.regionprops_measurement.regionprops_measurement }
+
+`tasks.regionprops_measurement.regionprops_measurement(zarr_url, feature_name='regionprops', level=0, overwrite=False)`
+
+Take measurements using regionprobs and write the features to the OME-ZARR
+
+#### Parameters
+
+| Name           | Type   | Description                                              | Default         |
+|----------------|--------|----------------------------------------------------------|-----------------|
+| `zarr_url`     | str    | Path to an OME-ZARR Image                                | _required_      |
+| `feature_name` | str    | Folder name of the measured regionprobs features         | `'regionprops'` |
+| `level`        | int    | Resolution level (0 = full resolution)                   | `0`             |
+| `overwrite`    |        | Whether to overwrite any existing OME-ZARR feature table | `False`         |

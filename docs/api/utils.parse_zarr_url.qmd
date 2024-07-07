@@ -1,0 +1,17 @@
+# utils.parse_zarr_url { #operetta_compose.utils.parse_zarr_url }
+
+`utils.parse_zarr_url(zarr_url)`
+
+Parse the OME-ZARR URL into a dictionary with the root URL, row, column and image
+
+## Parameters
+
+| Name       | Type   | Description          | Default    |
+|------------|--------|----------------------|------------|
+| `zarr_url` | str    | Path to the OME-ZARR | _required_ |
+
+## Returns
+
+| Type       | Description           |
+|------------|-----------------------|
+| OmeZarrUrl | A `OmeZarrUrl` object |

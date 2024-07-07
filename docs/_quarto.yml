@@ -1,0 +1,63 @@
+project:
+  type: website
+
+website:
+  title: "operetta-compose"
+  reader-mode: true
+  page-footer: "© 2024, DRP-Kispi"
+  repo-url: https://github.com/leukemia-kispi/operetta-compose
+  repo-actions: [edit, issue]
+  favicon: images/operetta-compose_logo.png
+  navbar:
+    style: "floating"
+    search: true
+    logo: images/operetta-compose_logo.png
+    tools:
+      - icon: github
+        href: https://github.com/leukemia-kispi/operetta-compose
+    left:
+        - contributing.qmd
+        - api/index.qmd
+      
+format:
+  html:
+    theme: 
+      light: cosmo
+    fontsize: 100%
+    css: styles.css
+    toc: true
+
+quartodoc:
+  style: pkgdown
+  dir: api
+  package: operetta_compose
+  title: API
+  parser: google
+  sections:
+    - title: Fractal tasks
+      desc: "Modular processing tasks for the Opera/Operetta microscope and drug response profiling"
+      contents:
+        - tasks.harmony_to_ome_zarr
+        - tasks.stardist_segmentation
+        - tasks.regionprops_measurement
+        - tasks.label_prediction
+        - tasks.condition_registration
+    - title: Input/Output
+      desc: "OME-ZARR reader and writer functions"
+      contents:
+        - io.read_ome_zarr
+        - io.convert_ROI_table_to_indices
+        - io.get_roi
+        - io.load_intensity_roi
+        - io.load_label_roi
+        - io.labels_to_ome_zarr
+        - io.features_to_ome_zarr
+        - io.condition_to_ome_zarr
+    - title: Utils
+      desc: "Utility functions"
+      contents:
+        - utils.OmeZarrUrl
+        - utils.parse_zarr_url
+        - utils.colorbrewer
+        - utils.alpha_to_numeric
+        - utils.numeric_to_alpha

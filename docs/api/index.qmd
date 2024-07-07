@@ -1,0 +1,40 @@
+# API {.doc .doc-index}
+
+## Fractal tasks
+
+Modular processing tasks for the Opera/Operetta microscope and drug response profiling
+
+| | |
+| --- | --- |
+| [tasks.harmony_to_ome_zarr](tasks.harmony_to_ome_zarr.qmd#operetta_compose.tasks.harmony_to_ome_zarr) |  |
+| [tasks.stardist_segmentation](tasks.stardist_segmentation.qmd#operetta_compose.tasks.stardist_segmentation) |  |
+| [tasks.regionprops_measurement](tasks.regionprops_measurement.qmd#operetta_compose.tasks.regionprops_measurement) |  |
+| [tasks.label_prediction](tasks.label_prediction.qmd#operetta_compose.tasks.label_prediction) |  |
+| [tasks.condition_registration](tasks.condition_registration.qmd#operetta_compose.tasks.condition_registration) |  |
+
+## Input/Output
+
+OME-ZARR reader and writer functions
+
+| | |
+| --- | --- |
+| [io.read_ome_zarr](io.read_ome_zarr.qmd#operetta_compose.io.read_ome_zarr) | Read an OME-ZARR fileset |
+| [io.convert_ROI_table_to_indices](io.convert_ROI_table_to_indices.qmd#operetta_compose.io.convert_ROI_table_to_indices) | Convert physical units in region-of-interest tables (ROI) to indices based on the given scale level. |
+| [io.get_roi](io.get_roi.qmd#operetta_compose.io.get_roi) | Get the zarr path and pixel indices for the selected well at a given resolution level |
+| [io.load_intensity_roi](io.load_intensity_roi.qmd#operetta_compose.io.load_intensity_roi) | Load the intensity array of the selected ROI |
+| [io.load_label_roi](io.load_label_roi.qmd#operetta_compose.io.load_label_roi) | Load the label array of the selected ROI |
+| [io.labels_to_ome_zarr](io.labels_to_ome_zarr.qmd#operetta_compose.io.labels_to_ome_zarr) | Save labels to the OME-ZARR fileset |
+| [io.features_to_ome_zarr](io.features_to_ome_zarr.qmd#operetta_compose.io.features_to_ome_zarr) | Save features to the OME-ZARR fileset |
+| [io.condition_to_ome_zarr](io.condition_to_ome_zarr.qmd#operetta_compose.io.condition_to_ome_zarr) | Save experimental conditions (drug, concentration, etc.) to the OME-ZARR fileset |
+
+## Utils
+
+Utility functions
+
+| | |
+| --- | --- |
+| [utils.OmeZarrUrl](utils.OmeZarrUrl.qmd#operetta_compose.utils.OmeZarrUrl) | Model for a ZarrUrl |
+| [utils.parse_zarr_url](utils.parse_zarr_url.qmd#operetta_compose.utils.parse_zarr_url) | Parse the OME-ZARR URL into a dictionary with the root URL, row, column and image |
+| [utils.colorbrewer](utils.colorbrewer.qmd#operetta_compose.utils.colorbrewer) | Get all colors from a colormap in matplotlib |
+| [utils.alpha_to_numeric](utils.alpha_to_numeric.qmd#operetta_compose.utils.alpha_to_numeric) | Return the position of a single character in the alphabet |
+| [utils.numeric_to_alpha](utils.numeric_to_alpha.qmd#operetta_compose.utils.numeric_to_alpha) | Return the upper or lowercase character for a given position in the alphabet |

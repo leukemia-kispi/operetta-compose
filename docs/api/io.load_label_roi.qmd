@@ -1,0 +1,22 @@
+# io.load_label_roi { #operetta_compose.io.load_label_roi }
+
+`io.load_label_roi(roi_url, roi_idx, roi=0, name='nuclei', channel=0, timepoint=0)`
+
+Load the label array of the selected ROI
+
+## Parameters
+
+| Name        | Type         | Description                                    | Default    |
+|-------------|--------------|------------------------------------------------|------------|
+| `roi_url`   | Path         | zarr url to the selected ROI                   | _required_ |
+| `roi_idx`   | pd.DataFrame | Dataframe with the x/y/z start and end indices | _required_ |
+| `roi`       | int          | ROI index in the selected well                 | `0`        |
+| `name`      | str          | Name of the labels folder                      | `'nuclei'` |
+| `channel`   | int          | Channel index                                  | `0`        |
+| `timepoint` | int          | Timepoint index                                | `0`        |
+
+## Returns
+
+| Type       | Description                     |
+|------------|---------------------------------|
+| np.ndarray | Numpy array with the ROI labels |

@@ -1,0 +1,19 @@
+# io.get_roi { #operetta_compose.io.get_roi }
+
+`io.get_roi(zarr_url, roi_table, level=0)`
+
+Get the zarr path and pixel indices for the selected well at a given resolution level
+
+## Parameters
+
+| Name        | Type               | Description                                                       | Default    |
+|-------------|--------------------|-------------------------------------------------------------------|------------|
+| `zarr_url`  | Union\[str, Path\] | Path to the OME-ZARR                                              | _required_ |
+| `roi_table` | str                | Name of the ROI table                                             | _required_ |
+| `level`     | int                | Resolution level (0 = original, not downsampled resolution level) | `0`        |
+
+## Returns
+
+| Type                        | Description                                                                                     |
+|-----------------------------|-------------------------------------------------------------------------------------------------|
+| tuple\[Path, pd.DataFrame\] | Tuple of zarr url and dataframe with start and end pixel indices (s_z, e_z, s_y, e_y, s_x, e_x) |

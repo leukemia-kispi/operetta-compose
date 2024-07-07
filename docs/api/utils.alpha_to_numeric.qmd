@@ -1,0 +1,17 @@
+# utils.alpha_to_numeric { #operetta_compose.utils.alpha_to_numeric }
+
+`utils.alpha_to_numeric(alpha)`
+
+Return the position of a single character in the alphabet
+
+## Parameters
+
+| Name    | Type   | Description               | Default    |
+|---------|--------|---------------------------|------------|
+| `alpha` | str    | Single alphabet character | _required_ |
+
+## Returns
+
+| Type   | Description                      |
+|--------|----------------------------------|
+| int    | Integer position in the alphabet |

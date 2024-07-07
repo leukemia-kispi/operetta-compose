@@ -1,0 +1,25 @@
+# tasks.label_prediction { #operetta_compose.tasks.label_prediction }
+
+`tasks.label_prediction`
+
+
+
+## Functions
+
+| Name | Description |
+| --- | --- |
+| [label_prediction](#operetta_compose.tasks.label_prediction.label_prediction) | Make predictions on the selected wells and write them to the OME-ZARR |
+
+### label_prediction { #operetta_compose.tasks.label_prediction.label_prediction }
+
+`tasks.label_prediction.label_prediction(zarr_url, classifier_path, feature_name='regionprops')`
+
+Make predictions on the selected wells and write them to the OME-ZARR
+
+#### Parameters
+
+| Name              | Type   | Description                                      | Default         |
+|-------------------|--------|--------------------------------------------------|-----------------|
+| `zarr_url`        | str    | Path to an OME-ZARR Image                        | _required_      |
+| `classifier_path` | str    | Path to the pickled scikit-learn classifier      | _required_      |
+| `feature_name`    | str    | Folder name of the measured regionprobs features | `'regionprops'` |
