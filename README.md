@@ -22,6 +22,13 @@ Currently the following tasks are available:
 4. Build a wheel file in the `dist` folder of the package with `python -m build`
 5. Collect the tasks on a Fractal server
 
+
+## Updating docs
+
+1. Update the documentation under `/docs` 
+2. Update the function API with `quartodoc build`
+3. Preview the documentation with `quarto preview`
+
 ---
 
 [Fractal](https://fractal-analytics-platform.github.io/fractal-tasks-core/) is developed by the [UZH BioVisionCenter](https://www.biovisioncenter.uzh.ch/de.html) under the lead of [@jluethi](https://github.com/jluethi) under contract with [eXact lab S.r.l.](https://www.exact-lab.it).
