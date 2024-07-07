@@ -38,7 +38,7 @@ dev = ["devtools",
       ]
 
 [project.urls]
-Documentation = "https://github.com/leukemia-kispi/operetta-compose"
+Documentation = "https://leukemia-kispi.github.io/operetta-compose/"
 Repository = "https://github.com/leukemia-kispi/operetta-compose.git"
 Issues = "https://github.com/leukemia-kispi/operetta-compose/issues"
 

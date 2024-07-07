@@ -3,5 +3,6 @@ from operetta_compose import PACKAGE
 
 if __name__ == "__main__":
     create_manifest(
-        package=PACKAGE, docs_link="https://github.com/leukemia-kispi/operetta-compose"
+        package=PACKAGE,
+        docs_link="https://leukemia-kispi.github.io/operetta-compose/",
     )
