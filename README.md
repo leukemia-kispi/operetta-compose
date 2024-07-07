@@ -1,5 +1,7 @@
 # operetta-compose <img align="right" height="150" src="docs/images/operetta-compose_logo.png">
 
+![Docs Status](https://github.com/leukemia-kispi/operetta-compose/actions/workflows/build_docs.yml/badge.svg)
+
 [Fractal](https://fractal-analytics-platform.github.io/fractal-tasks-core/) tasks to convert and process images from Perkin-Elmer Opera/Operetta high-content microscopes. Workflows for drug response profiling built upon the OME-ZARR file standard. 
 
 ## Task library
