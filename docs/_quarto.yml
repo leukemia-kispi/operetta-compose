@@ -18,10 +18,10 @@ website:
     left:
         - contributing.qmd
         - api/index.qmd
-      
+
 format:
   html:
-    theme: 
+    theme:
       light: cosmo
     fontsize: 100%
     css: styles.css

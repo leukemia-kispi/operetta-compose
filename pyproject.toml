@@ -11,14 +11,14 @@ authors = [
 
 # Required Python version and dependencies
 requires-python = ">=3.8"
-dependencies = ["fractal-tasks-core", 
-                "ome-zarr", 
-                "imagecodecs", 
-                "tqdm", 
-                "xmltodict", 
+dependencies = ["fractal-tasks-core",
+                "ome-zarr",
+                "imagecodecs",
+                "tqdm",
+                "xmltodict",
                 "pydantic",
-                "csbdeep", 
-                "stardist", 
+                "csbdeep",
+                "stardist",
                 "tensorflow",
                 "tensorflow-metal ; platform_system == 'Darwin'"
                ]
@@ -26,14 +26,14 @@ dependencies = ["fractal-tasks-core",
 
 # Optional dependencies (e.g. for `pip install -e ".[dev]"`
 [project.optional-dependencies]
-dev = ["devtools", 
-       "pytest", 
-       "requests", 
-       "build", 
-       "jsonschema", 
-       "bumpver", 
+dev = ["devtools",
+       "pytest",
+       "requests",
+       "build",
+       "jsonschema",
+       "bumpver",
        "pre-commit",
-       "coverage",
+       "pytest-cov",
        "pytest-dependency"
       ]
 
@@ -73,3 +73,7 @@ parallel = true
 relative_files = true
 source = ["src/operetta_compose"]
 omit = ["tests/*", "operetta_compose/dev/*"]
+
+
+[tool.pytest.ini_options]
+addopts = "--cov=operetta_compose"

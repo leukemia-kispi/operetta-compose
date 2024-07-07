@@ -9,13 +9,13 @@ The **operetta-compose** package collects [Fractal](https://fractal-analytics-pl
 
 Currently the following tasks are part of *operetta-compose*
 
-| Task  | Description |   
+| Task  | Description |
 |---|---|
 | harmony_to_ome_zarr | Convert TIFFs which were exported from Harmony (Operetta/Opera, Perkin-Elmer) to OME-ZARR |
-| stardist_segmentation | Segment cells with Stardist | 
-| regionprops_measurement | Take measurements using regionprops and write the features to the OME-ZARR | 
-| label_prediction | Make predictions on the selected wells and write them to the OME-ZARR | 
-| condition_registration | Register the experimental conditions in the OME-ZARR |  
+| stardist_segmentation | Segment cells with Stardist |
+| regionprops_measurement | Take measurements using regionprops and write the features to the OME-ZARR |
+| label_prediction | Make predictions on the selected wells and write them to the OME-ZARR |
+| condition_registration | Register the experimental conditions in the OME-ZARR |
 
 &nbsp;
 

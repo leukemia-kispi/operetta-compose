@@ -1,20 +1,20 @@
 # operetta-compose <img align="right" height="150" src="docs/images/operetta-compose_logo.png">
 
-![Docs Status](https://github.com/leukemia-kispi/operetta-compose/actions/workflows/build_docs.yml/badge.svg)
+[![Docs Status](https://github.com/leukemia-kispi/operetta-compose/actions/workflows/build_docs.yml/badge.svg)](https://github.com/leukemia-kispi/operetta-compose/actions/workflows/build_docs.yml)
 
-[Fractal](https://fractal-analytics-platform.github.io/fractal-tasks-core/) tasks to convert and process images from Perkin-Elmer Opera/Operetta high-content microscopes. Workflows for drug response profiling built upon the OME-ZARR file standard. 
+[Fractal](https://fractal-analytics-platform.github.io/fractal-tasks-core/) tasks to convert and process images from Perkin-Elmer Opera/Operetta high-content microscopes. Workflows for drug response profiling built upon the OME-ZARR file standard.
 
 ## Task library
 
 Currently the following tasks are available:
 
-| Task  | Description |   
+| Task  | Description |
 |---|---|
 | harmony_to_ome_zarr | Convert TIFFs which were exported from Harmony (Operetta/Opera, Perkin-Elmer) to OME-ZARR |
-| stardist_segmentation | Segment cells with Stardist | 
-| regionprops_measurement | Take measurements using regionprops and write the features to the OME-ZARR | 
-| label_prediction | Make predictions on the selected wells and write them to the OME-ZARR | 
-| condition_registration | Register the experimental conditions in the OME-ZARR | 
+| stardist_segmentation | Segment cells with Stardist |
+| regionprops_measurement | Take measurements using regionprops and write the features to the OME-ZARR |
+| label_prediction | Make predictions on the selected wells and write them to the OME-ZARR |
+| condition_registration | Register the experimental conditions in the OME-ZARR |
 
 ## Development and installation in Fractal
 
@@ -27,7 +27,7 @@ Currently the following tasks are available:
 
 ## Updating docs
 
-1. Update the documentation under `/docs` 
+1. Update the documentation under `/docs`
 2. Update the function API with `quartodoc build`
 3. Preview the documentation with `quarto preview`
 

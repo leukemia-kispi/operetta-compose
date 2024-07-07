@@ -36,7 +36,7 @@ def test_stardist():
         zarr_url=str(OUTPUT_PATH.joinpath("C", "3", "0")),
         channel=ChannelInputModel(label="Fluorescein (FITC)"),
         roi_table="FOV_ROI_table",
-        model_name="2D_versatile_fluo",
+        stardist_model="2D_versatile_fluo",
         label_name="nuclei",
         prob_thresh=None,
         nms_thresh=None,
