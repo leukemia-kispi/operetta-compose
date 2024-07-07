@@ -4,8 +4,9 @@ from pathlib import Path
 import shutil
 from zarr.errors import ContainsArrayError
 from csbdeep.utils import normalize
+from stardist.models import StarDist2D, StarDist3D
 
-from pydantic.decorator import validate_arguments
+from pydantic.v1.decorator import validate_arguments
 
 import fractal_tasks_core
 from fractal_tasks_core.channels import ChannelInputModel, ChannelNotFoundError
@@ -24,7 +25,7 @@ def stardist_segmentation(
     zarr_url: str,
     channel: ChannelInputModel,
     roi_table: str = "FOV_ROI_table",
-    model_name: str = "2D_versatile_fluo",
+    stardist_model: str = "2D_versatile_fluo",
     label_name: str = "nuclei",
     prob_thresh: float = None,
     nms_thresh: float = None,
@@ -39,7 +40,7 @@ def stardist_segmentation(
         roi_table: Name of the ROI table
         roi:  Index of the ROI in the selected well
         channel: Channel for segmentation; requires either `wavelength_id` (e.g. `A01_C01`) or `label` (e.g. `DAPI`) but not both
-        model_name: Name of the Stardist model ("2D_versatile_fluo", "2D_versatile_he", "2D_demo", "3D_demo")
+        stardist_model: Name of the Stardist model ("2D_versatile_fluo", "2D_versatile_he", "2D_demo", "3D_demo")
         label_name: Name of the labels folder
         prob_thresh: prob_thresh: Only consider objects with predicted object probability above this threshold
         nms_thresh: Perform non-maximum suppression (NMS) that considers two objects to be the same when their area/surface overlap exceeds this threshold
@@ -47,12 +48,10 @@ def stardist_segmentation(
         level: Resolution level (0 = full resolution)
         overwrite: Whether to overwrite any existing OME-ZARR segmentations
     """
-    from stardist.models import StarDist2D, StarDist3D
-
-    if "3D" in model_name:
-        model = StarDist3D.from_pretrained(model_name)
+    if "3D" in stardist_model:
+        model = StarDist3D.from_pretrained(stardist_model)
     else:
-        model = StarDist2D.from_pretrained(model_name)
+        model = StarDist2D.from_pretrained(stardist_model)
 
     roi = 0
     curr_roi_max = 0
@@ -86,7 +85,7 @@ def stardist_segmentation(
             img = io.load_intensity_roi(roi_url, roi_idx, roi, channel_idx)
         except KeyError:
             break
-        if not "3D" in model_name:
+        if not "3D" in stardist_model:
             img = img[0]
         roi_labels, _ = model.predict_instances(
             normalize(img),

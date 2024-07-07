@@ -56,7 +56,8 @@
         ],
         "additionalProperties": false
       },
-      "docs_info": "## harmony_to_ome_zarr\nConvert TIFFs which were exported from Harmony (Operetta/Opera, Perkin-Elmer) to OME-ZARR\n"
+      "docs_info": "## harmony_to_ome_zarr\nConvert TIFFs which were exported from Harmony (Operetta/Opera, Perkin-Elmer) to OME-ZARR\n",
+      "docs_link": "https://github.com/leukemia-kispi/operetta-compose"
     },
     {
       "name": "Stardist segmentation",
@@ -85,8 +86,8 @@
             "type": "string",
             "description": "Name of the ROI table"
           },
-          "model_name": {
-            "title": "Model Name",
+          "stardist_model": {
+            "title": "Stardist Model",
             "default": "2D_versatile_fluo",
             "type": "string",
             "description": "Name of the Stardist model (\"2D_versatile_fluo\", \"2D_versatile_he\", \"2D_demo\", \"3D_demo\")"
@@ -151,7 +152,8 @@
           }
         }
       },
-      "docs_info": "## stardist_segmentation\nSegment cells with Stardist\n"
+      "docs_info": "## stardist_segmentation\nSegment cells with Stardist\n",
+      "docs_link": "https://github.com/leukemia-kispi/operetta-compose"
     },
     {
       "name": "Regionprops measurement",
@@ -192,7 +194,8 @@
         ],
         "additionalProperties": false
       },
-      "docs_info": "## regionprops_measurement\nTake measurements using regionprobs and write the features to the OME-ZARR\n"
+      "docs_info": "## regionprops_measurement\nTake measurements using regionprobs and write the features to the OME-ZARR\n",
+      "docs_link": "https://github.com/leukemia-kispi/operetta-compose"
     },
     {
       "name": "Label prediction",
@@ -228,7 +231,8 @@
         ],
         "additionalProperties": false
       },
-      "docs_info": "## label_prediction\nMake predictions on the selected wells and write them to the OME-ZARR\n"
+      "docs_info": "## label_prediction\nMake predictions on the selected wells and write them to the OME-ZARR\n",
+      "docs_link": "https://github.com/leukemia-kispi/operetta-compose"
     },
     {
       "name": "Condition registration",
@@ -269,7 +273,8 @@
         ],
         "additionalProperties": false
       },
-      "docs_info": "## condition_registration\nRegister the experimental (drug layout) in the OME-ZARR\n"
+      "docs_info": "## condition_registration\nRegister the experimental (drug layout) in the OME-ZARR\n",
+      "docs_link": "https://github.com/leukemia-kispi/operetta-compose"
     }
   ],
   "has_args_schemas": true,

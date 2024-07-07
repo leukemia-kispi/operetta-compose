@@ -1,6 +1,6 @@
 # operetta-compose <img align="right" height="150" src="docs/images/operetta-compose_logo.png">
 
-Fractal tasks to convert and process images from Perkin-Elmer Opera/Operetta high-content microscopes. Workflows for drug response profiling built upon the OME-ZARR file standard. 
+[Fractal](https://fractal-analytics-platform.github.io/fractal-tasks-core/) tasks to convert and process images from Perkin-Elmer Opera/Operetta high-content microscopes. Workflows for drug response profiling built upon the OME-ZARR file standard. 
 
 ## Task library
 
@@ -22,3 +22,6 @@ Currently the following tasks are available:
 4. Build a wheel file in the `dist` folder of the package with `python -m build`
 5. Collect the tasks on a Fractal server
 
+---
+
+[Fractal](https://fractal-analytics-platform.github.io/fractal-tasks-core/) is developed by the [UZH BioVisionCenter](https://www.biovisioncenter.uzh.ch/de.html) under the lead of [@jluethi](https://github.com/jluethi) under contract with [eXact lab S.r.l.](https://www.exact-lab.it).

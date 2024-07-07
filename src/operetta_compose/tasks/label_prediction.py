@@ -6,7 +6,7 @@ import pickle
 from zarr.errors import PathNotFoundError
 
 import fractal_tasks_core
-from pydantic.decorator import validate_arguments
+from pydantic.v1.decorator import validate_arguments
 
 from operetta_compose import io
 from operetta_compose import utils

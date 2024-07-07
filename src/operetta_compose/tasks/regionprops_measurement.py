@@ -5,7 +5,7 @@ import logging
 from skimage.measure import regionprops_table
 
 import fractal_tasks_core
-from pydantic.decorator import validate_arguments
+from pydantic.v1.decorator import validate_arguments
 
 from operetta_compose import io
 

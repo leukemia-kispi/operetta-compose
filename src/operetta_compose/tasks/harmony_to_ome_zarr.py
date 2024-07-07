@@ -1,7 +1,3 @@
-"""
-Operetta/Opera Phenix to OME-Zarr converter task
-"""
-
 import logging
 from pathlib import Path
 import string
@@ -22,7 +18,7 @@ import dask.array as da
 from dask.array.image import imread
 import anndata as ad
 
-from pydantic.decorator import validate_arguments
+from pydantic.v1.decorator import validate_arguments
 from typing import Any
 
 import fractal_tasks_core
