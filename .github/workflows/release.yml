@@ -23,7 +23,7 @@ jobs:
 
       - name: Test package
         run: |
-          pip install pytest-cov
+          pip install -e .[dev]
           pytest
 
       - name: Coverage report
