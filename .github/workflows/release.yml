@@ -20,7 +20,9 @@ jobs:
           python-version: "3.x"
 
       - name: Test package
-        run: pytest
+        run: |
+          pip install pytest
+          pytest
 
       - name: Coverage report
         uses: codecov/codecov-action@v3
