@@ -7,54 +7,6 @@ import pandas as pd
 import matplotlib
 import string
 from pathlib import Path
-from pydantic import BaseModel
-from typing import Optional
-
-
-class OmeZarrUrl(BaseModel):
-    """
-    Model for a ZarrUrl
-    """
-
-    root: str
-    row: Optional[str] = None
-    col: Optional[str] = None
-    well: Optional[str] = None
-    image: Optional[str] = None
-
-
-def parse_zarr_url(zarr_url: str) -> OmeZarrUrl:
-    """Parse the OME-ZARR URL into a dictionary with the root URL, row, column and image
-
-    Args:
-        zarr_url: Path to the OME-ZARR
-
-    Returns:
-        A `OmeZarrUrl` object
-    """
-    zarr_dict = {"root": None}
-    if zarr_url:
-        parts = [p.replace("\\", "") for p in Path(zarr_url).parts]
-        for i, p in enumerate(parts):
-            if p.endswith(".zarr"):
-                zarr_dict["root"] = str(Path(*parts[0 : i + 1]))
-                break
-        if not zarr_dict["root"]:
-            raise ValueError("No .zarr extension detected in URL")
-        try:
-            zarr_dict["row"] = parts[i + 1]
-        except:
-            zarr_dict["row"] = None
-        try:
-            zarr_dict["col"] = parts[i + 2]
-            zarr_dict["well"] = zarr_dict["row"] + zarr_dict["col"]
-        except:
-            zarr_dict["col"] = None
-        try:
-            zarr_dict["image"] = parts[i + 3]
-        except:
-            zarr_dict["image"] = None
-        return OmeZarrUrl(**zarr_dict)
 
 
 def colorbrewer(name: str):

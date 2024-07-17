@@ -12,11 +12,59 @@ from ome_zarr.writer import (
 )
 import dask.array as da
 import anndata as ad
+from pydantic import BaseModel
+from typing import Optional
 
 from fractal_tasks_core.ngff import load_NgffImageMeta
 
 
 COLORS = ["20adf8", "f8ad20", "942094", "00ffff", "ffff00", "ff00ff", "ffffff"]
+
+
+class OmeZarrUrl(BaseModel):
+    """
+    Model for a ZarrUrl
+    """
+
+    root: str
+    row: Optional[str] = None
+    col: Optional[str] = None
+    well: Optional[str] = None
+    image: Optional[str] = None
+
+
+def parse_zarr_url(zarr_url: str) -> OmeZarrUrl:
+    """Parse the OME-ZARR URL into a dictionary with the root URL, row, column and image
+
+    Args:
+        zarr_url: Path to the OME-ZARR
+
+    Returns:
+        A `OmeZarrUrl` object
+    """
+    zarr_dict = {"root": None}
+    if zarr_url:
+        parts = [p.replace("\\", "") for p in Path(zarr_url).parts]
+        for i, p in enumerate(parts):
+            if p.endswith(".zarr"):
+                zarr_dict["root"] = str(Path(*parts[0 : i + 1]))
+                break
+        if not zarr_dict["root"]:
+            raise ValueError("No .zarr extension detected in URL")
+        try:
+            zarr_dict["row"] = parts[i + 1]
+        except:
+            zarr_dict["row"] = None
+        try:
+            zarr_dict["col"] = parts[i + 2]
+            zarr_dict["well"] = zarr_dict["row"] + zarr_dict["col"]
+        except:
+            zarr_dict["col"] = None
+        try:
+            zarr_dict["image"] = parts[i + 3]
+        except:
+            zarr_dict["image"] = None
+        return OmeZarrUrl(**zarr_dict)
 
 
 def read_ome_zarr(zarr_url: Union[str, Path]) -> Node:
@@ -102,7 +150,7 @@ def convert_ROI_table_to_indices(
 
 
 def get_roi(
-    zarr_url: Union[str, Path],
+    zarr_url: str,
     roi_table: str,
     level: int = 0,
 ) -> tuple[Path, pd.DataFrame]:
@@ -207,7 +255,7 @@ def load_label_roi(
 
 def labels_to_ome_zarr(
     labels: Union[np.ndarray, da.Array],
-    zarr_url: Union[str, Path],
+    zarr_url: str,
     name: str = "nuclei",
 ):
     """Save labels to the OME-ZARR fileset
@@ -254,7 +302,7 @@ def labels_to_ome_zarr(
 
 
 def features_to_ome_zarr(
-    zarr_url: Union[str, Path],
+    zarr_url: str,
     feature_table: pd.DataFrame,
     feature_name: str = "regionprops",
 ):
@@ -266,18 +314,20 @@ def features_to_ome_zarr(
         feature_name: Folder name of the measured regionprobs feature table
         overwrite: Whether to overwrite any existing features
     """
-    ad_features = ad.AnnData(X=feature_table.drop("label", axis=1).values)
-    ad_features.obs = pd.DataFrame(feature_table["label"])
-    ad_features.obs_names = feature_table.index.map(str)
-    ad_features.var_names = feature_table.drop("label", axis=1).columns
-    ad_features.write_zarr(f"{zarr_url}/tables/{feature_name}")
+    ome_zarr_url = parse_zarr_url(zarr_url)
+    label = feature_table.pop("label")
+    tbl = ad.AnnData(X=feature_table.values)
+    tbl.obs = pd.DataFrame({"roi_id": ome_zarr_url.well, "label": label})
+    tbl.obs_names = feature_table.index.map(str)
+    tbl.var_names = feature_table.columns
+    tbl.write_zarr(f"{zarr_url}/tables/{feature_name}")
     table_group = zarr.group(parse_url(f"{zarr_url}/tables", mode="w").store)
     if feature_name not in table_group.attrs["tables"]:
         table_group.attrs["tables"] = table_group.attrs["tables"] + [feature_name]
 
 
 def condition_to_ome_zarr(
-    zarr_url: Union[str, Path],
+    zarr_url: str,
     condition_table: pd.DataFrame,
     condition_name: str = "condition",
 ):

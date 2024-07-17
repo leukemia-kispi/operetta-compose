@@ -30,7 +30,7 @@ def label_prediction(
         feature_name: Folder name of the measured regionprobs features
     """
     with open(classifier_path, "rb") as f:
-        clf = pickle.loads(f.read())
+        clf = pickle.load(f)
 
     try:
         ann_tbl = ad.read_zarr(f"{zarr_url}/tables/{feature_name}")
@@ -38,12 +38,12 @@ def label_prediction(
         raise FileNotFoundError(
             f"No measurements exist at the specified zarr URL in the table {feature_name}."
         )
-    ann_tbl.obs = ann_tbl.obs.drop(["roi_id", "prediction"], axis=1, errors="ignore")
-
-    ome_zarr_url = utils.parse_zarr_url(zarr_url)
-    ann_tbl.obs["roi_id"] = ome_zarr_url.well
-    data = pd.concat((ann_tbl.obs, ann_tbl.to_df()), axis=1)
-    ann_tbl.obs = ann_tbl.obs.merge(clf.predict(data).reset_index())
+    features = ann_tbl.to_df()
+    features_with_annotations = pd.concat(
+        (ann_tbl.obs[["roi_id", "label"]], features), axis=1
+    )
+    predictions = clf.predict(features_with_annotations).reset_index()
+    ann_tbl.obs = predictions
     ann_tbl.obs_names = ann_tbl.obs.index.map(str)
     ann_tbl.write_zarr(f"{zarr_url}/tables/{feature_name}")
 

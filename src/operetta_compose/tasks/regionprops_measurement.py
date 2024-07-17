@@ -110,8 +110,7 @@ def feature_table(
     """
     props = regionprops_table(labels, img, properties=properties)
     features = pd.DataFrame(props)
-    label_col = features.pop("label")
-    features.insert(0, "label", label_col)
+    features.insert(0, "label", features.pop("label"))
     return features
 
 

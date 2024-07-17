@@ -7,7 +7,6 @@ import fractal_tasks_core
 from pydantic.v1.decorator import validate_arguments
 
 from operetta_compose import io
-from operetta_compose import utils
 
 __OME_NGFF_VERSION__ = fractal_tasks_core.__OME_NGFF_VERSION__
 
@@ -42,7 +41,7 @@ def condition_registration(
                 "unit": str,
             },
         )
-        ome_zarr_url = utils.parse_zarr_url(zarr_url)
+        ome_zarr_url = io.parse_zarr_url(zarr_url)
         condition_table = layout.query(
             "row == @ome_zarr_url.row & col == @ome_zarr_url.col"
         )

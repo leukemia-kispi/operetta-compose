@@ -57,13 +57,11 @@ def test_measure():
 
 
 @pytest.mark.dependency(depends=["test_converter", "test_stardist", "test_measure"])
-@pytest.mark.skip(reason="Classifier not available")
 def test_predict():
     label_prediction(
         zarr_url=str(OUTPUT_PATH.joinpath("C", "3", "0")),
         classifier_path=str(Path(TEST_DIR).joinpath("classifier.pkl")),
         feature_name="regionprops",
-        overwrite=True,
     )
 
 
