@@ -14,38 +14,33 @@ __OME_NGFF_VERSION__ = fractal_tasks_core.__OME_NGFF_VERSION__
 logger = logging.getLogger(__name__)
 
 PROPS = [
+    "label",
     "area",
     "bbox",
     "area_bbox",
     "moments_central",
-    "centroid",
     "area_convex",
-    "image_convex",
-    "coords",
-    "eccentricity",
     "equivalent_diameter_area",
     "euler_number",
     "extent",
     "feret_diameter_max",
     "area_filled",
-    "image_filled",
     "moments_hu",
-    "image",
     "inertia_tensor",
     "inertia_tensor_eigvals",
-    "image_intensity",
     "centroid_local",
     "axis_major_length",
-    "intensity_max",
     "intensity_mean",
+    "intensity_max",
     "intensity_min",
+    "eccentricity",
     "axis_minor_length",
     "moments",
     "moments_normalized",
     "orientation",
     "perimeter",
     "perimeter_crofton",
-    "slice",
+    "centroid",
     "solidity",
     "moments_weighted_central",
     "moments_weighted_central",
@@ -54,7 +49,6 @@ PROPS = [
     "centroid_weighted_local",
     "moments_weighted",
     "moments_weighted_normalized",
-    "label",
 ]
 
 
@@ -75,7 +69,7 @@ def regionprops_measurement(
         roi_url, roi_idx = io.get_roi(zarr_url, "well_ROI_table", level)
         img = io.load_intensity_roi(roi_url, roi_idx)
         labels = io.load_label_roi(roi_url, roi_idx)
-        tbl = feature_table(labels[0], img[0])  # FIXME generalize for 3D
+        tbl = feature_table(labels[0], img[0], PROPS)  # FIXME generalize for 3D
         io.features_to_ome_zarr(zarr_url, tbl, feature_name)
     else:
         raise FileExistsError(
@@ -103,7 +97,7 @@ def feature_table(
     Args:
         labels: A labels array
         img: An intensity array
-        properties: A list of regionprobs properties
+        properties: A list of regionprops properties
 
     Returns:
         A feature dataframe including a column with the label index

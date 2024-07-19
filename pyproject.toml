@@ -20,7 +20,8 @@ dependencies = ["fractal-tasks-core",
                 "csbdeep",
                 "stardist",
                 "tensorflow",
-                "tensorflow-metal ; platform_system == 'Darwin'"
+                "tensorflow-metal ; platform_system == 'Darwin'",
+                "napari-feature-classifier"
                ]
 
 
