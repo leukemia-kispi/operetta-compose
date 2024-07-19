@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.53">
+<meta name="generator" content="quarto-1.5.55">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -187,7 +187,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ol type="1">
 <li>Install the package in dev mode with <code>python -m pip install -e ".[dev]"</code></li>
 <li>Develop the function according to the <a href="https://fractal-analytics-platform.github.io/version_2/">Fractal API</a></li>
-<li>Update the image list and the Fractal manifest with <code>python src/operio_fractal/dev/create_manifest.py</code></li>
+<li>Update the image list and the Fractal manifest with <code>python src/operetta_compose/dev/create_manifest.py</code></li>
 <li>Build a wheel file in the <code>dist</code> folder of the package with <code>python -m build</code></li>
 <li>Collect the tasks on a Fractal server</li>
 </ol>
@@ -202,7 +202,7 @@ Note
 </div>
 <div class="callout-body-container callout-body">
 <p>As Fractal task are Python function they can also be execute independently of Fractal e.g.&nbsp;by running</p>
-<div id="e9977336" class="cell" data-execution_count="1">
+<div id="2aad2ad4" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> operetta_compose.tasks.harmony_to_ome_zarr <span class="im">import</span> harmony_to_ome_zarr</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>harmony_to_ome_zarr(</span>
