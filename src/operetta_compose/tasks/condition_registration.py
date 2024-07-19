@@ -47,6 +47,7 @@ def condition_registration(
         )
         if not condition_table.empty:
             io.condition_to_ome_zarr(zarr_url, condition_table, condition_name)
+            io.write_table_metadata(zarr_url, "condition_table", "condition")
         else:
             raise ValueError(
                 "Well {row}{col} of the OME-ZARR fileset is not found in the drug layout"

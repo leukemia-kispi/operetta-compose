@@ -50,7 +50,8 @@ def test_stardist():
 def test_measure():
     regionprops_measurement(
         zarr_url=str(OUTPUT_PATH.joinpath("C", "3", "0")),
-        feature_name="regionprops",
+        table_name="regionprops",
+        label_name="nuclei",
         level=0,
         overwrite=True,
     )
@@ -61,7 +62,8 @@ def test_predict():
     label_prediction(
         zarr_url=str(OUTPUT_PATH.joinpath("C", "3", "0")),
         classifier_path=str(Path(TEST_DIR).joinpath("classifier.pkl")),
-        feature_name="regionprops",
+        table_name="regionprops",
+        label_name="nuclei",
     )
 
 

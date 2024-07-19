@@ -54,23 +54,29 @@ PROPS = [
 
 @validate_arguments
 def regionprops_measurement(
-    *, zarr_url: str, feature_name: str = "regionprops", level: int = 0, overwrite=False
+    *,
+    zarr_url: str,
+    table_name: str = "regionprops",
+    label_name: str = "nuclei",
+    level: int = 0,
+    overwrite=False,
 ) -> None:
     """Take measurements using regionprobs and write the features to the OME-ZARR
 
     Args:
         zarr_url: Path to an OME-ZARR Image
-        feature_name: Folder name of the measured regionprobs features
+        table_name: Folder name of the measured regionprobs features
+        label_name: Name of the labels to use for feature measurements
         level: Resolution level (0 = full resolution)
         overwrite: Whether to overwrite any existing OME-ZARR feature table
     """
-    feature_dir = Path(f"{zarr_url}/tables/{feature_name}")
+    feature_dir = Path(f"{zarr_url}/tables/{table_name}")
     if (not feature_dir.is_dir()) | overwrite:
         roi_url, roi_idx = io.get_roi(zarr_url, "well_ROI_table", level)
         img = io.load_intensity_roi(roi_url, roi_idx)
-        labels = io.load_label_roi(roi_url, roi_idx)
+        labels = io.load_label_roi(roi_url, roi_idx, name=label_name)
         tbl = feature_table(labels[0], img[0], PROPS)  # FIXME generalize for 3D
-        io.features_to_ome_zarr(zarr_url, tbl, feature_name)
+        io.features_to_ome_zarr(zarr_url, tbl, table_name, label_name)
     else:
         raise FileExistsError(
             f"{zarr_url} already contains a feature table in the OME-ZARR. To ignore the existing table set `overwrite = True`."

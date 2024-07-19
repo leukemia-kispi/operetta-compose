@@ -8,6 +8,8 @@ from zarr.errors import PathNotFoundError
 import fractal_tasks_core
 from pydantic.v1.decorator import validate_arguments
 
+from operetta_compose import io
+
 
 __OME_NGFF_VERSION__ = fractal_tasks_core.__OME_NGFF_VERSION__
 
@@ -19,23 +21,25 @@ def label_prediction(
     *,
     zarr_url: str,
     classifier_path: str,
-    feature_name: str = "regionprops",
+    table_name: str = "regionprops",
+    label_name: str = "nuclei",
 ) -> None:
     """Make predictions on the selected wells and write them to the OME-ZARR
 
     Args:
         zarr_url: Path to an OME-ZARR Image
         classifier_path: Path to the pickled scikit-learn classifier
-        feature_name: Folder name of the measured regionprobs features
+        table_name: Folder name of the measured regionprobs features
+        label_name: Name of the labels to use for feature measurements
     """
     with open(classifier_path, "rb") as f:
         clf = pickle.load(f)
 
     try:
-        ann_tbl = ad.read_zarr(f"{zarr_url}/tables/{feature_name}")
+        ann_tbl = ad.read_zarr(f"{zarr_url}/tables/{table_name}")
     except PathNotFoundError:
         raise FileNotFoundError(
-            f"No measurements exist at the specified zarr URL in the table {feature_name}."
+            f"No measurements exist at the specified zarr URL in the table {table_name}."
         )
     features = ann_tbl.to_df()
     features_with_annotations = pd.concat(
@@ -44,7 +48,8 @@ def label_prediction(
     predictions = clf.predict(features_with_annotations).reset_index()
     ann_tbl.obs = predictions
     ann_tbl.obs_names = ann_tbl.obs.index.map(str)
-    ann_tbl.write_zarr(f"{zarr_url}/tables/{feature_name}")
+    ann_tbl.write_zarr(f"{zarr_url}/tables/{table_name}")
+    io.write_table_metadata(zarr_url, "feature_table", table_name, label_name)
 
 
 if __name__ == "__main__":

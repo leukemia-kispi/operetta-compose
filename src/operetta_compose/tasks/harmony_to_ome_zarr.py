@@ -290,6 +290,12 @@ def _create_ome_zarr(
         ad_fov.write_zarr(f"{zarr_url}/{well}/{dataset}/tables/FOV_ROI_table")
         ad_well.write_zarr(f"{zarr_url}/{well}/{dataset}/tables/well_ROI_table")
         table_group.attrs["tables"] = ["FOV_ROI_table", "well_ROI_table"]
+        io.write_table_metadata(
+            f"{zarr_url}/{well}/{dataset}", "roi_table", "FOV_ROI_table"
+        )
+        io.write_table_metadata(
+            f"{zarr_url}/{well}/{dataset}", "roi_table", "well_ROI_table"
+        )
 
         fovs_pxls = io.convert_ROI_table_to_indices(
             ad_fov,
