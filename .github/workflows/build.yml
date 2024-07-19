@@ -54,6 +54,7 @@ jobs:
       - name: Build package
         run: |
           pip install build
+          python src/dev/create_manifest.py
           python -m build
 
       - name: Upload dists
