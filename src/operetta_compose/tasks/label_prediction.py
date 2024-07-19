@@ -8,14 +8,13 @@ from zarr.errors import PathNotFoundError
 import fractal_tasks_core
 from pydantic.v1.decorator import validate_arguments
 
-from operetta_compose import io
-from operetta_compose import utils
 
 __OME_NGFF_VERSION__ = fractal_tasks_core.__OME_NGFF_VERSION__
 
 logger = logging.getLogger(__name__)
 
 
+@validate_arguments
 def label_prediction(
     *,
     zarr_url: str,
