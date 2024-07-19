@@ -171,11 +171,17 @@
             "type": "string",
             "description": "Path to an OME-ZARR Image"
           },
-          "feature_name": {
-            "title": "Feature Name",
+          "table_name": {
+            "title": "Table Name",
             "default": "regionprops",
             "type": "string",
             "description": "Folder name of the measured regionprobs features"
+          },
+          "label_name": {
+            "title": "Label Name",
+            "default": "nuclei",
+            "type": "string",
+            "description": "Name of the labels to use for feature measurements"
           },
           "level": {
             "title": "Level",
@@ -218,11 +224,17 @@
             "type": "string",
             "description": "Path to the pickled scikit-learn classifier"
           },
-          "feature_name": {
-            "title": "Feature Name",
+          "table_name": {
+            "title": "Table Name",
             "default": "regionprops",
             "type": "string",
             "description": "Folder name of the measured regionprobs features"
+          },
+          "label_name": {
+            "title": "Label Name",
+            "default": "nuclei",
+            "type": "string",
+            "description": "Name of the labels to use for feature measurements"
           }
         },
         "required": [
