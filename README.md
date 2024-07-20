@@ -1,6 +1,7 @@
-# operetta-compose <img align="right" height="150" src="docs/images/operetta-compose_logo.png">
+# operetta-compose <img align="right" height="150" src="https://raw.githubusercontent.com/leukemia-kispi/operetta-compose/master/docs/images/operetta-compose_logo.png">
 
 [![Docs Status](https://github.com/leukemia-kispi/operetta-compose/actions/workflows/build.yml/badge.svg)](https://github.com/leukemia-kispi/operetta-compose/actions/workflows/build_docs.yml)
+[![PyPI](https://img.shields.io/pypi/v/operetta-compose)](https://pypi.org/project/operetta-compose/)
 
 [Fractal](https://fractal-analytics-platform.github.io/fractal-tasks-core/) tasks to convert and process images from Perkin-Elmer Opera/Operetta high-content microscopes. Workflows for drug response profiling built upon the OME-ZARR file standard.
 
@@ -33,4 +34,4 @@ Currently the following tasks are available:
 
 ---
 
-[Fractal](https://fractal-analytics-platform.github.io/fractal-tasks-core/) is developed by the [UZH BioVisionCenter](https://www.biovisioncenter.uzh.ch/de.html) under the lead of [@jluethi](https://github.com/jluethi) under contract with [eXact lab S.r.l.](https://www.exact-lab.it).
+[Fractal](https://fractal-analytics-platform.github.io/fractal-tasks-core/) is developed by the [UZH BioVisionCenter](https://www.biovisioncenter.uzh.ch/de.html) under the lead of [@jluethi](https://github.com/jluethi) and under contract with [eXact lab S.r.l.](https://www.exact-lab.it).
