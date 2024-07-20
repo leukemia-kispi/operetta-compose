@@ -54,8 +54,6 @@ jobs:
       - name: Build package
         run: |
           pip install build
-          pip install -e .
-          python src/operetta_compose/dev/create_manifest.py
           python -m build
 
       - name: Upload dists
