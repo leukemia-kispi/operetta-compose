@@ -18,7 +18,7 @@ import dask.array as da
 from dask.array.image import imread
 import anndata as ad
 
-from pydantic.v1.decorator import validate_arguments
+from pydantic import validate_call
 from typing import Any
 
 import fractal_tasks_core
@@ -34,7 +34,7 @@ logger = logging.getLogger(__name__)
 COLORS = ["20adf8", "f8ad20", "942094", "00ffff", "ffff00", "ff00ff", "ffffff"]
 
 
-@validate_arguments
+@validate_call
 def harmony_to_ome_zarr(
     *,
     zarr_urls: list[str],

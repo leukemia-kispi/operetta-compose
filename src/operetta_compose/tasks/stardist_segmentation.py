@@ -6,7 +6,8 @@ from zarr.errors import ContainsArrayError
 from csbdeep.utils import normalize
 from stardist.models import StarDist2D, StarDist3D
 
-from pydantic.v1.decorator import validate_arguments
+from typing import Optional
+from pydantic import validate_call
 
 import fractal_tasks_core
 from fractal_tasks_core.channels import ChannelInputModel, ChannelNotFoundError
@@ -19,7 +20,7 @@ __OME_NGFF_VERSION__ = fractal_tasks_core.__OME_NGFF_VERSION__
 logger = logging.getLogger(__name__)
 
 
-@validate_arguments
+@validate_call
 def stardist_segmentation(
     *,
     zarr_url: str,
@@ -27,8 +28,8 @@ def stardist_segmentation(
     roi_table: str = "FOV_ROI_table",
     stardist_model: str = "2D_versatile_fluo",
     label_name: str = "nuclei",
-    prob_thresh: float = None,
-    nms_thresh: float = None,
+    prob_thresh: Optional[float] = None,
+    nms_thresh: Optional[float] = None,
     scale: int = 1,
     level: int = 0,
     overwrite: bool = False,
