@@ -9,7 +9,7 @@ TASK_LIST = [
     ParallelTask(
         name="Stardist segmentation",
         executable="tasks/stardist_segmentation.py",
-        meta={"cpus_per_task": 4, "mem": 16000},
+        meta={"cpus_per_task": 4, "mem": 16000, "needs_gpu": True},
     ),
     ParallelTask(
         name="Regionprops measurement",
