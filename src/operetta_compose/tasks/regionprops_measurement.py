@@ -5,7 +5,7 @@ import logging
 from skimage.measure import regionprops_table
 
 import fractal_tasks_core
-from pydantic.v1.decorator import validate_arguments
+from pydantic import validate_call
 
 from operetta_compose import io
 
@@ -52,14 +52,14 @@ PROPS = [
 ]
 
 
-@validate_arguments
+@validate_call
 def regionprops_measurement(
     *,
     zarr_url: str,
     table_name: str = "regionprops",
     label_name: str = "nuclei",
     level: int = 0,
-    overwrite=False,
+    overwrite: bool = False,
 ) -> None:
     """Take measurements using regionprobs and write the features to the OME-ZARR
 

@@ -6,7 +6,7 @@ import pickle
 from zarr.errors import PathNotFoundError
 
 import fractal_tasks_core
-from pydantic.v1.decorator import validate_arguments
+from pydantic import validate_call
 
 from operetta_compose import io
 
@@ -16,7 +16,7 @@ __OME_NGFF_VERSION__ = fractal_tasks_core.__OME_NGFF_VERSION__
 logger = logging.getLogger(__name__)
 
 
-@validate_arguments
+@validate_call
 def label_prediction(
     *,
     zarr_url: str,
