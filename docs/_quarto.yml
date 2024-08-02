@@ -16,7 +16,10 @@ website:
       - icon: github
         href: https://github.com/leukemia-kispi/operetta-compose
     left:
+        - installation.qmd
         - contributing.qmd
+        - text: View in Napari
+          href: napari.ipynb
         - api/index.qmd
 
 format:

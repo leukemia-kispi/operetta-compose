@@ -1,0 +1,19 @@
+---
+title: "Installation"
+execute:
+  eval: false
+jupyter: python3
+---
+
+### Standalone installation
+
+Install the latest version of operetta-compose from PyPI:
+
+```{python, eva=false}
+pip install operetta-compose
+```
+
+
+### Fractal installation
+
+From a [Fractal](https://fractal-analytics-platform.github.io/) server collect the package from PyPI with `operetta-compose` and indicate the desired version number.
