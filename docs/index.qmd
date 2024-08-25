@@ -3,7 +3,7 @@ title: "Home"
 ---
 
 <img align="right" height="150" src="images/operetta-compose_logo.png">
-The **operetta-compose** package collects [Fractal](https://fractal-analytics-platform.github.io/fractal-tasks-core/) tasks to convert and process images from Perkin-Elmer Opera/Operetta high-content microscopes. It includes workflows for drug response profiling built upon the [OME-ZARR file standard](https://ngff.openmicroscopy.org/latest/).
+The **operetta-compose** package collects [Fractal](https://fractal-analytics-platform.github.io/fractal-tasks-core/)<sup>1</sup> tasks to convert and process images from Perkin-Elmer Opera/Operetta high-content microscopes. It includes workflows for drug response profiling built upon the [OME-ZARR file standard](https://ngff.openmicroscopy.org/latest/).
 
 ### Available Fractal Tasks
 
@@ -21,4 +21,4 @@ Currently the following tasks are part of *operetta-compose*
 
 ---
 
-[Fractal](https://fractal-analytics-platform.github.io/fractal-tasks-core/) is developed by the [UZH BioVisionCenter](https://www.biovisioncenter.uzh.ch/de.html) under the lead of [@jluethi](https://github.com/jluethi) under contract with [eXact lab S.r.l.](https://www.exact-lab.it).
+<sup>1</sup> [Fractal](https://fractal-analytics-platform.github.io/fractal-tasks-core/) is developed by the [UZH BioVisionCenter](https://www.biovisioncenter.uzh.ch/de.html) under the lead of [@jluethi](https://github.com/jluethi) under contract with [eXact lab S.r.l.](https://www.exact-lab.it).

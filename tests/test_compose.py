@@ -58,6 +58,7 @@ def test_measure():
 
 
 @pytest.mark.dependency(depends=["test_converter", "test_stardist", "test_measure"])
+# @pytest.mark.skip
 def test_predict():
     label_prediction(
         zarr_url=str(OUTPUT_PATH.joinpath("C", "3", "0")),

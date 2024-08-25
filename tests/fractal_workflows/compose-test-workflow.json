@@ -1,0 +1,124 @@
+{
+  "name": "compose-test-workflow",
+  "task_list": [
+    {
+      "meta_non_parallel": {
+        "cpus_per_task": 1,
+        "mem": 4000
+      },
+      "meta_parallel": null,
+      "args_non_parallel": {
+        "img_path": "/path/to/operetta_plate/p01_qc/Images",
+        "overwrite": true,
+        "coarsening_xy": 2,
+        "compute": true
+      },
+      "args_parallel": null,
+      "input_filters": {
+        "attributes": {},
+        "types": {}
+      },
+      "is_legacy_task": false,
+      "task": {
+        "source": "pip_local:operetta_compose:0.2.1::py3.11:harmony_to_ome-zarr"
+      },
+      "task_legacy": null
+    },
+    {
+      "meta_non_parallel": null,
+      "meta_parallel": {
+        "cpus_per_task": 4,
+        "mem": 16000,
+        "needs_gpu": true
+      },
+      "args_non_parallel": null,
+      "args_parallel": {
+        "channel": {
+          "label": "Fluorescein (FITC)"
+        },
+        "roi_table": "FOV_ROI_table",
+        "stardist_model": "2D_versatile_fluo",
+        "label_name": "nuclei",
+        "scale": 1,
+        "level": 0,
+        "overwrite": true
+      },
+      "input_filters": {
+        "attributes": {},
+        "types": {}
+      },
+      "is_legacy_task": false,
+      "task": {
+        "source": "pip_local:operetta_compose:0.2.1::py3.11:stardist_segmentation"
+      },
+      "task_legacy": null
+    },
+    {
+      "meta_non_parallel": null,
+      "meta_parallel": {
+        "cpus_per_task": 1,
+        "mem": 4000
+      },
+      "args_non_parallel": null,
+      "args_parallel": {
+        "table_name": "regionprops",
+        "label_name": "nuclei",
+        "level": 0,
+        "overwrite": true
+      },
+      "input_filters": {
+        "attributes": {},
+        "types": {}
+      },
+      "is_legacy_task": false,
+      "task": {
+        "source": "pip_local:operetta_compose:0.2.1::py3.11:regionprops_measurement"
+      },
+      "task_legacy": null
+    },
+    {
+      "meta_non_parallel": null,
+      "meta_parallel": {
+        "cpus_per_task": 1,
+        "mem": 4000
+      },
+      "args_non_parallel": null,
+      "args_parallel": {
+        "classifier_path": "/path/to/classifier.pkl",
+        "table_name": "regionprops",
+        "label_name": "nuclei"
+      },
+      "input_filters": {
+        "attributes": {},
+        "types": {}
+      },
+      "is_legacy_task": false,
+      "task": {
+        "source": "pip_local:operetta_compose:0.2.1::py3.11:label_prediction"
+      },
+      "task_legacy": null
+    },
+    {
+      "meta_non_parallel": null,
+      "meta_parallel": {
+        "cpus_per_task": 1,
+        "mem": 4000
+      },
+      "args_non_parallel": null,
+      "args_parallel": {
+        "layout_path": "/path/to/drug_layout.csv",
+        "condition_name": "condition",
+        "overwrite": true
+      },
+      "input_filters": {
+        "attributes": {},
+        "types": {}
+      },
+      "is_legacy_task": false,
+      "task": {
+        "source": "pip_local:operetta_compose:0.2.1::py3.11:condition_registration"
+      },
+      "task_legacy": null
+    }
+  ]
+}

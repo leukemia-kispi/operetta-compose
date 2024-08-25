@@ -13,42 +13,50 @@ __OME_NGFF_VERSION__ = fractal_tasks_core.__OME_NGFF_VERSION__
 
 logger = logging.getLogger(__name__)
 
+# Documentation of features at https://scikit-image.org/docs/stable/api/skimage.measure.html
 PROPS = [
     "label",
     "area",
-    "bbox",
-    "area_bbox",
-    "moments_central",
     "area_convex",
-    "equivalent_diameter_area",
-    "euler_number",
-    "extent",
-    "feret_diameter_max",
-    "area_filled",
-    "moments_hu",
-    "inertia_tensor",
-    "inertia_tensor_eigvals",
-    "centroid_local",
-    "axis_major_length",
     "intensity_mean",
     "intensity_max",
     "intensity_min",
+    "intensity_std",
     "eccentricity",
-    "axis_minor_length",
-    "moments",
-    "moments_normalized",
-    "orientation",
     "perimeter",
     "perimeter_crofton",
-    "centroid",
     "solidity",
-    "moments_weighted_central",
-    "moments_weighted_central",
+    "equivalent_diameter_area",
+    "feret_diameter_max",
+    "axis_major_length",
+    "axis_minor_length",
+    "orientation",
+    "extent",
+    # "inertia_tensor",
+    "inertia_tensor_eigvals",
+    "bbox",
+    "area_bbox",
+    "centroid",
     "centroid_weighted",
-    "moments_weighted_hu",
-    "centroid_weighted_local",
-    "moments_weighted",
-    "moments_weighted_normalized",
+    # "centroid_local",
+    # "centroid_weighted_local",
+    # "moments",
+    # "moments_normalized",
+    # "moments_weighted",
+    # "moments_central",
+    # "moments_hu",
+    # "moments_weighted_normalized",
+    # "moments_weighted_central",
+    # "moments_weighted_hu",
+]
+
+only_2d = [
+    "eccentricity",
+    "perimeter",
+    "perimeter_crofton",
+    "orientation",
+    "axis_major_length",
+    "axis_minor_length",
 ]
 
 
@@ -75,7 +83,13 @@ def regionprops_measurement(
         roi_url, roi_idx = io.get_roi(zarr_url, "well_ROI_table", level)
         img = io.load_intensity_roi(roi_url, roi_idx)
         labels = io.load_label_roi(roi_url, roi_idx, name=label_name)
-        tbl = feature_table(labels[0], img[0], PROPS)  # FIXME generalize for 3D
+        if img.shape[0] == 1:
+            img = img[0]
+            labels = labels[0]
+            properties = PROPS
+        else:
+            properties = [p for p in PROPS if p not in only_2d]
+        tbl = feature_table(labels, img, properties)
         io.features_to_ome_zarr(zarr_url, tbl, table_name, label_name)
     else:
         raise FileExistsError(
