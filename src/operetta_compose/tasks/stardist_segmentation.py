@@ -2,6 +2,8 @@ import numpy as np
 import logging
 from pathlib import Path
 import shutil
+import random
+import time
 from zarr.errors import ContainsArrayError
 from csbdeep.utils import normalize
 from stardist.models import StarDist2D, StarDist3D
@@ -49,10 +51,17 @@ def stardist_segmentation(
         level: Resolution level (0 = full resolution)
         overwrite: Whether to overwrite any existing OME-ZARR segmentations
     """
-    if "3D" in stardist_model:
-        model = StarDist3D.from_pretrained(stardist_model)
-    else:
-        model = StarDist2D.from_pretrained(stardist_model)
+    model_loaded = False
+    while not model_loaded:
+        try:
+            if "3D" in stardist_model:
+                model = StarDist3D.from_pretrained(stardist_model)
+            else:
+                model = StarDist2D.from_pretrained(stardist_model)
+            if model:
+                model_loaded = True
+        except:
+            time.sleep(random.uniform(2, 7))
 
     roi = 0
     curr_roi_max = 0

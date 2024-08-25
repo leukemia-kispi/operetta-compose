@@ -64,7 +64,8 @@
       "executable_parallel": "tasks/stardist_segmentation.py",
       "meta_parallel": {
         "cpus_per_task": 4,
-        "mem": 16000
+        "mem": 16000,
+        "needs_gpu": true
       },
       "args_schema_parallel": {
         "$defs": {

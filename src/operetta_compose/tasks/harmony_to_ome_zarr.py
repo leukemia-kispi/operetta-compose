@@ -391,11 +391,13 @@ def _create_ome_zarr(
 
         attributes = {"plate": str(zarr_url.name), "well": f"{row_alpha}{col}"}
 
+        is_3D = True if len(planes) > 1 else False
+
         image_list_updates.append(
             {
                 "zarr_url": f"{str(zarr_url)}/{well}/{dataset}",
                 "attributes": attributes,
-                "types": {"is_3D": False},
+                "types": {"is_3D": is_3D},
             }
         )
         pbar.update()
