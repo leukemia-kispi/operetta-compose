@@ -173,10 +173,10 @@ ul.task-list li input[type="checkbox"] {
 <h4 class="anchored" data-anchor-id="parameters">Parameters</h4>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 11%">
+<col style="width: 12%">
 <col style="width: 5%">
-<col style="width: 74%">
-<col style="width: 8%">
+<col style="width: 71%">
+<col style="width: 10%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -198,6 +198,18 @@ ul.task-list li input[type="checkbox"] {
 <td>str</td>
 <td>Path to a drug layout file (.csv) with at least the columns: row, col, drug, concentration and unit</td>
 <td><em>required</em></td>
+</tr>
+<tr class="odd">
+<td><code>condition_name</code></td>
+<td>str</td>
+<td>Name of the condition table</td>
+<td><code>'condition'</code></td>
+</tr>
+<tr class="even">
+<td><code>overwrite</code></td>
+<td>bool</td>
+<td>Whether to overwrite any existing OME-ZARR condition table</td>
+<td><code>False</code></td>
 </tr>
 </tbody>
 </table>

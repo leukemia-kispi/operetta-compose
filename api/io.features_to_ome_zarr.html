@@ -145,15 +145,15 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="operetta_compose.io.features_to_ome_zarr" class="level1">
 <h1>io.features_to_ome_zarr</h1>
-<p><code>io.features_to_ome_zarr(zarr_url, feature_table, feature_name='regionprops')</code></p>
+<p><code>io.features_to_ome_zarr(zarr_url, feature_table, table_name='regionprops', label_name='nuclei')</code></p>
 <p>Save features to the OME-ZARR fileset</p>
 <section id="parameters" class="level2">
 <h2 class="anchored" data-anchor-id="parameters">Parameters</h2>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 14%">
-<col style="width: 16%">
-<col style="width: 55%">
+<col style="width: 12%">
+<col style="width: 57%">
 <col style="width: 14%">
 </colgroup>
 <thead>
@@ -173,21 +173,21 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 <tr class="even">
 <td><code>zarr_url</code></td>
-<td>Union[str, Path]</td>
+<td>str</td>
 <td>Path to the OME-ZARR</td>
 <td><em>required</em></td>
 </tr>
 <tr class="odd">
-<td><code>feature_name</code></td>
+<td><code>table_name</code></td>
 <td>str</td>
-<td>Folder name of the measured regionprobs feature table</td>
+<td>Folder name of the measured regionprobs features</td>
 <td><code>'regionprops'</code></td>
 </tr>
 <tr class="even">
-<td><code>overwrite</code></td>
-<td></td>
-<td>Whether to overwrite any existing features</td>
-<td><em>required</em></td>
+<td><code>label_name</code></td>
+<td>str</td>
+<td>Name of the labels to use for feature measurements</td>
+<td><code>'nuclei'</code></td>
 </tr>
 </tbody>
 </table>

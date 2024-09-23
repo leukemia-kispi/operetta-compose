@@ -207,7 +207,7 @@ ul.task-list li input[type="checkbox"] {
 <tr class="odd">
 <td><code>properties</code></td>
 <td>list[str]</td>
-<td>A list of regionprobs properties</td>
+<td>A list of regionprops properties</td>
 <td><code>['label', 'area', 'intensity_mean', 'intensity_max', 'intensity_min', 'eccentricity', 'perimeter', 'centroid', 'solidity']</code></td>
 </tr>
 </tbody>
@@ -237,15 +237,15 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="operetta_compose.tasks.regionprops_measurement.regionprops_measurement" class="level3">
 <h3 class="anchored" data-anchor-id="operetta_compose.tasks.regionprops_measurement.regionprops_measurement">regionprops_measurement</h3>
-<p><code>tasks.regionprops_measurement.regionprops_measurement(zarr_url, feature_name='regionprops', level=0, overwrite=False)</code></p>
+<p><code>tasks.regionprops_measurement.regionprops_measurement(zarr_url, table_name='regionprops', label_name='nuclei', level=0, overwrite=False)</code></p>
 <p>Take measurements using regionprobs and write the features to the OME-ZARR</p>
 <section id="parameters-1" class="level4">
 <h4 class="anchored" data-anchor-id="parameters-1">Parameters</h4>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 16%">
+<col style="width: 14%">
 <col style="width: 8%">
-<col style="width: 58%">
+<col style="width: 59%">
 <col style="width: 17%">
 </colgroup>
 <thead>
@@ -264,20 +264,26 @@ ul.task-list li input[type="checkbox"] {
 <td><em>required</em></td>
 </tr>
 <tr class="even">
-<td><code>feature_name</code></td>
+<td><code>table_name</code></td>
 <td>str</td>
 <td>Folder name of the measured regionprobs features</td>
 <td><code>'regionprops'</code></td>
 </tr>
 <tr class="odd">
+<td><code>label_name</code></td>
+<td>str</td>
+<td>Name of the labels to use for feature measurements</td>
+<td><code>'nuclei'</code></td>
+</tr>
+<tr class="even">
 <td><code>level</code></td>
 <td>int</td>
 <td>Resolution level (0 = full resolution)</td>
 <td><code>0</code></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>overwrite</code></td>
-<td></td>
+<td>bool</td>
 <td>Whether to overwrite any existing OME-ZARR feature table</td>
 <td><code>False</code></td>
 </tr>

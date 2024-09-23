@@ -194,60 +194,54 @@ ul.task-list li input[type="checkbox"] {
 <td><em>required</em></td>
 </tr>
 <tr class="even">
-<td><code>roi_table</code></td>
-<td>str</td>
-<td>Name of the ROI table</td>
-<td><code>'FOV_ROI_table'</code></td>
-</tr>
-<tr class="odd">
-<td><code>roi</code></td>
-<td></td>
-<td>Index of the ROI in the selected well</td>
-<td><em>required</em></td>
-</tr>
-<tr class="even">
 <td><code>channel</code></td>
 <td>ChannelInputModel</td>
 <td>Channel for segmentation; requires either <code>wavelength_id</code> (e.g.&nbsp;<code>A01_C01</code>) or <code>label</code> (e.g.&nbsp;<code>DAPI</code>) but not both</td>
 <td><em>required</em></td>
 </tr>
 <tr class="odd">
+<td><code>roi_table</code></td>
+<td>str</td>
+<td>Name of the ROI table</td>
+<td><code>'FOV_ROI_table'</code></td>
+</tr>
+<tr class="even">
 <td><code>stardist_model</code></td>
 <td>str</td>
 <td>Name of the Stardist model (“2D_versatile_fluo”, “2D_versatile_he”, “2D_demo”, “3D_demo”)</td>
 <td><code>'2D_versatile_fluo'</code></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>label_name</code></td>
 <td>str</td>
 <td>Name of the labels folder</td>
 <td><code>'nuclei'</code></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>prob_thresh</code></td>
-<td>float</td>
+<td>Optional[float]</td>
 <td>prob_thresh: Only consider objects with predicted object probability above this threshold</td>
 <td><code>None</code></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>nms_thresh</code></td>
-<td>float</td>
+<td>Optional[float]</td>
 <td>Perform non-maximum suppression (NMS) that considers two objects to be the same when their area/surface overlap exceeds this threshold</td>
 <td><code>None</code></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>scale</code></td>
 <td>int</td>
 <td>Scale the input image internally by a factor and rescale the output accordingly.</td>
 <td><code>1</code></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>level</code></td>
 <td>int</td>
 <td>Resolution level (0 = full resolution)</td>
 <td><code>0</code></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>overwrite</code></td>
 <td>bool</td>
 <td>Whether to overwrite any existing OME-ZARR segmentations</td>

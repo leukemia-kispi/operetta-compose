@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>tasks.harmony_to_ome_zarr – operetta-compose</title>
+<title>io.parse_zarr_url – operetta-compose</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -130,15 +130,13 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#operetta_compose.tasks.harmony_to_ome_zarr" id="toc-operetta_compose.tasks.harmony_to_ome_zarr" class="nav-link active" data-scroll-target="#operetta_compose.tasks.harmony_to_ome_zarr">tasks.harmony_to_ome_zarr</a>
+  <li><a href="#operetta_compose.io.parse_zarr_url" id="toc-operetta_compose.io.parse_zarr_url" class="nav-link active" data-scroll-target="#operetta_compose.io.parse_zarr_url">io.parse_zarr_url</a>
   <ul class="collapse">
-  <li><a href="#functions" id="toc-functions" class="nav-link" data-scroll-target="#functions">Functions</a>
-  <ul class="collapse">
-  <li><a href="#operetta_compose.tasks.harmony_to_ome_zarr.harmony_to_ome_zarr" id="toc-operetta_compose.tasks.harmony_to_ome_zarr.harmony_to_ome_zarr" class="nav-link" data-scroll-target="#operetta_compose.tasks.harmony_to_ome_zarr.harmony_to_ome_zarr">harmony_to_ome_zarr</a></li>
-  </ul></li>
+  <li><a href="#parameters" id="toc-parameters" class="nav-link" data-scroll-target="#parameters">Parameters</a></li>
+  <li><a href="#returns" id="toc-returns" class="nav-link" data-scroll-target="#returns">Returns</a></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/leukemia-kispi/operetta-compose/edit/main/api/tasks.harmony_to_ome_zarr.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/leukemia-kispi/operetta-compose/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/leukemia-kispi/operetta-compose/edit/main/api/io.parse_zarr_url.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/leukemia-kispi/operetta-compose/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -146,38 +144,13 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="operetta_compose.tasks.harmony_to_ome_zarr" class="level1">
-<h1>tasks.harmony_to_ome_zarr</h1>
-<p><code>tasks.harmony_to_ome_zarr</code></p>
-<section id="functions" class="level2">
-<h2 class="anchored" data-anchor-id="functions">Functions</h2>
+<section id="operetta_compose.io.parse_zarr_url" class="level1">
+<h1>io.parse_zarr_url</h1>
+<p><code>io.parse_zarr_url(zarr_url)</code></p>
+<p>Parse the OME-ZARR URL into a dictionary with the root URL, row, column and image</p>
+<section id="parameters" class="level2">
+<h2 class="anchored" data-anchor-id="parameters">Parameters</h2>
 <table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="#operetta_compose.tasks.harmony_to_ome_zarr.harmony_to_ome_zarr">harmony_to_ome_zarr</a></td>
-<td>Convert TIFFs which were exported from Harmony (Operetta/Opera, Perkin-Elmer) to OME-ZARR</td>
-</tr>
-</tbody>
-</table>
-<section id="operetta_compose.tasks.harmony_to_ome_zarr.harmony_to_ome_zarr" class="level3">
-<h3 class="anchored" data-anchor-id="operetta_compose.tasks.harmony_to_ome_zarr.harmony_to_ome_zarr">harmony_to_ome_zarr</h3>
-<p><code>tasks.harmony_to_ome_zarr.harmony_to_ome_zarr(zarr_urls, zarr_dir, img_paths, overwrite=False, coarsening_xy=2, compute=True)</code></p>
-<p>Convert TIFFs which were exported from Harmony (Operetta/Opera, Perkin-Elmer) to OME-ZARR</p>
-<section id="parameters" class="level4">
-<h4 class="anchored" data-anchor-id="parameters">Parameters</h4>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 8%">
-<col style="width: 6%">
-<col style="width: 79%">
-<col style="width: 5%">
-</colgroup>
 <thead>
 <tr class="header">
 <th>Name</th>
@@ -188,47 +161,32 @@ ul.task-list li input[type="checkbox"] {
 </thead>
 <tbody>
 <tr class="odd">
-<td><code>zarr_urls</code></td>
-<td>list[str]</td>
-<td>List of zarr urls to be processed (not used by converter task)</td>
-<td><em>required</em></td>
-</tr>
-<tr class="even">
-<td><code>zarr_dir</code></td>
+<td><code>zarr_url</code></td>
 <td>str</td>
-<td>Path to the new OME-ZARR output directory where the zarr plates should be saved. The zarr plates are extracted from the image paths</td>
+<td>Path to the OME-ZARR</td>
 <td><em>required</em></td>
 </tr>
+</tbody>
+</table>
+</section>
+<section id="returns" class="level2">
+<h2 class="anchored" data-anchor-id="returns">Returns</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
 <tr class="odd">
-<td><code>img_paths</code></td>
-<td>list[str]</td>
-<td>Paths to the input directories with the image files</td>
-<td><em>required</em></td>
-</tr>
-<tr class="even">
-<td><code>overwrite</code></td>
-<td>bool</td>
-<td>Whether to overwrite any existing OME-ZARR directory</td>
-<td><code>False</code></td>
-</tr>
-<tr class="odd">
-<td><code>coarsening_xy</code></td>
-<td>int</td>
-<td>Coarsening factor in XY to use for downsampling when building the pyramids</td>
-<td><code>2</code></td>
-</tr>
-<tr class="even">
-<td><code>compute</code></td>
-<td>bool</td>
-<td>Wether to compute a numpy array from the dask array while saving the image to the zarr fileset (compute = TRUE is faster given that images fit into memory)</td>
-<td><code>True</code></td>
+<td>OmeZarrUrl</td>
+<td>A <code>OmeZarrUrl</code> object</td>
 </tr>
 </tbody>
 </table>
 
 
-</section>
-</section>
 </section>
 </section>
 
@@ -661,7 +619,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
 <p>© 2024, DRP-Kispi</p>
-<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/leukemia-kispi/operetta-compose/edit/main/api/tasks.harmony_to_ome_zarr.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/leukemia-kispi/operetta-compose/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/leukemia-kispi/operetta-compose/edit/main/api/io.parse_zarr_url.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/leukemia-kispi/operetta-compose/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
