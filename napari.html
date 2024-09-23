@@ -198,59 +198,75 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>This tutorial demonstrates how to load data generated with <a href="https://fractal-analytics-platform.github.io/">Fractal</a> into Napari using <a href="https://leukemia-kispi.github.io/operetta-compose/">operetta-compose</a> and the <a href="https://github.com/fractal-napari-plugins-collection/napari-ome-zarr-navigator">ome-zarr-navigator</a></p>
-<div id="cell-2" class="cell" data-execution_count="22">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> operetta_compose <span class="im">as</span> oc</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> napari</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> napari_ome_zarr_navigator</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<div id="cell-3" class="cell" data-execution_count="27">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> add_well(zarr_root: <span class="bu">str</span>, row: <span class="bu">str</span>, col: <span class="bu">str</span>, viewer: napari.viewer.Viewer):</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Add a well with labels to the napari viewer</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">    Args:</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">        zarr_root: the base URL of the OME-ZARR</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">        row: the row of the plate to load</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">        col: the column of the plate to load</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">        viewer: an instance of a napari Viewer</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    zarr_url <span class="op">=</span> <span class="bu">str</span>(Path(<span class="ss">f"</span><span class="sc">{</span>zarr_root<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>row<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>col<span class="sc">}</span><span class="ss">/0"</span>).resolve())</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    roi_url, roi_idx <span class="op">=</span> oc.io.get_roi(zarr_url, <span class="st">"well_ROI_table"</span>, level<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    img <span class="op">=</span> oc.io.load_intensity_roi(roi_url, roi_idx)</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    labels <span class="op">=</span> oc.io.load_label_roi(roi_url, roi_idx)</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    viewer.add_image(img, name<span class="op">=</span><span class="ss">f"</span><span class="sc">{</span>row<span class="sc">}{</span>col<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    label_layer <span class="op">=</span> viewer.add_labels(labels, name<span class="op">=</span><span class="ss">f"</span><span class="sc">{</span>row<span class="sc">}{</span>col<span class="sc">}</span><span class="ss">_label"</span>)</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    napari_ome_zarr_navigator.util.add_features_to_labels(zarr_url, label_layer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you use the <strong>napari-feature-classifier</strong> make sure to install <code>napari=0.4.18</code> as higher version introduced a change in the colormap update mechanism which currently slows down classification.</p>
+<pre class="{python}"><code>conda create -n drp-env python=3.11
+conda activate drp-env
+pip install "napari[all]"==0.4.18 napari-feature-classifier napari-ome-zarr-navigator napari-feature-visualization</code></pre>
+</div>
+</div>
+<div id="cell-3" class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> operetta_compose <span class="im">as</span> oc</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> napari</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> napari_ome_zarr_navigator</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-4" class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> add_well(zarr_root: <span class="bu">str</span>, row: <span class="bu">str</span>, col: <span class="bu">str</span>, viewer: napari.viewer.Viewer):</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Add a well with labels to the napari viewer</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">    Args:</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">        zarr_root: the base URL of the OME-ZARR</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">        row: the row of the plate to load</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">        col: the column of the plate to load</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">        viewer: an instance of a napari Viewer</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    zarr_url <span class="op">=</span> <span class="bu">str</span>(Path(<span class="ss">f"</span><span class="sc">{</span>zarr_root<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>row<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>col<span class="sc">}</span><span class="ss">/0"</span>).resolve())</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    roi_url, roi_idx <span class="op">=</span> oc.io.get_roi(zarr_url, <span class="st">"well_ROI_table"</span>, level<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    img <span class="op">=</span> oc.io.load_intensity_roi(roi_url, roi_idx)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    labels <span class="op">=</span> oc.io.load_label_roi(roi_url, roi_idx)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    viewer.add_image(img, name<span class="op">=</span><span class="ss">f"</span><span class="sc">{</span>row<span class="sc">}{</span>col<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    label_layer <span class="op">=</span> viewer.add_labels(labels, name<span class="op">=</span><span class="ss">f"</span><span class="sc">{</span>row<span class="sc">}{</span>col<span class="sc">}</span><span class="ss">_label"</span>)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    napari_ome_zarr_navigator.util.add_features_to_labels(zarr_url, label_layer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Start a Napari Viewer and load a predefined well from the OME-Zarr</p>
-<div id="cell-5" class="cell" data-execution_count="29">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>viewer <span class="op">=</span> napari.Viewer()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-6" class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>viewer <span class="op">=</span> napari.Viewer()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-6" class="cell" data-execution_count="30">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>row <span class="op">=</span> <span class="st">"C"</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>col <span class="op">=</span> <span class="st">"3"</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>zarr_root <span class="op">=</span> <span class="st">"../../operetta-compose/tests/test_output/operetta_plate.zarr"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-7" class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>row <span class="op">=</span> <span class="st">"C"</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>col <span class="op">=</span> <span class="st">"3"</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>zarr_root <span class="op">=</span> <span class="st">"../../operetta-compose/tests/test_output/operetta_plate.zarr"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-7" class="cell" data-execution_count="32">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>add_well(zarr_root, row, col, viewer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-8" class="cell" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>add_well(zarr_root, row, col, viewer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><img src="images/napari_segmented_cells.jpg" class="img-fluid"></p>
 <section id="utilities" class="level2">
 <h2 class="anchored" data-anchor-id="utilities">Utilities</h2>
 <section id="inspect-the-classifier" class="level3">
 <h3 class="anchored" data-anchor-id="inspect-the-classifier">Inspect the classifier</h3>
-<div id="cell-10" class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pickle</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"../../operetta-compose/tests/classifier.pkl"</span>, <span class="st">"rb"</span>) <span class="im">as</span> clf_file:</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    classifier <span class="op">=</span> pickle.load(clf_file)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-11" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pickle</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"../../operetta-compose/tests/classifier.pkl"</span>, <span class="st">"rb"</span>) <span class="im">as</span> clf_file:</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    classifier <span class="op">=</span> pickle.load(clf_file)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="inspect-predictions-in-the-regionprops-table" class="level3">
 <h3 class="anchored" data-anchor-id="inspect-predictions-in-the-regionprops-table">Inspect predictions in the regionprops table</h3>
-<div id="cell-12" class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> anndata <span class="im">as</span> ad</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>ad.read_zarr(<span class="ss">f"</span><span class="sc">{</span>zarr_root<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>row<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>col<span class="sc">}</span><span class="ss">/0/tables/regionprops"</span>).obs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-13" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> anndata <span class="im">as</span> ad</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>ad.read_zarr(<span class="ss">f"</span><span class="sc">{</span>zarr_root<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>row<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>col<span class="sc">}</span><span class="ss">/0/tables/regionprops"</span>).obs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="17">
 <div>
 
