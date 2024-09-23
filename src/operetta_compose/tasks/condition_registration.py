@@ -31,18 +31,8 @@ def condition_registration(
     """
     condition_dir = Path(f"{zarr_url}/tables/{condition_name}")
     if (not condition_dir.is_dir()) | overwrite:
-        layout = pd.read_csv(
-            layout_path,
-            sep=None,
-            engine="python",
-            dtype={
-                "row": str,
-                "col": str,
-                "drug": str,
-                "concentration": np.float64,
-                "unit": str,
-            },
-        )
+        layout = pd.read_csv(layout_path, sep=None, engine="python")
+        layout["col"] = layout["col"].astype(str)
         ome_zarr_url = io.parse_zarr_url(zarr_url)
         condition_table = layout.query(
             "row == @ome_zarr_url.row & col == @ome_zarr_url.col"
