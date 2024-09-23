@@ -22,12 +22,15 @@
           "zarr_dir": {
             "title": "Zarr Dir",
             "type": "string",
-            "description": "Path to the new OME-ZARR output directory"
+            "description": "Path to the new OME-ZARR output directory where the zarr plates should be saved. The zarr plates are extracted from the image paths"
           },
-          "img_path": {
-            "title": "Img Path",
-            "type": "string",
-            "description": "Path to the input directory with the image files"
+          "img_paths": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Img Paths",
+            "type": "array",
+            "description": "Paths to the input directories with the image files"
           },
           "overwrite": {
             "default": false,
@@ -51,7 +54,7 @@
         "required": [
           "zarr_urls",
           "zarr_dir",
-          "img_path"
+          "img_paths"
         ],
         "type": "object",
         "title": "HarmonyToOmeZarr"

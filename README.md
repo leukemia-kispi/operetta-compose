@@ -21,7 +21,7 @@ Currently the following tasks are available:
 
 1. Install the package in dev mode with `python -m pip install -e ".[dev]"`
 2. Develop the function according to the [Fractal API](https://fractal-analytics-platform.github.io/version_2/)
-3. Update the image list and the Fractal manifest with `python src/operio_fractal/dev/create_manifest.py`
+3. Update the image list and the Fractal manifest with `python src/operetta_compose/dev/create_manifest.py`
 4. Build a wheel file in the `dist` folder of the package with `python -m build`
 5. Collect the tasks on a Fractal server
 

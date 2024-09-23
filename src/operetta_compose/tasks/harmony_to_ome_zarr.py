@@ -39,7 +39,7 @@ def harmony_to_ome_zarr(
     *,
     zarr_urls: list[str],
     zarr_dir: str,
-    img_path: str,
+    img_paths: list[str],
     overwrite: bool = False,
     coarsening_xy: int = 2,
     compute: bool = True,
@@ -50,8 +50,9 @@ def harmony_to_ome_zarr(
 
     Args:
         zarr_urls: List of zarr urls to be processed (not used by converter task)
-        zarr_dir: Path to the new OME-ZARR output directory
-        img_path: Path to the input directory with the image files
+        zarr_dir: Path to the new OME-ZARR output directory where the zarr plates should be saved.
+            The zarr plates are extracted from the image paths
+        img_paths: Paths to the input directories with the image files
         overwrite: Whether to overwrite any existing OME-ZARR directory
         coarsening_xy: Coarsening factor in XY to use for downsampling when building the pyramids
         compute: Wether to compute a numpy array from the dask array while saving the image to the zarr fileset
@@ -59,14 +60,26 @@ def harmony_to_ome_zarr(
     """
     logging.info(f"{zarr_dir=}")
 
-    zarr_path = Path(zarr_dir)
-    img_path = Path(img_path)
-    df_wells, df_imgs = _parse_harmony_index(img_path)
-    msg = f"Converting Harmony TIFFs from {img_path.parent.name} to OME-ZARR"
-    img_list = _create_ome_zarr(
-        img_path, zarr_path, df_wells, df_imgs, msg, overwrite, coarsening_xy, compute
-    )
-    return img_list
+    image_list_updates = []
+    for img_path in img_paths:
+        img_path = Path(img_path)
+        plate = img_path.parent.name + ".zarr"
+        zarr_path = Path(zarr_dir).joinpath(plate)
+        df_wells, df_imgs = _parse_harmony_index(img_path)
+        msg = f"Converting Harmony TIFFs from {img_path.parent.name} to OME-ZARR"
+        img_list = _create_ome_zarr(
+            img_path,
+            zarr_path,
+            df_wells,
+            df_imgs,
+            msg,
+            overwrite,
+            coarsening_xy,
+            compute,
+        )
+        image_list_updates.extend(img_list)
+
+    return {"image_list_updates": image_list_updates}
 
 
 def _parse_harmony_index(harmony_img_path: Path) -> tuple[pd.DataFrame]:
@@ -402,7 +415,7 @@ def _create_ome_zarr(
         )
         pbar.update()
 
-    return {"image_list_updates": image_list_updates}
+    return image_list_updates
 
 
 if __name__ == "__main__":

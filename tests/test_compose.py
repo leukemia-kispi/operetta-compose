@@ -10,12 +10,14 @@ from operetta_compose.tasks.label_prediction import label_prediction
 from operetta_compose.tasks.condition_registration import condition_registration
 
 TEST_DIR = Path(__file__).resolve().parent
-OUTPUT_PATH = Path(TEST_DIR).joinpath("test_output", "operetta_plate.zarr")
+ZARR_DIR = Path(TEST_DIR).joinpath("test_output")
+PLATE = "operetta_plate"
+PLATE_ZARR = PLATE + ".zarr"
 
 
 @pytest.fixture
 def _make_output_dir():
-    zarr_dir = Path(OUTPUT_PATH)
+    zarr_dir = Path(ZARR_DIR)
     zarr_dir.mkdir(parents=True, exist_ok=True)
 
 
@@ -23,8 +25,8 @@ def _make_output_dir():
 def test_converter(_make_output_dir):
     harmony_to_ome_zarr(
         zarr_urls=[],
-        img_path=str(Path(TEST_DIR).joinpath("operetta_plate", "Images")),
-        zarr_dir=str(OUTPUT_PATH),
+        img_paths=[str(Path(TEST_DIR).joinpath(PLATE, "Images"))],
+        zarr_dir=str(ZARR_DIR),
         overwrite=True,
         compute=True,
     )
@@ -33,7 +35,7 @@ def test_converter(_make_output_dir):
 @pytest.mark.dependency(depends=["test_converter"])
 def test_stardist():
     stardist_segmentation(
-        zarr_url=str(OUTPUT_PATH.joinpath("C", "3", "0")),
+        zarr_url=str(ZARR_DIR.joinpath(PLATE_ZARR, "C", "3", "0")),
         channel=ChannelInputModel(label="Fluorescein (FITC)"),
         roi_table="FOV_ROI_table",
         stardist_model="2D_versatile_fluo",
@@ -49,7 +51,7 @@ def test_stardist():
 @pytest.mark.dependency(depends=["test_converter", "test_stardist"])
 def test_measure():
     regionprops_measurement(
-        zarr_url=str(OUTPUT_PATH.joinpath("C", "3", "0")),
+        zarr_url=str(ZARR_DIR.joinpath(PLATE_ZARR, "C", "3", "0")),
         table_name="regionprops",
         label_name="nuclei",
         level=0,
@@ -61,7 +63,7 @@ def test_measure():
 # @pytest.mark.skip
 def test_predict():
     label_prediction(
-        zarr_url=str(OUTPUT_PATH.joinpath("C", "3", "0")),
+        zarr_url=str(ZARR_DIR.joinpath(PLATE_ZARR, "C", "3", "0")),
         classifier_path=str(Path(TEST_DIR).joinpath("classifier.pkl")),
         table_name="regionprops",
         label_name="nuclei",
@@ -71,7 +73,7 @@ def test_predict():
 @pytest.mark.dependency(depends=["test_converter"])
 def test_register_layout():
     condition_registration(
-        zarr_url=str(OUTPUT_PATH.joinpath("C", "3", "0")),
+        zarr_url=str(ZARR_DIR.joinpath(PLATE_ZARR, "C", "3", "0")),
         layout_path=str(Path(TEST_DIR).joinpath("drug_layout.csv")),
         condition_name="condition",
         overwrite=True,

@@ -52,7 +52,8 @@ def stardist_segmentation(
         overwrite: Whether to overwrite any existing OME-ZARR segmentations
     """
     model_loaded = False
-    while not model_loaded:
+    count = 0
+    while not model_loaded and count < 5:
         try:
             if "3D" in stardist_model:
                 model = StarDist3D.from_pretrained(stardist_model)
@@ -62,6 +63,7 @@ def stardist_segmentation(
                 model_loaded = True
         except:
             time.sleep(random.uniform(2, 7))
+            count += 1
 
     roi = 0
     curr_roi_max = 0
