@@ -18,7 +18,9 @@ Register the experimental (drug layout) in the OME-ZARR
 
 #### Parameters
 
-| Name          | Type   | Description                                                                                         | Default    |
-|---------------|--------|-----------------------------------------------------------------------------------------------------|------------|
-| `zarr_url`    | str    | Path to an OME-ZARR Image                                                                           | _required_ |
-| `layout_path` | str    | Path to a drug layout file (.csv) with at least the columns: row, col, drug, concentration and unit | _required_ |
+| Name             | Type   | Description                                                                                         | Default       |
+|------------------|--------|-----------------------------------------------------------------------------------------------------|---------------|
+| `zarr_url`       | str    | Path to an OME-ZARR Image                                                                           | _required_    |
+| `layout_path`    | str    | Path to a drug layout file (.csv) with at least the columns: row, col, drug, concentration and unit | _required_    |
+| `condition_name` | str    | Name of the condition table                                                                         | `'condition'` |
+| `overwrite`      | bool   | Whether to overwrite any existing OME-ZARR condition table                                          | `False`       |

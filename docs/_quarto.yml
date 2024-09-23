@@ -48,7 +48,9 @@ quartodoc:
     - title: Input/Output
       desc: "OME-ZARR reader and writer functions"
       contents:
+        - io.OmeZarrUrl
         - io.read_ome_zarr
+        - io.parse_zarr_url
         - io.convert_ROI_table_to_indices
         - io.get_roi
         - io.load_intensity_roi
@@ -59,8 +61,6 @@ quartodoc:
     - title: Utils
       desc: "Utility functions"
       contents:
-        - utils.OmeZarrUrl
-        - utils.parse_zarr_url
         - utils.colorbrewer
         - utils.alpha_to_numeric
         - utils.numeric_to_alpha

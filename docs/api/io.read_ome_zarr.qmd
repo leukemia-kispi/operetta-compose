@@ -6,10 +6,9 @@ Read an OME-ZARR fileset
 
 ## Parameters
 
-| Name            | Type               | Description                | Default    |
-|-----------------|--------------------|----------------------------|------------|
-| `zarr_url`      | Union\[str, Path\] | Path to an OME-ZARR        | _required_ |
-| `storage_class` |                    | Type of zarr storage class | _required_ |
+| Name       | Type               | Description         | Default    |
+|------------|--------------------|---------------------|------------|
+| `zarr_url` | Union\[str, Path\] | Path to an OME-ZARR | _required_ |
 
 ## Returns
 

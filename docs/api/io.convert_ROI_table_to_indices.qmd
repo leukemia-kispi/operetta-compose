@@ -12,7 +12,6 @@ Convert physical units in region-of-interest tables (ROI) to indices based on th
 | `pxl_sizes_zyx` |        | Physical size of the zyx pixels in units given defined in multiscales (usually um) | _required_                                                     |
 | `cols_xyz_pos`  |        | Name of columns identifying the xyz positions                                      | `['x_micrometer', 'y_micrometer', 'z_micrometer']`             |
 | `cols_xyz_len`  |        | Name of columns identifying the physical dimensions in xyz                         | `['len_x_micrometer', 'len_y_micrometer', 'len_z_micrometer']` |
-| `reset_origin`  |        | Reset the origin to (0,0,0)                                                        | _required_                                                     |
 
 ## Returns
 

@@ -72,7 +72,6 @@ def read_ome_zarr(zarr_url: Union[str, Path]) -> Node:
 
     Args:
         zarr_url: Path to an OME-ZARR
-        storage_class: Type of zarr storage class
 
     Returns:
         An ome_zarr image node
@@ -103,7 +102,6 @@ def convert_ROI_table_to_indices(
         pxl_sizes_zyx : Physical size of the zyx pixels in units given defined in multiscales (usually um)
         cols_xyz_pos : Name of columns identifying the xyz positions
         cols_xyz_len : Name of columns identifying the physical dimensions in xyz
-        reset_origin : Reset the origin to (0,0,0)
 
     Returns:
         A dictionary with FOV names as keys and a list of starting and end pixel indices as [s_z, e_z, s_y, e_y, s_x, e_x].
@@ -264,7 +262,6 @@ def labels_to_ome_zarr(
         labels: Labels array
         zarr_url: Path to the OME-ZARR
         name: Name of the labels folder
-        overwrite: Whether to overwrite any existing labels
     """
     field_group = zarr.group(parse_url(f"{zarr_url}", mode="w").store)
     ds = load_NgffImageMeta(f"{zarr_url}").datasets
@@ -314,7 +311,6 @@ def features_to_ome_zarr(
         zarr_url: Path to the OME-ZARR
         table_name: Folder name of the measured regionprobs features
         label_name: Name of the labels to use for feature measurements
-        overwrite: Whether to overwrite any existing features
     """
     ome_zarr_url = parse_zarr_url(zarr_url)
     label = feature_table.pop("label")

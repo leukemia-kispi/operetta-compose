@@ -6,9 +6,8 @@ Save labels to the OME-ZARR fileset
 
 ## Parameters
 
-| Name        | Type                          | Description                              | Default    |
-|-------------|-------------------------------|------------------------------------------|------------|
-| `labels`    | Union\[np.ndarray, da.Array\] | Labels array                             | _required_ |
-| `zarr_url`  | Union\[str, Path\]            | Path to the OME-ZARR                     | _required_ |
-| `name`      | str                           | Name of the labels folder                | `'nuclei'` |
-| `overwrite` |                               | Whether to overwrite any existing labels | _required_ |
+| Name       | Type                          | Description               | Default    |
+|------------|-------------------------------|---------------------------|------------|
+| `labels`   | Union\[np.ndarray, da.Array\] | Labels array              | _required_ |
+| `zarr_url` | str                           | Path to the OME-ZARR      | _required_ |
+| `name`     | str                           | Name of the labels folder | `'nuclei'` |

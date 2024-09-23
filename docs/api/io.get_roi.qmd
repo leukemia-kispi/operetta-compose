@@ -6,11 +6,11 @@ Get the zarr path and pixel indices for the selected well at a given resolution 
 
 ## Parameters
 
-| Name        | Type               | Description                                                       | Default    |
-|-------------|--------------------|-------------------------------------------------------------------|------------|
-| `zarr_url`  | Union\[str, Path\] | Path to the OME-ZARR                                              | _required_ |
-| `roi_table` | str                | Name of the ROI table                                             | _required_ |
-| `level`     | int                | Resolution level (0 = original, not downsampled resolution level) | `0`        |
+| Name        | Type   | Description                                                       | Default    |
+|-------------|--------|-------------------------------------------------------------------|------------|
+| `zarr_url`  | str    | Path to the OME-ZARR                                              | _required_ |
+| `roi_table` | str    | Name of the ROI table                                             | _required_ |
+| `level`     | int    | Resolution level (0 = original, not downsampled resolution level) | `0`        |
 
 ## Returns
 

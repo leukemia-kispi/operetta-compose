@@ -6,8 +6,8 @@ Save experimental conditions (drug, concentration, etc.) to the OME-ZARR fileset
 
 ## Parameters
 
-| Name              | Type               | Description                                     | Default       |
-|-------------------|--------------------|-------------------------------------------------|---------------|
-| `zarr_url`        | Union\[str, Path\] | Path to an OME-ZARR                             | _required_    |
-| `condition_table` | pd.DataFrame       | Dataframe with experimental conditions          | _required_    |
-| `condition_name`  | str                | Folder name of the experimental condition table | `'condition'` |
+| Name              | Type         | Description                                     | Default       |
+|-------------------|--------------|-------------------------------------------------|---------------|
+| `zarr_url`        | str          | Path to an OME-ZARR                             | _required_    |
+| `condition_table` | pd.DataFrame | Dataframe with experimental conditions          | _required_    |
+| `condition_name`  | str          | Folder name of the experimental condition table | `'condition'` |

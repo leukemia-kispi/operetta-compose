@@ -40,9 +40,8 @@ def stardist_segmentation(
 
     Args:
         zarr_url: Path to an OME-ZARR Image
-        roi_table: Name of the ROI table
-        roi:  Index of the ROI in the selected well
         channel: Channel for segmentation; requires either `wavelength_id` (e.g. `A01_C01`) or `label` (e.g. `DAPI`) but not both
+        roi_table: Name of the ROI table
         stardist_model: Name of the Stardist model ("2D_versatile_fluo", "2D_versatile_he", "2D_demo", "3D_demo")
         label_name: Name of the labels folder
         prob_thresh: prob_thresh: Only consider objects with predicted object probability above this threshold
