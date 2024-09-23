@@ -370,7 +370,8 @@ def condition_to_ome_zarr(
         condition_name: Folder name of the experimental condition table
     """
     condition_table.index = condition_table.index.map(str)
-    ad_condition = ad.AnnData(X=condition_table.astype(str))
+    ad_condition = ad.AnnData(X=np.empty((condition_table.shape[0], 0)))
+    ad_condition.obs = condition_table
     ad_condition.write_zarr(f"{zarr_url}/tables/{condition_name}")
     table_group = zarr.group(parse_url(f"{zarr_url}/tables", mode="w").store)
     if condition_name not in table_group.attrs["tables"]:
