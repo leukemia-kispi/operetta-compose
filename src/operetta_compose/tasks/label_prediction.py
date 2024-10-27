@@ -33,7 +33,7 @@ def label_prediction(
         label_name: Name of the labels to use for feature measurements
     """
     with open(classifier_path, "rb") as f:
-        clf = pickle.load(f)
+        clf = pd.read_pickle(f)
 
     try:
         ann_tbl = ad.read_zarr(f"{zarr_url}/tables/{table_name}")
