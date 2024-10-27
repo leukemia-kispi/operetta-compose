@@ -171,15 +171,15 @@ ul.task-list li input[type="checkbox"] {
 </table>
 <section id="operetta_compose.tasks.harmony_to_ome_zarr.harmony_to_ome_zarr" class="level3">
 <h3 class="anchored" data-anchor-id="operetta_compose.tasks.harmony_to_ome_zarr.harmony_to_ome_zarr">harmony_to_ome_zarr</h3>
-<p><code>tasks.harmony_to_ome_zarr.harmony_to_ome_zarr(zarr_urls, zarr_dir, img_paths, overwrite=False, coarsening_xy=2, compute=True)</code></p>
+<p><code>tasks.harmony_to_ome_zarr.harmony_to_ome_zarr(zarr_urls, zarr_dir, img_paths, omero_channels, overwrite=False, coarsening_xy=2, compute=True)</code></p>
 <p>Convert TIFFs which were exported from Harmony (Operetta/Opera, Perkin-Elmer) to OME-ZARR</p>
 <section id="parameters" class="level4">
 <h4 class="anchored" data-anchor-id="parameters">Parameters</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 8%">
-<col style="width: 6%">
-<col style="width: 79%">
+<col style="width: 11%">
+<col style="width: 74%">
 <col style="width: 5%">
 </colgroup>
 <thead>
@@ -210,18 +210,24 @@ ul.task-list li input[type="checkbox"] {
 <td><em>required</em></td>
 </tr>
 <tr class="even">
+<td><code>omero_channels</code></td>
+<td>list[OmeroNgffChannel]</td>
+<td>List of Omero channels</td>
+<td><em>required</em></td>
+</tr>
+<tr class="odd">
 <td><code>overwrite</code></td>
 <td>bool</td>
 <td>Whether to overwrite any existing OME-ZARR directory</td>
 <td><code>False</code></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>coarsening_xy</code></td>
 <td>int</td>
 <td>Coarsening factor in XY to use for downsampling when building the pyramids</td>
 <td><code>2</code></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>compute</code></td>
 <td>bool</td>
 <td>Wether to compute a numpy array from the dask array while saving the image to the zarr fileset (compute = TRUE is faster given that images fit into memory)</td>

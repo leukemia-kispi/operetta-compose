@@ -2,110 +2,110 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://leukemia-kispi.github.io/operetta-compose/index.html</loc>
-    <lastmod>2024-10-27T15:55:48.659Z</lastmod>
+    <lastmod>2024-10-27T16:07:57.275Z</lastmod>
   </url>
   <url>
     <loc>https://leukemia-kispi.github.io/operetta-compose/api/io.features_to_ome_zarr.html</loc>
-    <lastmod>2024-10-27T15:55:48.651Z</lastmod>
+    <lastmod>2024-10-27T16:07:57.271Z</lastmod>
   </url>
   <url>
     <loc>https://leukemia-kispi.github.io/operetta-compose/api/utils.alpha_to_numeric.html</loc>
-    <lastmod>2024-10-27T15:55:48.655Z</lastmod>
+    <lastmod>2024-10-27T16:07:57.271Z</lastmod>
   </url>
   <url>
     <loc>https://leukemia-kispi.github.io/operetta-compose/api/tasks.harmony_to_ome_zarr.html</loc>
-    <lastmod>2024-10-27T15:55:48.655Z</lastmod>
+    <lastmod>2024-10-27T16:07:57.271Z</lastmod>
   </url>
   <url>
     <loc>https://leukemia-kispi.github.io/operetta-compose/api/io.labels_to_ome_zarr.html</loc>
-    <lastmod>2024-10-27T15:55:48.655Z</lastmod>
+    <lastmod>2024-10-27T16:07:57.271Z</lastmod>
   </url>
   <url>
     <loc>https://leukemia-kispi.github.io/operetta-compose/api/utils.colorbrewer.html</loc>
-    <lastmod>2024-10-27T15:55:48.655Z</lastmod>
+    <lastmod>2024-10-27T16:07:57.271Z</lastmod>
   </url>
   <url>
     <loc>https://leukemia-kispi.github.io/operetta-compose/api/index.html</loc>
-    <lastmod>2024-10-27T15:55:48.651Z</lastmod>
+    <lastmod>2024-10-27T16:07:57.271Z</lastmod>
   </url>
   <url>
     <loc>https://leukemia-kispi.github.io/operetta-compose/api/tasks.label_prediction.html</loc>
-    <lastmod>2024-10-27T15:55:48.655Z</lastmod>
+    <lastmod>2024-10-27T16:07:57.271Z</lastmod>
   </url>
   <url>
     <loc>https://leukemia-kispi.github.io/operetta-compose/api/tasks.regionprops_measurement.html</loc>
-    <lastmod>2024-10-27T15:55:48.655Z</lastmod>
+    <lastmod>2024-10-27T16:07:57.271Z</lastmod>
   </url>
   <url>
     <loc>https://leukemia-kispi.github.io/operetta-compose/api/tasks.harmony_to_ome_zarr.harmony_to_ome_zarr.html</loc>
-    <lastmod>2024-10-27T15:55:48.655Z</lastmod>
+    <lastmod>2024-10-27T16:07:57.271Z</lastmod>
   </url>
   <url>
     <loc>https://leukemia-kispi.github.io/operetta-compose/api/io.load_label_roi.html</loc>
-    <lastmod>2024-10-27T15:55:48.655Z</lastmod>
+    <lastmod>2024-10-27T16:07:57.271Z</lastmod>
   </url>
   <url>
     <loc>https://leukemia-kispi.github.io/operetta-compose/api/tasks.condition_registration.html</loc>
-    <lastmod>2024-10-27T15:55:48.655Z</lastmod>
+    <lastmod>2024-10-27T16:07:57.271Z</lastmod>
   </url>
   <url>
     <loc>https://leukemia-kispi.github.io/operetta-compose/contributing.html</loc>
-    <lastmod>2024-10-27T15:55:48.655Z</lastmod>
+    <lastmod>2024-10-27T16:07:57.271Z</lastmod>
   </url>
   <url>
     <loc>https://leukemia-kispi.github.io/operetta-compose/napari.html</loc>
-    <lastmod>2024-10-27T15:55:48.659Z</lastmod>
+    <lastmod>2024-10-27T16:07:57.279Z</lastmod>
   </url>
   <url>
     <loc>https://leukemia-kispi.github.io/operetta-compose/installation.html</loc>
-    <lastmod>2024-10-27T15:55:48.659Z</lastmod>
+    <lastmod>2024-10-27T16:07:57.275Z</lastmod>
   </url>
   <url>
     <loc>https://leukemia-kispi.github.io/operetta-compose/api/io.parse_zarr_url.html</loc>
-    <lastmod>2024-10-27T15:55:48.655Z</lastmod>
+    <lastmod>2024-10-27T16:07:57.271Z</lastmod>
   </url>
   <url>
     <loc>https://leukemia-kispi.github.io/operetta-compose/api/io.convert_ROI_table_to_indices.html</loc>
-    <lastmod>2024-10-27T15:55:48.651Z</lastmod>
+    <lastmod>2024-10-27T16:07:57.271Z</lastmod>
   </url>
   <url>
     <loc>https://leukemia-kispi.github.io/operetta-compose/api/io.OmeZarrUrl.html</loc>
-    <lastmod>2024-10-27T15:55:48.651Z</lastmod>
+    <lastmod>2024-10-27T16:07:57.271Z</lastmod>
   </url>
   <url>
     <loc>https://leukemia-kispi.github.io/operetta-compose/api/utils.OmeZarrUrl.html</loc>
-    <lastmod>2024-10-27T15:55:48.655Z</lastmod>
+    <lastmod>2024-10-27T16:07:57.271Z</lastmod>
   </url>
   <url>
     <loc>https://leukemia-kispi.github.io/operetta-compose/api/utils.numeric_to_alpha.html</loc>
-    <lastmod>2024-10-27T15:55:48.655Z</lastmod>
+    <lastmod>2024-10-27T16:07:57.271Z</lastmod>
   </url>
   <url>
     <loc>https://leukemia-kispi.github.io/operetta-compose/api/utils.parse_zarr_url.html</loc>
-    <lastmod>2024-10-27T15:55:48.655Z</lastmod>
+    <lastmod>2024-10-27T16:07:57.271Z</lastmod>
   </url>
   <url>
     <loc>https://leukemia-kispi.github.io/operetta-compose/api/tasks.stardist_segmentation.html</loc>
-    <lastmod>2024-10-27T15:55:48.655Z</lastmod>
+    <lastmod>2024-10-27T16:07:57.271Z</lastmod>
   </url>
   <url>
     <loc>https://leukemia-kispi.github.io/operetta-compose/api/io.condition_to_ome_zarr.html</loc>
-    <lastmod>2024-10-27T15:55:48.651Z</lastmod>
+    <lastmod>2024-10-27T16:07:57.271Z</lastmod>
   </url>
   <url>
     <loc>https://leukemia-kispi.github.io/operetta-compose/api/io.load_intensity_roi.html</loc>
-    <lastmod>2024-10-27T15:55:48.655Z</lastmod>
+    <lastmod>2024-10-27T16:07:57.271Z</lastmod>
   </url>
   <url>
     <loc>https://leukemia-kispi.github.io/operetta-compose/api/io.read_ome_zarr.html</loc>
-    <lastmod>2024-10-27T15:55:48.655Z</lastmod>
+    <lastmod>2024-10-27T16:07:57.271Z</lastmod>
   </url>
   <url>
     <loc>https://leukemia-kispi.github.io/operetta-compose/api/io.get_roi.html</loc>
-    <lastmod>2024-10-27T15:55:48.651Z</lastmod>
+    <lastmod>2024-10-27T16:07:57.271Z</lastmod>
   </url>
   <url>
     <loc>https://leukemia-kispi.github.io/operetta-compose/vizarr.html</loc>
-    <lastmod>2024-10-27T15:55:48.659Z</lastmod>
+    <lastmod>2024-10-27T16:07:57.279Z</lastmod>
   </url>
 </urlset>

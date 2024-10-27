@@ -134,7 +134,10 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#operetta_compose.io.OmeZarrUrl" id="toc-operetta_compose.io.OmeZarrUrl" class="nav-link active" data-scroll-target="#operetta_compose.io.OmeZarrUrl">io.OmeZarrUrl</a></li>
+  <li><a href="#operetta_compose.io.OmeZarrUrl" id="toc-operetta_compose.io.OmeZarrUrl" class="nav-link active" data-scroll-target="#operetta_compose.io.OmeZarrUrl">io.OmeZarrUrl</a>
+  <ul class="collapse">
+  <li><a href="#attributes" id="toc-attributes" class="nav-link" data-scroll-target="#attributes">Attributes</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/leukemia-kispi/operetta-compose/edit/main/api/io.OmeZarrUrl.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/leukemia-kispi/operetta-compose/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -147,9 +150,53 @@ ul.task-list li input[type="checkbox"] {
 <section id="operetta_compose.io.OmeZarrUrl" class="level1">
 <h1>io.OmeZarrUrl</h1>
 <p><code>io.OmeZarrUrl()</code></p>
-<p>Model for a ZarrUrl</p>
+<p>Pydantic model for a ZarrUrl</p>
+<section id="attributes" class="level2">
+<h2 class="anchored" data-anchor-id="attributes">Attributes</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 23%">
+<col style="width: 65%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>root</td>
+<td>str</td>
+<td>Root path of the OME-ZARR</td>
+</tr>
+<tr class="even">
+<td>row</td>
+<td>Optional[str]</td>
+<td>Row of the multiwell plate</td>
+</tr>
+<tr class="odd">
+<td>col</td>
+<td>Optional[str]</td>
+<td>Column of the multiwell plate</td>
+</tr>
+<tr class="even">
+<td>well</td>
+<td>Optional[str]</td>
+<td>Well as <row></row></td>
+</tr>
+<tr class="odd">
+<td>image</td>
+<td>Optional[str]</td>
+<td>Image identifier in the OME-ZARR</td>
+</tr>
+</tbody>
+</table>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
