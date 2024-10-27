@@ -9,6 +9,79 @@
         "mem": 4000
       },
       "args_schema_non_parallel": {
+        "$defs": {
+          "OmeroNgffChannel": {
+            "description": "Pydantic model for an Omero channel based on OME-NFGG v0.4",
+            "properties": {
+              "wavelength_id": {
+                "title": "Wavelength Id",
+                "type": "string",
+                "description": "Unique ID for the channel wavelength"
+              },
+              "label": {
+                "title": "Label",
+                "type": "string",
+                "description": "Name of the channel"
+              },
+              "window": {
+                "allOf": [
+                  {
+                    "$ref": "#/$defs/OmeroNgffWindow"
+                  }
+                ],
+                "title": "Window",
+                "description": "Optional `Window` object to set the display settings"
+              },
+              "color": {
+                "title": "Color",
+                "type": "string",
+                "description": "Optional HEX color string of the channel (e.g. 00FFFF)"
+              },
+              "active": {
+                "default": true,
+                "title": "Active",
+                "type": "boolean",
+                "description": "Boolean indicating whether to enable the channel"
+              }
+            },
+            "required": [
+              "wavelength_id"
+            ],
+            "title": "OmeroNgffChannel",
+            "type": "object"
+          },
+          "OmeroNgffWindow": {
+            "description": "Pydantic model for an Omero channel window based on OME-NGFF v0.4.",
+            "properties": {
+              "min": {
+                "title": "Min",
+                "type": "integer",
+                "description": "Minimum intensity, defaults to 0"
+              },
+              "max": {
+                "title": "Max",
+                "type": "integer",
+                "description": "Maximum intensity depending on bit-depth (e.g. 65535 for 16-bit image)"
+              },
+              "start": {
+                "title": "Start",
+                "type": "integer",
+                "description": "Lower bound intensity for visualization"
+              },
+              "end": {
+                "title": "End",
+                "type": "integer",
+                "description": "Upper bound intensity for visualization"
+              }
+            },
+            "required": [
+              "start",
+              "end"
+            ],
+            "title": "OmeroNgffWindow",
+            "type": "object"
+          }
+        },
         "additionalProperties": false,
         "properties": {
           "zarr_urls": {
@@ -32,6 +105,14 @@
             "type": "array",
             "description": "Paths to the input directories with the image files"
           },
+          "omero_channels": {
+            "items": {
+              "$ref": "#/$defs/OmeroNgffChannel"
+            },
+            "title": "Omero Channels",
+            "type": "array",
+            "description": "List of Omero channels"
+          },
           "overwrite": {
             "default": false,
             "title": "Overwrite",
@@ -54,7 +135,8 @@
         "required": [
           "zarr_urls",
           "zarr_dir",
-          "img_paths"
+          "img_paths",
+          "omero_channels"
         ],
         "type": "object",
         "title": "HarmonyToOmeZarr"

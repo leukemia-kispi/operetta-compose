@@ -9,6 +9,8 @@ from operetta_compose.tasks.regionprops_measurement import regionprops_measureme
 from operetta_compose.tasks.label_prediction import label_prediction
 from operetta_compose.tasks.condition_registration import condition_registration
 
+from operetta_compose.io import OmeroNgffChannel, OmeroNgffWindow
+
 TEST_DIR = Path(__file__).resolve().parent
 ZARR_DIR = Path(TEST_DIR).joinpath("test_output")
 PLATE = "operetta_plate"
@@ -25,8 +27,16 @@ def _make_output_dir():
 def test_converter(_make_output_dir):
     harmony_to_ome_zarr(
         zarr_urls=[],
-        img_paths=[str(Path(TEST_DIR).joinpath(PLATE, "Images"))],
         zarr_dir=str(ZARR_DIR),
+        img_paths=[str(Path(TEST_DIR).joinpath(PLATE, "Images"))],
+        omero_channels=[
+            OmeroNgffChannel(
+                wavelength_id="525",
+                label="CyQuant",
+                window=OmeroNgffWindow(start=0, end=20000),
+                color="20adf8",
+            )
+        ],
         overwrite=True,
         compute=True,
     )
@@ -36,7 +46,7 @@ def test_converter(_make_output_dir):
 def test_stardist():
     stardist_segmentation(
         zarr_url=str(ZARR_DIR.joinpath(PLATE_ZARR, "C", "3", "0")),
-        channel=ChannelInputModel(label="Fluorescein (FITC)"),
+        channel=ChannelInputModel(label="CyQuant"),
         roi_table="FOV_ROI_table",
         stardist_model="2D_versatile_fluo",
         label_name="nuclei",

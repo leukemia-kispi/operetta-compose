@@ -21,9 +21,59 @@ from fractal_tasks_core.ngff import load_NgffImageMeta
 COLORS = ["20adf8", "f8ad20", "942094", "00ffff", "ffff00", "ff00ff", "ffffff"]
 
 
-class OmeZarrUrl(BaseModel):
+class OmeroNgffWindow(BaseModel):
     """
-    Model for a ZarrUrl
+    Pydantic model for an Omero channel window based on OME-NGFF v0.4.
+
+    Attributes:
+        min: Minimum intensity, defaults to 0
+        max: Maximum intensity depending on bit-depth (e.g. 65535 for 16-bit image)
+        start: Lower bound intensity for visualization
+        end: Upper bound intensity for visualization
+    """
+
+    min: Optional[int] = None
+    max: Optional[int] = None
+    start: int
+    end: int
+
+
+class OmeroNgffChannel(BaseModel):
+    """Pydantic model for an Omero channel based on OME-NFGG v0.4
+
+    Attributes:
+        wavelength_id: Unique ID for the channel wavelength
+        label: Name of the channel
+        window: Optional `Window` object to set the display settings
+        color: Optional HEX color string of the channel (e.g. 00FFFF)
+        active: Boolean indicating whether to enable the channel
+    """
+
+    wavelength_id: str
+    label: Optional[str] = None
+    window: Optional[OmeroNgffWindow] = None
+    color: Optional[str] = None
+    active: Optional[bool] = True
+
+    def to_dict(self):
+        return {
+            "wavelength_id": self.wavelength_id,
+            "label": self.label,
+            "window": self.window.__dict__,
+            "color": self.color,
+            "active": self.active,
+        }
+
+
+class OmeZarrUrl(BaseModel):
+    """Pydantic model for a ZarrUrl
+
+    Attributes:
+        root: Root path of the OME-ZARR
+        row: Row of the multiwell plate
+        col: Column of the multiwell plate
+        well: Well as <Row><Col> on the the multiwell plate
+        image: Image identifier in the OME-ZARR
     """
 
     root: str
