@@ -17,7 +17,9 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install Jupyter
-        run: pip install jupyter
+        run: |
+          pip install jupyter
+          pip install vizarr
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2

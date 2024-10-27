@@ -25,6 +25,7 @@ import fractal_tasks_core
 
 
 from operetta_compose import io
+from operetta_compose.io import OmeroNgffChannel, OmeroNgffWindow
 from operetta_compose import utils
 
 __OME_NGFF_VERSION__ = fractal_tasks_core.__OME_NGFF_VERSION__
@@ -40,6 +41,7 @@ def harmony_to_ome_zarr(
     zarr_urls: list[str],
     zarr_dir: str,
     img_paths: list[str],
+    omero_channels: list[OmeroNgffChannel],
     overwrite: bool = False,
     coarsening_xy: int = 2,
     compute: bool = True,
@@ -53,6 +55,7 @@ def harmony_to_ome_zarr(
         zarr_dir: Path to the new OME-ZARR output directory where the zarr plates should be saved.
             The zarr plates are extracted from the image paths
         img_paths: Paths to the input directories with the image files
+        omero_channels: List of Omero channels
         overwrite: Whether to overwrite any existing OME-ZARR directory
         coarsening_xy: Coarsening factor in XY to use for downsampling when building the pyramids
         compute: Wether to compute a numpy array from the dask array while saving the image to the zarr fileset
@@ -72,6 +75,7 @@ def harmony_to_ome_zarr(
             zarr_path,
             df_wells,
             df_imgs,
+            omero_channels,
             msg,
             overwrite,
             coarsening_xy,
@@ -185,6 +189,7 @@ def _parse_harmony_index(harmony_img_path: Path) -> tuple[pd.DataFrame]:
             "img_name",
             "ChannelName",
             "MainEmissionWavelength",
+            "MaxIntensity",
         ]
     ]
     return (df_wells, df_imgs)
@@ -195,6 +200,7 @@ def _create_ome_zarr(
     zarr_url: str,
     df_wells: pd.DataFrame,
     df_imgs: pd.DataFrame,
+    omero_channels: list[OmeroNgffChannel],
     msg: str,
     overwrite: bool = False,
     coarsening_xy: int = 2,
@@ -208,6 +214,7 @@ def _create_ome_zarr(
         df_wells : DataFrame with integer columns "row" and "col"
         df_imgs : DataFrame with float columns: "pos_x", "pos_y", "pos_z", "len_x", "len_y", "len_z", "res_x", "res_y", "res_z"
             and integer columns "field", "channel", "timepoint"
+        omero_channels: List of Omero channels
         msg: Message to display in the progress bar
         overwrite: Whether to overwrite any existing OME-ZARR directory
         coarsening_xy: Coarsening factor in XY to use for downsampling when building the pyramids
@@ -381,20 +388,42 @@ def _create_ome_zarr(
                 f"{zarr_url} already contains an OME-ZARR fileset. To ignore the existing dataset set overwrite = True."
             )
 
+        omero_channels_updated = []
+        for channel in df_imgs["channel"].unique():
+            wavelength_id = df_imgs.query(f"channel == {channel}")[
+                "MainEmissionWavelength"
+            ].iloc[0]["#text"]
+            ome_chan = next(
+                (oc for oc in omero_channels if oc.wavelength_id == wavelength_id),
+                OmeroNgffChannel(wavelength_id=wavelength_id),
+            )
+            label = df_imgs.query(f"channel == {channel}")["ChannelName"].iloc[0]
+            color = COLORS[channel - 1] if channel < 6 else COLORS[-1]
+            active = True
+            max_int = int(
+                df_imgs.query(f"channel == {channel}")["MaxIntensity"].iloc[0]
+            )
+            window = {
+                "start": 0,
+                "end": max_int,
+            }
+
+            if ome_chan.label is None:
+                ome_chan.label = label
+            if ome_chan.color is None:
+                ome_chan.color = color
+            if ome_chan.active is None:
+                ome_chan.active = active
+            if ome_chan.window is None:
+                ome_chan.window = OmeroNgffWindow(**window)
+            if ome_chan.window.min is None:
+                ome_chan.window.min = 0
+            if ome_chan.window.max is None:
+                ome_chan.window.max = max_int
+            omero_channels_updated.append(ome_chan.to_dict())
+
         field_group.attrs["omero"] = {
-            "channels": [
-                {
-                    "color": COLORS[channel - 1] if channel < 6 else COLORS[-1],
-                    "label": df_imgs.query(f"channel == {channel}")["ChannelName"].iloc[
-                        0
-                    ],
-                    "wavelength_id": df_imgs.query(f"channel == {channel}")[
-                        "MainEmissionWavelength"
-                    ].iloc[0]["#text"],
-                    "active": True,
-                }
-                for channel in df_imgs["channel"].unique()
-            ],
+            "channels": omero_channels_updated,
             "pixel_size": {
                 "x": df_imgs.iloc[0]["res_x"],
                 "y": df_imgs.iloc[0]["res_y"],
