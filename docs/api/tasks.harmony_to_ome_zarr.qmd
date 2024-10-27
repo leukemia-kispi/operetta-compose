@@ -12,17 +12,18 @@
 
 ### harmony_to_ome_zarr { #operetta_compose.tasks.harmony_to_ome_zarr.harmony_to_ome_zarr }
 
-`tasks.harmony_to_ome_zarr.harmony_to_ome_zarr(zarr_urls, zarr_dir, img_paths, overwrite=False, coarsening_xy=2, compute=True)`
+`tasks.harmony_to_ome_zarr.harmony_to_ome_zarr(zarr_urls, zarr_dir, img_paths, omero_channels, overwrite=False, coarsening_xy=2, compute=True)`
 
 Convert TIFFs which were exported from Harmony (Operetta/Opera, Perkin-Elmer) to OME-ZARR
 
 #### Parameters
 
-| Name            | Type        | Description                                                                                                                                                      | Default    |
-|-----------------|-------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|
-| `zarr_urls`     | list\[str\] | List of zarr urls to be processed (not used by converter task)                                                                                                   | _required_ |
-| `zarr_dir`      | str         | Path to the new OME-ZARR output directory where the zarr plates should be saved. The zarr plates are extracted from the image paths                              | _required_ |
-| `img_paths`     | list\[str\] | Paths to the input directories with the image files                                                                                                              | _required_ |
-| `overwrite`     | bool        | Whether to overwrite any existing OME-ZARR directory                                                                                                             | `False`    |
-| `coarsening_xy` | int         | Coarsening factor in XY to use for downsampling when building the pyramids                                                                                       | `2`        |
-| `compute`       | bool        | Wether to compute a numpy array from the dask array while saving the image to the zarr fileset      (compute = TRUE is faster given that images fit into memory) | `True`     |
+| Name             | Type                     | Description                                                                                                                                                      | Default    |
+|------------------|--------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|
+| `zarr_urls`      | list\[str\]              | List of zarr urls to be processed (not used by converter task)                                                                                                   | _required_ |
+| `zarr_dir`       | str                      | Path to the new OME-ZARR output directory where the zarr plates should be saved. The zarr plates are extracted from the image paths                              | _required_ |
+| `img_paths`      | list\[str\]              | Paths to the input directories with the image files                                                                                                              | _required_ |
+| `omero_channels` | list\[OmeroNgffChannel\] | List of Omero channels                                                                                                                                           | _required_ |
+| `overwrite`      | bool                     | Whether to overwrite any existing OME-ZARR directory                                                                                                             | `False`    |
+| `coarsening_xy`  | int                      | Coarsening factor in XY to use for downsampling when building the pyramids                                                                                       | `2`        |
+| `compute`        | bool                     | Wether to compute a numpy array from the dask array while saving the image to the zarr fileset      (compute = TRUE is faster given that images fit into memory) | `True`     |

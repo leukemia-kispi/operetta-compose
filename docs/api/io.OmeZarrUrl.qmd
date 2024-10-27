@@ -2,4 +2,14 @@
 
 `io.OmeZarrUrl()`
 
-Model for a ZarrUrl
+Pydantic model for a ZarrUrl
+
+## Attributes
+
+| Name   | Type            | Description                                   |
+|--------|-----------------|-----------------------------------------------|
+| root   | str             | Root path of the OME-ZARR                     |
+| row    | Optional\[str\] | Row of the multiwell plate                    |
+| col    | Optional\[str\] | Column of the multiwell plate                 |
+| well   | Optional\[str\] | Well as <Row><Col> on the the multiwell plate |
+| image  | Optional\[str\] | Image identifier in the OME-ZARR              |

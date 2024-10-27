@@ -18,7 +18,7 @@ OME-ZARR reader and writer functions
 
 | | |
 | --- | --- |
-| [io.OmeZarrUrl](io.OmeZarrUrl.qmd#operetta_compose.io.OmeZarrUrl) | Model for a ZarrUrl |
+| [io.OmeZarrUrl](io.OmeZarrUrl.qmd#operetta_compose.io.OmeZarrUrl) | Pydantic model for a ZarrUrl |
 | [io.read_ome_zarr](io.read_ome_zarr.qmd#operetta_compose.io.read_ome_zarr) | Read an OME-ZARR fileset |
 | [io.parse_zarr_url](io.parse_zarr_url.qmd#operetta_compose.io.parse_zarr_url) | Parse the OME-ZARR URL into a dictionary with the root URL, row, column and image |
 | [io.convert_ROI_table_to_indices](io.convert_ROI_table_to_indices.qmd#operetta_compose.io.convert_ROI_table_to_indices) | Convert physical units in region-of-interest tables (ROI) to indices based on the given scale level. |
