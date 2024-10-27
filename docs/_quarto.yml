@@ -20,6 +20,8 @@ website:
         - contributing.qmd
         - text: View in Napari
           href: napari.ipynb
+        - text: View in Vizarr
+          href: vizarr.ipynb
         - api/index.qmd
 
 format:
