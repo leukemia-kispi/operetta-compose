@@ -351,7 +351,7 @@
           "layout_path": {
             "title": "Layout Path",
             "type": "string",
-            "description": "Path to a drug layout file (.csv) with at least the columns: row, col, drug, concentration and unit"
+            "description": "Path to a drug layout file (.csv) with at least the columns: row, col"
           },
           "condition_name": {
             "default": "condition",
@@ -373,7 +373,7 @@
         "type": "object",
         "title": "ConditionRegistration"
       },
-      "docs_info": "## condition_registration\nRegister the experimental (drug layout) in the OME-ZARR\n",
+      "docs_info": "## condition_registration\nRegister the experimental (drug layout) in the OME-ZARR.\nThe table should contain at least the columns `row` and `col` identifying the well.\nIt can have an arbitrary number of additional metadata columns (e.g. drug, concentration, medium, sample).\nDrug combinations can be specified by two entries pointing to the same `row` / `col`\n",
       "docs_link": "https://leukemia-kispi.github.io/operetta-compose/"
     }
   ],

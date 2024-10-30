@@ -21,18 +21,23 @@ def condition_registration(
     condition_name: str = "condition",
     overwrite: bool = False,
 ) -> None:
-    """Register the experimental (drug layout) in the OME-ZARR
+    """Register the experimental (drug layout) in the OME-ZARR.
+    The table should contain at least the columns `row` and `col` identifying the well.
+    It can have an arbitrary number of additional metadata columns (e.g. drug, concentration, medium, sample).
+    Drug combinations can be specified by two entries pointing to the same `row` / `col`
 
     Args:
         zarr_url: Path to an OME-ZARR Image
-        layout_path: Path to a drug layout file (.csv) with at least the columns: row, col, drug, concentration and unit
+        layout_path: Path to a drug layout file (.csv) with at least the columns: row, col
         condition_name: Name of the condition table
         overwrite: Whether to overwrite any existing OME-ZARR condition table
     """
     condition_dir = Path(f"{zarr_url}/tables/{condition_name}")
     if (not condition_dir.is_dir()) | overwrite:
-        layout = pd.read_csv(layout_path, sep=None, engine="python")
-        layout["col"] = layout["col"].astype(str)
+        layout = pd.read_csv(
+            layout_path, sep=None, engine="python", encoding="utf-8-sig", quotechar='"'
+        )
+        layout["col"] = layout["col"].astype(str).str.replace('"', "", regex=False)
         ome_zarr_url = io.parse_zarr_url(zarr_url)
         condition_table = layout.query(
             "row == @ome_zarr_url.row & col == @ome_zarr_url.col"
