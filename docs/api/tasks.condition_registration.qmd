@@ -8,19 +8,22 @@
 
 | Name | Description |
 | --- | --- |
-| [condition_registration](#operetta_compose.tasks.condition_registration.condition_registration) | Register the experimental (drug layout) in the OME-ZARR |
+| [condition_registration](#operetta_compose.tasks.condition_registration.condition_registration) | Register the experimental (drug layout) in the OME-ZARR. |
 
 ### condition_registration { #operetta_compose.tasks.condition_registration.condition_registration }
 
 `tasks.condition_registration.condition_registration(zarr_url, layout_path, condition_name='condition', overwrite=False)`
 
-Register the experimental (drug layout) in the OME-ZARR
+Register the experimental (drug layout) in the OME-ZARR.
+The table should contain at least the columns `row` and `col` identifying the well.
+It can have an arbitrary number of additional metadata columns (e.g. drug, concentration, medium, sample).
+Drug combinations can be specified by two entries pointing to the same `row` / `col`
 
 #### Parameters
 
-| Name             | Type   | Description                                                                                         | Default       |
-|------------------|--------|-----------------------------------------------------------------------------------------------------|---------------|
-| `zarr_url`       | str    | Path to an OME-ZARR Image                                                                           | _required_    |
-| `layout_path`    | str    | Path to a drug layout file (.csv) with at least the columns: row, col, drug, concentration and unit | _required_    |
-| `condition_name` | str    | Name of the condition table                                                                         | `'condition'` |
-| `overwrite`      | bool   | Whether to overwrite any existing OME-ZARR condition table                                          | `False`       |
+| Name             | Type   | Description                                                           | Default       |
+|------------------|--------|-----------------------------------------------------------------------|---------------|
+| `zarr_url`       | str    | Path to an OME-ZARR Image                                             | _required_    |
+| `layout_path`    | str    | Path to a drug layout file (.csv) with at least the columns: row, col | _required_    |
+| `condition_name` | str    | Name of the condition table                                           | `'condition'` |
+| `overwrite`      | bool   | Whether to overwrite any existing OME-ZARR condition table            | `False`       |
