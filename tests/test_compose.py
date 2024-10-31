@@ -1,5 +1,6 @@
 import pytest
 from pathlib import Path
+import zarr
 
 from fractal_tasks_core.channels import ChannelInputModel
 
@@ -21,6 +22,11 @@ PLATE_ZARR = PLATE + ".zarr"
 def _make_output_dir():
     zarr_dir = Path(ZARR_DIR)
     zarr_dir.mkdir(parents=True, exist_ok=True)
+
+
+def _make_test_zarr(zarr_url):
+    table_group = zarr.open(zarr_url, mode="w").require_group("tables")
+    table_group.attrs["tables"] = []
 
 
 @pytest.mark.dependency()
@@ -74,7 +80,7 @@ def test_measure():
 def test_predict():
     label_prediction(
         zarr_url=str(ZARR_DIR.joinpath(PLATE_ZARR, "C", "3", "0")),
-        classifier_path=str(Path(TEST_DIR).joinpath("classifier.pkl")),
+        classifier_path=str(Path(TEST_DIR).joinpath("fixtures", "classifier.pkl")),
         table_name="regionprops",
         label_name="nuclei",
     )
@@ -84,7 +90,20 @@ def test_predict():
 def test_register_layout():
     condition_registration(
         zarr_url=str(ZARR_DIR.joinpath(PLATE_ZARR, "C", "3", "0")),
-        layout_path=str(Path(TEST_DIR).joinpath("drug_layout.csv")),
+        layout_path=str(Path(TEST_DIR).joinpath("fixtures", "drug_layout.csv")),
+        condition_name="condition",
+        overwrite=True,
+    )
+
+
+def test_register_layout_utf8_sig():
+    zarr_url = ZARR_DIR.joinpath("test_plate.zarr", "B", "03", "0")
+    _make_test_zarr(zarr_url)
+    condition_registration(
+        zarr_url=str(zarr_url),
+        layout_path=str(
+            Path(TEST_DIR).joinpath("fixtures", "drug_layout_utf8-dom.csv")
+        ),
         condition_name="condition",
         overwrite=True,
     )
