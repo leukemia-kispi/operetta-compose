@@ -165,22 +165,22 @@ ul.task-list li input[type="checkbox"] {
 <tbody>
 <tr class="odd">
 <td><a href="#operetta_compose.tasks.condition_registration.condition_registration">condition_registration</a></td>
-<td>Register the experimental (drug layout) in the OME-ZARR</td>
+<td>Register the experimental (drug layout) in the OME-ZARR.</td>
 </tr>
 </tbody>
 </table>
 <section id="operetta_compose.tasks.condition_registration.condition_registration" class="level3">
 <h3 class="anchored" data-anchor-id="operetta_compose.tasks.condition_registration.condition_registration">condition_registration</h3>
 <p><code>tasks.condition_registration.condition_registration(zarr_url, layout_path, condition_name='condition', overwrite=False)</code></p>
-<p>Register the experimental (drug layout) in the OME-ZARR</p>
+<p>Register the experimental (drug layout) in the OME-ZARR. The table should contain at least the columns <code>row</code> and <code>col</code> identifying the well. It can have an arbitrary number of additional metadata columns (e.g.&nbsp;drug, concentration, medium, sample). Drug combinations can be specified by two entries pointing to the same <code>row</code> / <code>col</code></p>
 <section id="parameters" class="level4">
 <h4 class="anchored" data-anchor-id="parameters">Parameters</h4>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 12%">
-<col style="width: 5%">
-<col style="width: 71%">
-<col style="width: 10%">
+<col style="width: 16%">
+<col style="width: 7%">
+<col style="width: 63%">
+<col style="width: 13%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -200,7 +200,7 @@ ul.task-list li input[type="checkbox"] {
 <tr class="even">
 <td><code>layout_path</code></td>
 <td>str</td>
-<td>Path to a drug layout file (.csv) with at least the columns: row, col, drug, concentration and unit</td>
+<td>Path to a drug layout file (.csv) with at least the columns: row, col</td>
 <td><em>required</em></td>
 </tr>
 <tr class="odd">
