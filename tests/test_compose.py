@@ -7,7 +7,7 @@ from fractal_tasks_core.channels import ChannelInputModel
 from operetta_compose.tasks.harmony_to_ome_zarr import harmony_to_ome_zarr
 from operetta_compose.tasks.stardist_segmentation import stardist_segmentation
 from operetta_compose.tasks.regionprops_measurement import regionprops_measurement
-from operetta_compose.tasks.label_prediction import label_prediction
+from operetta_compose.tasks.feature_classification import feature_classification
 from operetta_compose.tasks.condition_registration import condition_registration
 
 from operetta_compose.io import OmeroNgffChannel, OmeroNgffWindow
@@ -78,7 +78,7 @@ def test_measure():
 @pytest.mark.dependency(depends=["test_converter", "test_stardist", "test_measure"])
 # @pytest.mark.skip
 def test_predict():
-    label_prediction(
+    feature_classification(
         zarr_url=str(ZARR_DIR.joinpath(PLATE_ZARR, "C", "3", "0")),
         classifier_path=str(Path(TEST_DIR).joinpath("fixtures", "classifier.pkl")),
         table_name="regionprops",

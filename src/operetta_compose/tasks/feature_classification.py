@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 
 
 @validate_call
-def label_prediction(
+def feature_classification(
     *,
     zarr_url: str,
     classifier_path: str,
@@ -60,6 +60,6 @@ if __name__ == "__main__":
     from fractal_tasks_core.tasks._utils import run_fractal_task
 
     run_fractal_task(
-        task_function=label_prediction,
+        task_function=feature_classification,
         logger_name=logger.name,
     )

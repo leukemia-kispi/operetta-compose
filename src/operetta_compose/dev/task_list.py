@@ -17,8 +17,8 @@ TASK_LIST = [
         meta={"cpus_per_task": 1, "mem": 4000},
     ),
     ParallelTask(
-        name="Label prediction",
-        executable="tasks/label_prediction.py",
+        name="Feature classification",
+        executable="tasks/feature_classification.py",
         meta={"cpus_per_task": 1, "mem": 4000},
     ),
     ParallelTask(
