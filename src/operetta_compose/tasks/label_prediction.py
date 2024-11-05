@@ -42,6 +42,10 @@ def label_prediction(
             f"No measurements exist at the specified zarr URL in the table {table_name}."
         )
     features = ann_tbl.to_df()
+    if "roi_id" not in ann_tbl.obs.columns:
+        ann_tbl.obs["roi_id"] = f"{zarr_url}:" + ann_tbl.obs.drop(
+            columns=["label", "prediction"], errors="ignore"
+        ).astype(str).agg(":".join, axis=1)
     features_with_annotations = pd.concat(
         (ann_tbl.obs[["roi_id", "label"]], features), axis=1
     )
