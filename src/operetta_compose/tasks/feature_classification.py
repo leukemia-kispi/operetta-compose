@@ -42,15 +42,18 @@ def feature_classification(
             f"No measurements exist at the specified zarr URL in the table {table_name}."
         )
     features = ann_tbl.to_df()
+    roi_id_cols = ann_tbl.obs.drop(
+        columns=["roi_id", "label", "prediction"], errors="ignore"
+    )
     if "roi_id" not in ann_tbl.obs.columns:
-        ann_tbl.obs["roi_id"] = f"{zarr_url}:" + ann_tbl.obs.drop(
-            columns=["label", "prediction"], errors="ignore"
-        ).astype(str).agg(":".join, axis=1)
+        ann_tbl.obs["roi_id"] = f"{zarr_url}:" + roi_id_cols.astype(str).agg(
+            ":".join, axis=1
+        )
     features_with_annotations = pd.concat(
         (ann_tbl.obs[["roi_id", "label"]], features), axis=1
     )
     predictions = clf.predict(features_with_annotations).reset_index()
-    ann_tbl.obs = predictions
+    ann_tbl.obs = pd.concat((roi_id_cols.reset_index(drop=True), predictions), axis=1)
     ann_tbl.obs_names = ann_tbl.obs.index.map(str)
     ann_tbl.write_zarr(f"{zarr_url}/tables/{table_name}")
     io.write_table_metadata(zarr_url, "feature_table", table_name, label_name)
