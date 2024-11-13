@@ -45,7 +45,7 @@ quartodoc:
         - tasks.harmony_to_ome_zarr
         - tasks.stardist_segmentation
         - tasks.regionprops_measurement
-        - tasks.label_prediction
+        - tasks.feature_classification
         - tasks.condition_registration
     - title: Input/Output
       desc: "OME-ZARR reader and writer functions"

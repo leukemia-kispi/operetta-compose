@@ -9,7 +9,7 @@ Modular processing tasks for the Opera/Operetta microscope and drug response pro
 | [tasks.harmony_to_ome_zarr](tasks.harmony_to_ome_zarr.qmd#operetta_compose.tasks.harmony_to_ome_zarr) |  |
 | [tasks.stardist_segmentation](tasks.stardist_segmentation.qmd#operetta_compose.tasks.stardist_segmentation) |  |
 | [tasks.regionprops_measurement](tasks.regionprops_measurement.qmd#operetta_compose.tasks.regionprops_measurement) |  |
-| [tasks.label_prediction](tasks.label_prediction.qmd#operetta_compose.tasks.label_prediction) |  |
+| [tasks.feature_classification](tasks.feature_classification.qmd#operetta_compose.tasks.feature_classification) |  |
 | [tasks.condition_registration](tasks.condition_registration.qmd#operetta_compose.tasks.condition_registration) |  |
 
 ## Input/Output

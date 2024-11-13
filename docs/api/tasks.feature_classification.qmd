@@ -1,0 +1,26 @@
+# tasks.feature_classification { #operetta_compose.tasks.feature_classification }
+
+`tasks.feature_classification`
+
+
+
+## Functions
+
+| Name | Description |
+| --- | --- |
+| [feature_classification](#operetta_compose.tasks.feature_classification.feature_classification) | Classify cells using the [napari-feature-classifier](https://github.com/fractal-napari-plugins-collection/napari-feature-classifier) and write them to the OME-ZARR |
+
+### feature_classification { #operetta_compose.tasks.feature_classification.feature_classification }
+
+`tasks.feature_classification.feature_classification(zarr_url, classifier_path, table_name='regionprops', label_name='nuclei')`
+
+Classify cells using the [napari-feature-classifier](https://github.com/fractal-napari-plugins-collection/napari-feature-classifier) and write them to the OME-ZARR
+
+#### Parameters
+
+| Name              | Type   | Description                                        | Default         |
+|-------------------|--------|----------------------------------------------------|-----------------|
+| `zarr_url`        | str    | Path to an OME-ZARR Image                          | _required_      |
+| `classifier_path` | str    | Path to the pickled scikit-learn classifier        | _required_      |
+| `table_name`      | str    | Folder name of the measured regionprobs features   | `'regionprops'` |
+| `label_name`      | str    | Name of the labels to use for feature measurements | `'nuclei'`      |

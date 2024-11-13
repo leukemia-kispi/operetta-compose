@@ -291,8 +291,8 @@
       "docs_link": "https://leukemia-kispi.github.io/operetta-compose/"
     },
     {
-      "name": "Label prediction",
-      "executable_parallel": "tasks/label_prediction.py",
+      "name": "Feature classification",
+      "executable_parallel": "tasks/feature_classification.py",
       "meta_parallel": {
         "cpus_per_task": 1,
         "mem": 4000
@@ -328,9 +328,9 @@
           "classifier_path"
         ],
         "type": "object",
-        "title": "LabelPrediction"
+        "title": "FeatureClassification"
       },
-      "docs_info": "## label_prediction\nMake predictions on the selected wells and write them to the OME-ZARR\n",
+      "docs_info": "## feature_classification\nClassify cells using the [napari-feature-classifier](https://github.com/fractal-napari-plugins-collection/napari-feature-classifier)\nand write them to the OME-ZARR\n",
       "docs_link": "https://leukemia-kispi.github.io/operetta-compose/"
     },
     {
