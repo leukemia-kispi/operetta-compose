@@ -49,6 +49,11 @@ def feature_classification(
         ann_tbl.obs["roi_id"] = f"{zarr_url}:" + roi_id_cols.astype(str).agg(
             ":".join, axis=1
         )
+
+    # Select feature subset in expected order
+    features = features[clf.get_feature_names()]
+
+    # Add index columns
     features_with_annotations = pd.concat(
         (ann_tbl.obs[["roi_id", "label"]], features), axis=1
     )
