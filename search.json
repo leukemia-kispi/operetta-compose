@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Home",
     "section": "",
-    "text": "The operetta-compose package collects Fractal1 tasks to convert and process images from Perkin-Elmer Opera/Operetta high-content microscopes. It includes workflows for drug response profiling built upon the OME-ZARR file standard.\n\nAvailable Fractal Tasks\nCurrently the following tasks are part of operetta-compose\n\n\n\n\n\n\n\nTask\nDescription\n\n\n\n\nharmony_to_ome_zarr\nConvert TIFFs which were exported from Harmony (Operetta/Opera, Perkin-Elmer) to OME-ZARR\n\n\nstardist_segmentation\nSegment cells with Stardist\n\n\nregionprops_measurement\nTake measurements using regionprops and write the features to the OME-ZARR\n\n\nlabel_prediction\nMake predictions on the selected wells and write them to the OME-ZARR\n\n\ncondition_registration\nRegister the experimental conditions in the OME-ZARR\n\n\n\n \n\n1 Fractal is developed by the UZH BioVisionCenter under the lead of @jluethi under contract with eXact lab S.r.l.."
+    "text": "The operetta-compose package collects Fractal1 tasks to convert and process images from Perkin-Elmer Opera/Operetta high-content microscopes. It includes workflows for drug response profiling built upon the OME-ZARR file standard.\n\nAvailable Fractal Tasks\nCurrently the following tasks are part of operetta-compose\n\n\n\nTask\nDescription\n\n\n\n\nharmony_to_ome_zarr\nConvert TIFFs which were exported from Harmony (Operetta/Opera, Perkin-Elmer) to OME-ZARR\n\n\nstardist_segmentation\nSegment cells with Stardist\n\n\nregionprops_measurement\nTake measurements using regionprops and write the features to the OME-ZARR\n\n\nfeature_classification\nClassify cells using the napari-feature-classifier and write them to the OME-ZARR\n\n\ncondition_registration\nRegister the experimental conditions in the OME-ZARR\n\n\n\n \n\n1 Fractal is developed by the UZH BioVisionCenter under the lead of @jluethi under contract with eXact lab S.r.l.."
   },
   {
     "objectID": "api/io.features_to_ome_zarr.html",
@@ -88,14 +88,14 @@
     "href": "api/index.html",
     "title": "API",
     "section": "",
-    "text": "Modular processing tasks for the Opera/Operetta microscope and drug response profiling\n\n\n\ntasks.harmony_to_ome_zarr\n\n\n\ntasks.stardist_segmentation\n\n\n\ntasks.regionprops_measurement\n\n\n\ntasks.label_prediction\n\n\n\ntasks.condition_registration\n\n\n\n\n\n\n\nOME-ZARR reader and writer functions\n\n\n\nio.OmeZarrUrl\nPydantic model for a ZarrUrl\n\n\nio.read_ome_zarr\nRead an OME-ZARR fileset\n\n\nio.parse_zarr_url\nParse the OME-ZARR URL into a dictionary with the root URL, row, column and image\n\n\nio.convert_ROI_table_to_indices\nConvert physical units in region-of-interest tables (ROI) to indices based on the given scale level.\n\n\nio.get_roi\nGet the zarr path and pixel indices for the selected well at a given resolution level\n\n\nio.load_intensity_roi\nLoad the intensity array of the selected ROI\n\n\nio.load_label_roi\nLoad the label array of the selected ROI\n\n\nio.labels_to_ome_zarr\nSave labels to the OME-ZARR fileset\n\n\nio.features_to_ome_zarr\nSave features to the OME-ZARR fileset\n\n\nio.condition_to_ome_zarr\nSave experimental conditions (drug, concentration, etc.) to the OME-ZARR fileset\n\n\n\n\n\n\nUtility functions\n\n\n\nutils.colorbrewer\nGet all colors from a colormap in matplotlib\n\n\nutils.alpha_to_numeric\nReturn the position of a single character in the alphabet\n\n\nutils.numeric_to_alpha\nReturn the upper or lowercase character for a given position in the alphabet"
+    "text": "Modular processing tasks for the Opera/Operetta microscope and drug response profiling\n\n\n\ntasks.harmony_to_ome_zarr\n\n\n\ntasks.stardist_segmentation\n\n\n\ntasks.regionprops_measurement\n\n\n\ntasks.feature_classification\n\n\n\ntasks.condition_registration\n\n\n\n\n\n\n\nOME-ZARR reader and writer functions\n\n\n\nio.OmeZarrUrl\nPydantic model for a ZarrUrl\n\n\nio.read_ome_zarr\nRead an OME-ZARR fileset\n\n\nio.parse_zarr_url\nParse the OME-ZARR URL into a dictionary with the root URL, row, column and image\n\n\nio.convert_ROI_table_to_indices\nConvert physical units in region-of-interest tables (ROI) to indices based on the given scale level.\n\n\nio.get_roi\nGet the zarr path and pixel indices for the selected well at a given resolution level\n\n\nio.load_intensity_roi\nLoad the intensity array of the selected ROI\n\n\nio.load_label_roi\nLoad the label array of the selected ROI\n\n\nio.labels_to_ome_zarr\nSave labels to the OME-ZARR fileset\n\n\nio.features_to_ome_zarr\nSave features to the OME-ZARR fileset\n\n\nio.condition_to_ome_zarr\nSave experimental conditions (drug, concentration, etc.) to the OME-ZARR fileset\n\n\n\n\n\n\nUtility functions\n\n\n\nutils.colorbrewer\nGet all colors from a colormap in matplotlib\n\n\nutils.alpha_to_numeric\nReturn the position of a single character in the alphabet\n\n\nutils.numeric_to_alpha\nReturn the upper or lowercase character for a given position in the alphabet"
   },
   {
     "objectID": "api/index.html#fractal-tasks",
     "href": "api/index.html#fractal-tasks",
     "title": "API",
     "section": "",
-    "text": "Modular processing tasks for the Opera/Operetta microscope and drug response profiling\n\n\n\ntasks.harmony_to_ome_zarr\n\n\n\ntasks.stardist_segmentation\n\n\n\ntasks.regionprops_measurement\n\n\n\ntasks.label_prediction\n\n\n\ntasks.condition_registration"
+    "text": "Modular processing tasks for the Opera/Operetta microscope and drug response profiling\n\n\n\ntasks.harmony_to_ome_zarr\n\n\n\ntasks.stardist_segmentation\n\n\n\ntasks.regionprops_measurement\n\n\n\ntasks.feature_classification\n\n\n\ntasks.condition_registration"
   },
   {
     "objectID": "api/index.html#inputoutput",
@@ -126,116 +126,46 @@
     "text": "Name\nDescription\n\n\n\n\nlabel_prediction\nMake predictions on the selected wells and write them to the OME-ZARR\n\n\n\n\n\ntasks.label_prediction.label_prediction(zarr_url, classifier_path, table_name='regionprops', label_name='nuclei')\nMake predictions on the selected wells and write them to the OME-ZARR\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nzarr_url\nstr\nPath to an OME-ZARR Image\nrequired\n\n\nclassifier_path\nstr\nPath to the pickled scikit-learn classifier\nrequired\n\n\ntable_name\nstr\nFolder name of the measured regionprobs features\n'regionprops'\n\n\nlabel_name\nstr\nName of the labels to use for feature measurements\n'nuclei'"
   },
   {
-    "objectID": "api/tasks.regionprops_measurement.html",
-    "href": "api/tasks.regionprops_measurement.html",
-    "title": "tasks.regionprops_measurement",
+    "objectID": "api/utils.numeric_to_alpha.html",
+    "href": "api/utils.numeric_to_alpha.html",
+    "title": "utils.numeric_to_alpha",
     "section": "",
-    "text": "tasks.regionprops_measurement\n\n\n\n\n\nName\nDescription\n\n\n\n\nfeature_table\nGenerate a regionprobs feature table\n\n\nregionprops_measurement\nTake measurements using regionprobs and write the features to the OME-ZARR\n\n\n\n\n\ntasks.regionprops_measurement.feature_table(labels, img, properties=['label', 'area', 'intensity_mean', 'intensity_max', 'intensity_min', 'eccentricity', 'perimeter', 'centroid', 'solidity'])\nGenerate a regionprobs feature table\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nlabels\nnp.ndarray\nA labels array\nrequired\n\n\nimg\nnp.ndarray\nAn intensity array\nrequired\n\n\nproperties\nlist[str]\nA list of regionprops properties\n['label', 'area', 'intensity_mean', 'intensity_max', 'intensity_min', 'eccentricity', 'perimeter', 'centroid', 'solidity']\n\n\n\n\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npd.DataFrame\nA feature dataframe including a column with the label index\n\n\n\n\n\n\n\ntasks.regionprops_measurement.regionprops_measurement(zarr_url, table_name='regionprops', label_name='nuclei', level=0, overwrite=False)\nTake measurements using regionprobs and write the features to the OME-ZARR\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nzarr_url\nstr\nPath to an OME-ZARR Image\nrequired\n\n\ntable_name\nstr\nFolder name of the measured regionprobs features\n'regionprops'\n\n\nlabel_name\nstr\nName of the labels to use for feature measurements\n'nuclei'\n\n\nlevel\nint\nResolution level (0 = full resolution)\n0\n\n\noverwrite\nbool\nWhether to overwrite any existing OME-ZARR feature table\nFalse"
+    "text": "utils.numeric_to_alpha(numeric, upper=True)\nReturn the upper or lowercase character for a given position in the alphabet\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nnumeric\nint\nInteger position in the alphabet\nrequired\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nstr\nSingle alphabet character"
   },
   {
-    "objectID": "api/tasks.regionprops_measurement.html#functions",
-    "href": "api/tasks.regionprops_measurement.html#functions",
-    "title": "tasks.regionprops_measurement",
+    "objectID": "api/utils.numeric_to_alpha.html#parameters",
+    "href": "api/utils.numeric_to_alpha.html#parameters",
+    "title": "utils.numeric_to_alpha",
     "section": "",
-    "text": "Name\nDescription\n\n\n\n\nfeature_table\nGenerate a regionprobs feature table\n\n\nregionprops_measurement\nTake measurements using regionprobs and write the features to the OME-ZARR\n\n\n\n\n\ntasks.regionprops_measurement.feature_table(labels, img, properties=['label', 'area', 'intensity_mean', 'intensity_max', 'intensity_min', 'eccentricity', 'perimeter', 'centroid', 'solidity'])\nGenerate a regionprobs feature table\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nlabels\nnp.ndarray\nA labels array\nrequired\n\n\nimg\nnp.ndarray\nAn intensity array\nrequired\n\n\nproperties\nlist[str]\nA list of regionprops properties\n['label', 'area', 'intensity_mean', 'intensity_max', 'intensity_min', 'eccentricity', 'perimeter', 'centroid', 'solidity']\n\n\n\n\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npd.DataFrame\nA feature dataframe including a column with the label index\n\n\n\n\n\n\n\ntasks.regionprops_measurement.regionprops_measurement(zarr_url, table_name='regionprops', label_name='nuclei', level=0, overwrite=False)\nTake measurements using regionprobs and write the features to the OME-ZARR\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nzarr_url\nstr\nPath to an OME-ZARR Image\nrequired\n\n\ntable_name\nstr\nFolder name of the measured regionprobs features\n'regionprops'\n\n\nlabel_name\nstr\nName of the labels to use for feature measurements\n'nuclei'\n\n\nlevel\nint\nResolution level (0 = full resolution)\n0\n\n\noverwrite\nbool\nWhether to overwrite any existing OME-ZARR feature table\nFalse"
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nnumeric\nint\nInteger position in the alphabet\nrequired"
   },
   {
-    "objectID": "api/tasks.harmony_to_ome_zarr.harmony_to_ome_zarr.html",
-    "href": "api/tasks.harmony_to_ome_zarr.harmony_to_ome_zarr.html",
-    "title": "tasks.harmony_to_ome_zarr.harmony_to_ome_zarr",
+    "objectID": "api/utils.numeric_to_alpha.html#returns",
+    "href": "api/utils.numeric_to_alpha.html#returns",
+    "title": "utils.numeric_to_alpha",
     "section": "",
-    "text": "tasks.harmony_to_ome_zarr.harmony_to_ome_zarr(zarr_urls, zarr_dir, img_path, overwrite=False, coarsening_xy=2, compute=True)\nConvert TIFFs which were exported from Harmony (Operetta/Opera, Perkin-Elmer) to OME-ZARR\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nzarr_urls\nlist[str]\nList of zarr urls to be processed (not used by converter task)\nrequired\n\n\nzarr_dir\nstr\nPath to the new OME-ZARR output directory\nrequired\n\n\nimg_path\nstr\nPath to the input directory with the image files\nrequired\n\n\noverwrite\nbool\nWhether to overwrite any existing OME-ZARR directory\nFalse\n\n\ncoarsening_xy\nint\nCoarsening factor in XY to use for downsampling when building the pyramids\n2\n\n\ncompute\nbool\nWether to compute a numpy array from the dask array while saving the image to the zarr fileset (compute = TRUE is faster given that images fit into memory)\nTrue"
+    "text": "Type\nDescription\n\n\n\n\nstr\nSingle alphabet character"
   },
   {
-    "objectID": "api/tasks.harmony_to_ome_zarr.harmony_to_ome_zarr.html#parameters",
-    "href": "api/tasks.harmony_to_ome_zarr.harmony_to_ome_zarr.html#parameters",
-    "title": "tasks.harmony_to_ome_zarr.harmony_to_ome_zarr",
+    "objectID": "api/utils.OmeZarrUrl.html",
+    "href": "api/utils.OmeZarrUrl.html",
+    "title": "utils.OmeZarrUrl",
     "section": "",
-    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nzarr_urls\nlist[str]\nList of zarr urls to be processed (not used by converter task)\nrequired\n\n\nzarr_dir\nstr\nPath to the new OME-ZARR output directory\nrequired\n\n\nimg_path\nstr\nPath to the input directory with the image files\nrequired\n\n\noverwrite\nbool\nWhether to overwrite any existing OME-ZARR directory\nFalse\n\n\ncoarsening_xy\nint\nCoarsening factor in XY to use for downsampling when building the pyramids\n2\n\n\ncompute\nbool\nWether to compute a numpy array from the dask array while saving the image to the zarr fileset (compute = TRUE is faster given that images fit into memory)\nTrue"
+    "text": "utils.OmeZarrUrl\nutils.OmeZarrUrl()\nModel for a ZarrUrl"
   },
   {
-    "objectID": "api/io.load_label_roi.html",
-    "href": "api/io.load_label_roi.html",
-    "title": "io.load_label_roi",
+    "objectID": "api/io.OmeZarrUrl.html",
+    "href": "api/io.OmeZarrUrl.html",
+    "title": "io.OmeZarrUrl",
     "section": "",
-    "text": "io.load_label_roi(roi_url, roi_idx, roi=0, name='nuclei', channel=0, timepoint=0)\nLoad the label array of the selected ROI\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nroi_url\nPath\nzarr url to the selected ROI\nrequired\n\n\nroi_idx\npd.DataFrame\nDataframe with the x/y/z start and end indices\nrequired\n\n\nroi\nint\nROI index in the selected well\n0\n\n\nname\nstr\nName of the labels folder\n'nuclei'\n\n\nchannel\nint\nChannel index\n0\n\n\ntimepoint\nint\nTimepoint index\n0\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nnp.ndarray\nNumpy array with the ROI labels"
+    "text": "io.OmeZarrUrl()\nPydantic model for a ZarrUrl\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nroot\nstr\nRoot path of the OME-ZARR\n\n\nrow\nOptional[str]\nRow of the multiwell plate\n\n\ncol\nOptional[str]\nColumn of the multiwell plate\n\n\nwell\nOptional[str]\nWell as \n\n\nimage\nOptional[str]\nImage identifier in the OME-ZARR"
   },
   {
-    "objectID": "api/io.load_label_roi.html#parameters",
-    "href": "api/io.load_label_roi.html#parameters",
-    "title": "io.load_label_roi",
+    "objectID": "api/io.OmeZarrUrl.html#attributes",
+    "href": "api/io.OmeZarrUrl.html#attributes",
+    "title": "io.OmeZarrUrl",
     "section": "",
-    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nroi_url\nPath\nzarr url to the selected ROI\nrequired\n\n\nroi_idx\npd.DataFrame\nDataframe with the x/y/z start and end indices\nrequired\n\n\nroi\nint\nROI index in the selected well\n0\n\n\nname\nstr\nName of the labels folder\n'nuclei'\n\n\nchannel\nint\nChannel index\n0\n\n\ntimepoint\nint\nTimepoint index\n0"
-  },
-  {
-    "objectID": "api/io.load_label_roi.html#returns",
-    "href": "api/io.load_label_roi.html#returns",
-    "title": "io.load_label_roi",
-    "section": "",
-    "text": "Type\nDescription\n\n\n\n\nnp.ndarray\nNumpy array with the ROI labels"
-  },
-  {
-    "objectID": "api/tasks.condition_registration.html",
-    "href": "api/tasks.condition_registration.html",
-    "title": "tasks.condition_registration",
-    "section": "",
-    "text": "tasks.condition_registration\n\n\n\n\n\nName\nDescription\n\n\n\n\ncondition_registration\nRegister the experimental (drug layout) in the OME-ZARR.\n\n\n\n\n\ntasks.condition_registration.condition_registration(zarr_url, layout_path, condition_name='condition', overwrite=False)\nRegister the experimental (drug layout) in the OME-ZARR. The table should contain at least the columns row and col identifying the well. It can have an arbitrary number of additional metadata columns (e.g. drug, concentration, medium, sample). Drug combinations can be specified by two entries pointing to the same row / col\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nzarr_url\nstr\nPath to an OME-ZARR Image\nrequired\n\n\nlayout_path\nstr\nPath to a drug layout file (.csv) with at least the columns: row, col\nrequired\n\n\ncondition_name\nstr\nName of the condition table\n'condition'\n\n\noverwrite\nbool\nWhether to overwrite any existing OME-ZARR condition table\nFalse"
-  },
-  {
-    "objectID": "api/tasks.condition_registration.html#functions",
-    "href": "api/tasks.condition_registration.html#functions",
-    "title": "tasks.condition_registration",
-    "section": "",
-    "text": "Name\nDescription\n\n\n\n\ncondition_registration\nRegister the experimental (drug layout) in the OME-ZARR.\n\n\n\n\n\ntasks.condition_registration.condition_registration(zarr_url, layout_path, condition_name='condition', overwrite=False)\nRegister the experimental (drug layout) in the OME-ZARR. The table should contain at least the columns row and col identifying the well. It can have an arbitrary number of additional metadata columns (e.g. drug, concentration, medium, sample). Drug combinations can be specified by two entries pointing to the same row / col\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nzarr_url\nstr\nPath to an OME-ZARR Image\nrequired\n\n\nlayout_path\nstr\nPath to a drug layout file (.csv) with at least the columns: row, col\nrequired\n\n\ncondition_name\nstr\nName of the condition table\n'condition'\n\n\noverwrite\nbool\nWhether to overwrite any existing OME-ZARR condition table\nFalse"
-  },
-  {
-    "objectID": "contributing.html",
-    "href": "contributing.html",
-    "title": "Contributing",
-    "section": "",
-    "text": "Package development and installation in Fractal\n\nInstall the package in dev mode with python -m pip install -e \".[dev]\"\nDevelop the function according to the Fractal API\nUpdate the image list and the Fractal manifest with python src/operetta_compose/dev/create_manifest.py\nBuild a wheel file in the dist folder of the package with python -m build\nCollect the tasks on a Fractal server\n\n\n\n\n\n\n\nNote\n\n\n\nAs Fractal task are Python function they can also be execute independently of Fractal e.g. by running\n\nfrom operetta_compose.tasks.harmony_to_ome_zarr import harmony_to_ome_zarr\n\nharmony_to_ome_zarr(\n  img_path=\"operetta_plate/Images\",\n  zarr_dir=\"operetta_plate.zarr\"\n)"
-  },
-  {
-    "objectID": "napari.html",
-    "href": "napari.html",
-    "title": "View OME-ZARR plates in Napari",
-    "section": "",
-    "text": "This tutorial demonstrates how to load data generated with Fractal into Napari using operetta-compose and the ome-zarr-navigator\nimport operetta_compose as oc\nimport napari\nimport napari_ome_zarr_navigator\nfrom pathlib import Path\ndef add_well(zarr_root: str, row: str, col: str, viewer: napari.viewer.Viewer):\n    \"\"\"Add a well with labels to the napari viewer\n\n    Args:\n        zarr_root: the base URL of the OME-ZARR\n        row: the row of the plate to load\n        col: the column of the plate to load\n        viewer: an instance of a napari Viewer\n    \"\"\"\n    zarr_url = str(Path(f\"{zarr_root}/{row}/{col}/0\").resolve())\n    roi_url, roi_idx = oc.io.get_roi(zarr_url, \"well_ROI_table\", level=0)\n    img = oc.io.load_intensity_roi(roi_url, roi_idx)\n    labels = oc.io.load_label_roi(roi_url, roi_idx)\n\n    viewer.add_image(img, name=f\"{row}{col}\")\n    label_layer = viewer.add_labels(labels, name=f\"{row}{col}_label\")\n    napari_ome_zarr_navigator.util.add_features_to_labels(zarr_url, label_layer)\nStart a Napari Viewer and load a predefined well from the OME-Zarr\nviewer = napari.Viewer()\nrow = \"C\"\ncol = \"3\"\nzarr_root = \"../../operetta-compose/tests/test_output/operetta_plate.zarr\"\nadd_well(zarr_root, row, col, viewer)"
-  },
-  {
-    "objectID": "napari.html#utilities",
-    "href": "napari.html#utilities",
-    "title": "View OME-ZARR plates in Napari",
-    "section": "Utilities",
-    "text": "Utilities\n\nInspect the classifier\n\nimport pickle\nwith open(\"../../operetta-compose/tests/classifier.pkl\", \"rb\") as clf_file:\n    classifier = pickle.load(clf_file)\n\n\n\nInspect predictions in the regionprops table\n\nimport anndata as ad\nad.read_zarr(f\"{zarr_root}/{row}/{col}/0/tables/regionprops\").obs\n\n\n\n\n\n\n\n\nroi_id\nlabel\nprediction\n\n\n\n\n0\nC3\n1\n2\n\n\n1\nC3\n2\n2\n\n\n2\nC3\n3\n1\n\n\n3\nC3\n4\n2\n\n\n4\nC3\n5\n1\n\n\n...\n...\n...\n...\n\n\n3630\nC3\n3631\n1\n\n\n3631\nC3\n3632\n2\n\n\n3632\nC3\n3633\n2\n\n\n3633\nC3\n3634\n1\n\n\n3634\nC3\n3635\n1\n\n\n\n\n3635 rows × 3 columns"
-  },
-  {
-    "objectID": "installation.html",
-    "href": "installation.html",
-    "title": "Installation",
-    "section": "",
-    "text": "Standalone installation\nInstall the latest version of operetta-compose from PyPI:\n\npip install operetta-compose\n\n\n\nFractal installation\nFrom a Fractal server collect the package from PyPI with operetta-compose and indicate the desired version number."
-  },
-  {
-    "objectID": "api/io.parse_zarr_url.html",
-    "href": "api/io.parse_zarr_url.html",
-    "title": "io.parse_zarr_url",
-    "section": "",
-    "text": "io.parse_zarr_url(zarr_url)\nParse the OME-ZARR URL into a dictionary with the root URL, row, column and image\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nzarr_url\nstr\nPath to the OME-ZARR\nrequired\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nOmeZarrUrl\nA OmeZarrUrl object"
-  },
-  {
-    "objectID": "api/io.parse_zarr_url.html#parameters",
-    "href": "api/io.parse_zarr_url.html#parameters",
-    "title": "io.parse_zarr_url",
-    "section": "",
-    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nzarr_url\nstr\nPath to the OME-ZARR\nrequired"
-  },
-  {
-    "objectID": "api/io.parse_zarr_url.html#returns",
-    "href": "api/io.parse_zarr_url.html#returns",
-    "title": "io.parse_zarr_url",
-    "section": "",
-    "text": "Type\nDescription\n\n\n\n\nOmeZarrUrl\nA OmeZarrUrl object"
+    "text": "Name\nType\nDescription\n\n\n\n\nroot\nstr\nRoot path of the OME-ZARR\n\n\nrow\nOptional[str]\nRow of the multiwell plate\n\n\ncol\nOptional[str]\nColumn of the multiwell plate\n\n\nwell\nOptional[str]\nWell as \n\n\nimage\nOptional[str]\nImage identifier in the OME-ZARR"
   },
   {
     "objectID": "api/io.convert_ROI_table_to_indices.html",
@@ -266,46 +196,130 @@
     "text": "&gt;&gt;&gt; ROI_table = ad.read_zarr(\"plate.zarr/C/3/0/tables/FOV_ROI_table/\")\n&gt;&gt;&gt; operetta_compose.io.convert_ROI_table_to_indices(ROI_table, [1.0, 1.195, 1.195])"
   },
   {
-    "objectID": "api/io.OmeZarrUrl.html",
-    "href": "api/io.OmeZarrUrl.html",
-    "title": "io.OmeZarrUrl",
+    "objectID": "api/io.parse_zarr_url.html",
+    "href": "api/io.parse_zarr_url.html",
+    "title": "io.parse_zarr_url",
     "section": "",
-    "text": "io.OmeZarrUrl()\nPydantic model for a ZarrUrl\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nroot\nstr\nRoot path of the OME-ZARR\n\n\nrow\nOptional[str]\nRow of the multiwell plate\n\n\ncol\nOptional[str]\nColumn of the multiwell plate\n\n\nwell\nOptional[str]\nWell as \n\n\nimage\nOptional[str]\nImage identifier in the OME-ZARR"
+    "text": "io.parse_zarr_url(zarr_url)\nParse the OME-ZARR URL into a dictionary with the root URL, row, column and image\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nzarr_url\nstr\nPath to the OME-ZARR\nrequired\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nOmeZarrUrl\nA OmeZarrUrl object"
   },
   {
-    "objectID": "api/io.OmeZarrUrl.html#attributes",
-    "href": "api/io.OmeZarrUrl.html#attributes",
-    "title": "io.OmeZarrUrl",
+    "objectID": "api/io.parse_zarr_url.html#parameters",
+    "href": "api/io.parse_zarr_url.html#parameters",
+    "title": "io.parse_zarr_url",
     "section": "",
-    "text": "Name\nType\nDescription\n\n\n\n\nroot\nstr\nRoot path of the OME-ZARR\n\n\nrow\nOptional[str]\nRow of the multiwell plate\n\n\ncol\nOptional[str]\nColumn of the multiwell plate\n\n\nwell\nOptional[str]\nWell as \n\n\nimage\nOptional[str]\nImage identifier in the OME-ZARR"
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nzarr_url\nstr\nPath to the OME-ZARR\nrequired"
   },
   {
-    "objectID": "api/utils.OmeZarrUrl.html",
-    "href": "api/utils.OmeZarrUrl.html",
-    "title": "utils.OmeZarrUrl",
+    "objectID": "api/io.parse_zarr_url.html#returns",
+    "href": "api/io.parse_zarr_url.html#returns",
+    "title": "io.parse_zarr_url",
     "section": "",
-    "text": "utils.OmeZarrUrl\nutils.OmeZarrUrl()\nModel for a ZarrUrl"
+    "text": "Type\nDescription\n\n\n\n\nOmeZarrUrl\nA OmeZarrUrl object"
   },
   {
-    "objectID": "api/utils.numeric_to_alpha.html",
-    "href": "api/utils.numeric_to_alpha.html",
-    "title": "utils.numeric_to_alpha",
+    "objectID": "installation.html",
+    "href": "installation.html",
+    "title": "Installation",
     "section": "",
-    "text": "utils.numeric_to_alpha(numeric, upper=True)\nReturn the upper or lowercase character for a given position in the alphabet\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nnumeric\nint\nInteger position in the alphabet\nrequired\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nstr\nSingle alphabet character"
+    "text": "Standalone installation\nInstall the latest version of operetta-compose from PyPI:\n\npip install operetta-compose\n\n\n\nFractal installation\nFrom a Fractal server collect the package from PyPI with operetta-compose and indicate the desired version number."
   },
   {
-    "objectID": "api/utils.numeric_to_alpha.html#parameters",
-    "href": "api/utils.numeric_to_alpha.html#parameters",
-    "title": "utils.numeric_to_alpha",
+    "objectID": "napari.html",
+    "href": "napari.html",
+    "title": "View OME-ZARR plates in Napari",
     "section": "",
-    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nnumeric\nint\nInteger position in the alphabet\nrequired"
+    "text": "This tutorial demonstrates how to load data generated with Fractal into Napari using operetta-compose and the ome-zarr-navigator\nimport operetta_compose as oc\nimport napari\nimport napari_ome_zarr_navigator\nfrom pathlib import Path\ndef add_well(zarr_root: str, row: str, col: str, viewer: napari.viewer.Viewer):\n    \"\"\"Add a well with labels to the napari viewer\n\n    Args:\n        zarr_root: the base URL of the OME-ZARR\n        row: the row of the plate to load\n        col: the column of the plate to load\n        viewer: an instance of a napari Viewer\n    \"\"\"\n    zarr_url = str(Path(f\"{zarr_root}/{row}/{col}/0\").resolve())\n    roi_url, roi_idx = oc.io.get_roi(zarr_url, \"well_ROI_table\", level=0)\n    img = oc.io.load_intensity_roi(roi_url, roi_idx)\n    labels = oc.io.load_label_roi(roi_url, roi_idx)\n\n    viewer.add_image(img, name=f\"{row}{col}\")\n    label_layer = viewer.add_labels(labels, name=f\"{row}{col}_label\")\n    napari_ome_zarr_navigator.util.add_features_to_labels(zarr_url, label_layer)\nStart a Napari Viewer and load a predefined well from the OME-Zarr\nviewer = napari.Viewer()\nrow = \"C\"\ncol = \"3\"\nzarr_root = \"../../operetta-compose/tests/test_output/operetta_plate.zarr\"\nadd_well(zarr_root, row, col, viewer)"
   },
   {
-    "objectID": "api/utils.numeric_to_alpha.html#returns",
-    "href": "api/utils.numeric_to_alpha.html#returns",
-    "title": "utils.numeric_to_alpha",
+    "objectID": "napari.html#utilities",
+    "href": "napari.html#utilities",
+    "title": "View OME-ZARR plates in Napari",
+    "section": "Utilities",
+    "text": "Utilities\n\nInspect the classifier\n\nimport pickle\nwith open(\"../../operetta-compose/tests/classifier.pkl\", \"rb\") as clf_file:\n    classifier = pickle.load(clf_file)\n\n\n\nInspect predictions in the regionprops table\n\nimport anndata as ad\nad.read_zarr(f\"{zarr_root}/{row}/{col}/0/tables/regionprops\").obs\n\n\n\n\n\n\n\n\nroi_id\nlabel\nprediction\n\n\n\n\n0\nC3\n1\n2\n\n\n1\nC3\n2\n2\n\n\n2\nC3\n3\n1\n\n\n3\nC3\n4\n2\n\n\n4\nC3\n5\n1\n\n\n...\n...\n...\n...\n\n\n3630\nC3\n3631\n1\n\n\n3631\nC3\n3632\n2\n\n\n3632\nC3\n3633\n2\n\n\n3633\nC3\n3634\n1\n\n\n3634\nC3\n3635\n1\n\n\n\n\n3635 rows × 3 columns"
+  },
+  {
+    "objectID": "contributing.html",
+    "href": "contributing.html",
+    "title": "Contributing",
     "section": "",
-    "text": "Type\nDescription\n\n\n\n\nstr\nSingle alphabet character"
+    "text": "Package development and installation in Fractal\n\nInstall the package in dev mode with python -m pip install -e \".[dev]\"\nDevelop the function according to the Fractal API\nUpdate the image list and the Fractal manifest with python src/operetta_compose/dev/create_manifest.py\nBuild a wheel file in the dist folder of the package with python -m build\nCollect the tasks on a Fractal server\n\n\n\n\n\n\n\nNote\n\n\n\nAs Fractal task are Python function they can also be execute independently of Fractal e.g. by running\n\nfrom operetta_compose.tasks.harmony_to_ome_zarr import harmony_to_ome_zarr\n\nharmony_to_ome_zarr(\n  img_path=\"operetta_plate/Images\",\n  zarr_dir=\"operetta_plate.zarr\"\n)\n\n\n\n\n\nUpdating the documentation\n\nMake your changes to the documentation under /docs\nUpdate the function API with quartodoc build\nPreview the documentation with quarto preview"
+  },
+  {
+    "objectID": "api/tasks.condition_registration.html",
+    "href": "api/tasks.condition_registration.html",
+    "title": "tasks.condition_registration",
+    "section": "",
+    "text": "tasks.condition_registration\n\n\n\n\n\nName\nDescription\n\n\n\n\ncondition_registration\nRegister the experimental (drug layout) in the OME-ZARR.\n\n\n\n\n\ntasks.condition_registration.condition_registration(zarr_url, layout_path, condition_name='condition', overwrite=False)\nRegister the experimental (drug layout) in the OME-ZARR. The table should contain at least the columns row and col identifying the well. It can have an arbitrary number of additional metadata columns (e.g. drug, concentration, medium, sample). Drug combinations can be specified by two entries pointing to the same row / col\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nzarr_url\nstr\nPath to an OME-ZARR Image\nrequired\n\n\nlayout_path\nstr\nPath to a drug layout file (.csv) with at least the columns: row, col\nrequired\n\n\ncondition_name\nstr\nName of the condition table\n'condition'\n\n\noverwrite\nbool\nWhether to overwrite any existing OME-ZARR condition table\nFalse"
+  },
+  {
+    "objectID": "api/tasks.condition_registration.html#functions",
+    "href": "api/tasks.condition_registration.html#functions",
+    "title": "tasks.condition_registration",
+    "section": "",
+    "text": "Name\nDescription\n\n\n\n\ncondition_registration\nRegister the experimental (drug layout) in the OME-ZARR.\n\n\n\n\n\ntasks.condition_registration.condition_registration(zarr_url, layout_path, condition_name='condition', overwrite=False)\nRegister the experimental (drug layout) in the OME-ZARR. The table should contain at least the columns row and col identifying the well. It can have an arbitrary number of additional metadata columns (e.g. drug, concentration, medium, sample). Drug combinations can be specified by two entries pointing to the same row / col\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nzarr_url\nstr\nPath to an OME-ZARR Image\nrequired\n\n\nlayout_path\nstr\nPath to a drug layout file (.csv) with at least the columns: row, col\nrequired\n\n\ncondition_name\nstr\nName of the condition table\n'condition'\n\n\noverwrite\nbool\nWhether to overwrite any existing OME-ZARR condition table\nFalse"
+  },
+  {
+    "objectID": "api/io.load_label_roi.html",
+    "href": "api/io.load_label_roi.html",
+    "title": "io.load_label_roi",
+    "section": "",
+    "text": "io.load_label_roi(roi_url, roi_idx, roi=0, name='nuclei', channel=0, timepoint=0)\nLoad the label array of the selected ROI\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nroi_url\nPath\nzarr url to the selected ROI\nrequired\n\n\nroi_idx\npd.DataFrame\nDataframe with the x/y/z start and end indices\nrequired\n\n\nroi\nint\nROI index in the selected well\n0\n\n\nname\nstr\nName of the labels folder\n'nuclei'\n\n\nchannel\nint\nChannel index\n0\n\n\ntimepoint\nint\nTimepoint index\n0\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nnp.ndarray\nNumpy array with the ROI labels"
+  },
+  {
+    "objectID": "api/io.load_label_roi.html#parameters",
+    "href": "api/io.load_label_roi.html#parameters",
+    "title": "io.load_label_roi",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nroi_url\nPath\nzarr url to the selected ROI\nrequired\n\n\nroi_idx\npd.DataFrame\nDataframe with the x/y/z start and end indices\nrequired\n\n\nroi\nint\nROI index in the selected well\n0\n\n\nname\nstr\nName of the labels folder\n'nuclei'\n\n\nchannel\nint\nChannel index\n0\n\n\ntimepoint\nint\nTimepoint index\n0"
+  },
+  {
+    "objectID": "api/io.load_label_roi.html#returns",
+    "href": "api/io.load_label_roi.html#returns",
+    "title": "io.load_label_roi",
+    "section": "",
+    "text": "Type\nDescription\n\n\n\n\nnp.ndarray\nNumpy array with the ROI labels"
+  },
+  {
+    "objectID": "api/tasks.harmony_to_ome_zarr.harmony_to_ome_zarr.html",
+    "href": "api/tasks.harmony_to_ome_zarr.harmony_to_ome_zarr.html",
+    "title": "tasks.harmony_to_ome_zarr.harmony_to_ome_zarr",
+    "section": "",
+    "text": "tasks.harmony_to_ome_zarr.harmony_to_ome_zarr(zarr_urls, zarr_dir, img_path, overwrite=False, coarsening_xy=2, compute=True)\nConvert TIFFs which were exported from Harmony (Operetta/Opera, Perkin-Elmer) to OME-ZARR\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nzarr_urls\nlist[str]\nList of zarr urls to be processed (not used by converter task)\nrequired\n\n\nzarr_dir\nstr\nPath to the new OME-ZARR output directory\nrequired\n\n\nimg_path\nstr\nPath to the input directory with the image files\nrequired\n\n\noverwrite\nbool\nWhether to overwrite any existing OME-ZARR directory\nFalse\n\n\ncoarsening_xy\nint\nCoarsening factor in XY to use for downsampling when building the pyramids\n2\n\n\ncompute\nbool\nWether to compute a numpy array from the dask array while saving the image to the zarr fileset (compute = TRUE is faster given that images fit into memory)\nTrue"
+  },
+  {
+    "objectID": "api/tasks.harmony_to_ome_zarr.harmony_to_ome_zarr.html#parameters",
+    "href": "api/tasks.harmony_to_ome_zarr.harmony_to_ome_zarr.html#parameters",
+    "title": "tasks.harmony_to_ome_zarr.harmony_to_ome_zarr",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nzarr_urls\nlist[str]\nList of zarr urls to be processed (not used by converter task)\nrequired\n\n\nzarr_dir\nstr\nPath to the new OME-ZARR output directory\nrequired\n\n\nimg_path\nstr\nPath to the input directory with the image files\nrequired\n\n\noverwrite\nbool\nWhether to overwrite any existing OME-ZARR directory\nFalse\n\n\ncoarsening_xy\nint\nCoarsening factor in XY to use for downsampling when building the pyramids\n2\n\n\ncompute\nbool\nWether to compute a numpy array from the dask array while saving the image to the zarr fileset (compute = TRUE is faster given that images fit into memory)\nTrue"
+  },
+  {
+    "objectID": "api/tasks.regionprops_measurement.html",
+    "href": "api/tasks.regionprops_measurement.html",
+    "title": "tasks.regionprops_measurement",
+    "section": "",
+    "text": "tasks.regionprops_measurement\n\n\n\n\n\nName\nDescription\n\n\n\n\nfeature_table\nGenerate a regionprobs feature table\n\n\nregionprops_measurement\nTake measurements using regionprobs and write the features to the OME-ZARR\n\n\n\n\n\ntasks.regionprops_measurement.feature_table(labels, img, properties=['label', 'area', 'intensity_mean', 'intensity_max', 'intensity_min', 'eccentricity', 'perimeter', 'centroid', 'solidity'])\nGenerate a regionprobs feature table\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nlabels\nnp.ndarray\nA labels array\nrequired\n\n\nimg\nnp.ndarray\nAn intensity array\nrequired\n\n\nproperties\nlist[str]\nA list of regionprops properties\n['label', 'area', 'intensity_mean', 'intensity_max', 'intensity_min', 'eccentricity', 'perimeter', 'centroid', 'solidity']\n\n\n\n\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npd.DataFrame\nA feature dataframe including a column with the label index\n\n\n\n\n\n\n\ntasks.regionprops_measurement.regionprops_measurement(zarr_url, table_name='regionprops', label_name='nuclei', level=0, overwrite=False)\nTake measurements using regionprobs and write the features to the OME-ZARR\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nzarr_url\nstr\nPath to an OME-ZARR Image\nrequired\n\n\ntable_name\nstr\nFolder name of the measured regionprobs features\n'regionprops'\n\n\nlabel_name\nstr\nName of the labels to use for feature measurements\n'nuclei'\n\n\nlevel\nint\nResolution level (0 = full resolution)\n0\n\n\noverwrite\nbool\nWhether to overwrite any existing OME-ZARR feature table\nFalse"
+  },
+  {
+    "objectID": "api/tasks.regionprops_measurement.html#functions",
+    "href": "api/tasks.regionprops_measurement.html#functions",
+    "title": "tasks.regionprops_measurement",
+    "section": "",
+    "text": "Name\nDescription\n\n\n\n\nfeature_table\nGenerate a regionprobs feature table\n\n\nregionprops_measurement\nTake measurements using regionprobs and write the features to the OME-ZARR\n\n\n\n\n\ntasks.regionprops_measurement.feature_table(labels, img, properties=['label', 'area', 'intensity_mean', 'intensity_max', 'intensity_min', 'eccentricity', 'perimeter', 'centroid', 'solidity'])\nGenerate a regionprobs feature table\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nlabels\nnp.ndarray\nA labels array\nrequired\n\n\nimg\nnp.ndarray\nAn intensity array\nrequired\n\n\nproperties\nlist[str]\nA list of regionprops properties\n['label', 'area', 'intensity_mean', 'intensity_max', 'intensity_min', 'eccentricity', 'perimeter', 'centroid', 'solidity']\n\n\n\n\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npd.DataFrame\nA feature dataframe including a column with the label index\n\n\n\n\n\n\n\ntasks.regionprops_measurement.regionprops_measurement(zarr_url, table_name='regionprops', label_name='nuclei', level=0, overwrite=False)\nTake measurements using regionprobs and write the features to the OME-ZARR\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nzarr_url\nstr\nPath to an OME-ZARR Image\nrequired\n\n\ntable_name\nstr\nFolder name of the measured regionprobs features\n'regionprops'\n\n\nlabel_name\nstr\nName of the labels to use for feature measurements\n'nuclei'\n\n\nlevel\nint\nResolution level (0 = full resolution)\n0\n\n\noverwrite\nbool\nWhether to overwrite any existing OME-ZARR feature table\nFalse"
+  },
+  {
+    "objectID": "api/tasks.feature_classification.html",
+    "href": "api/tasks.feature_classification.html",
+    "title": "tasks.feature_classification",
+    "section": "",
+    "text": "tasks.feature_classification\n\n\n\n\n\nName\nDescription\n\n\n\n\nfeature_classification\nClassify cells using the napari-feature-classifier and write them to the OME-ZARR\n\n\n\n\n\ntasks.feature_classification.feature_classification(zarr_url, classifier_path, table_name='regionprops', label_name='nuclei')\nClassify cells using the napari-feature-classifier and write them to the OME-ZARR\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nzarr_url\nstr\nPath to an OME-ZARR Image\nrequired\n\n\nclassifier_path\nstr\nPath to the pickled scikit-learn classifier\nrequired\n\n\ntable_name\nstr\nFolder name of the measured regionprobs features\n'regionprops'\n\n\nlabel_name\nstr\nName of the labels to use for feature measurements\n'nuclei'"
+  },
+  {
+    "objectID": "api/tasks.feature_classification.html#functions",
+    "href": "api/tasks.feature_classification.html#functions",
+    "title": "tasks.feature_classification",
+    "section": "",
+    "text": "Name\nDescription\n\n\n\n\nfeature_classification\nClassify cells using the napari-feature-classifier and write them to the OME-ZARR\n\n\n\n\n\ntasks.feature_classification.feature_classification(zarr_url, classifier_path, table_name='regionprops', label_name='nuclei')\nClassify cells using the napari-feature-classifier and write them to the OME-ZARR\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nzarr_url\nstr\nPath to an OME-ZARR Image\nrequired\n\n\nclassifier_path\nstr\nPath to the pickled scikit-learn classifier\nrequired\n\n\ntable_name\nstr\nFolder name of the measured regionprobs features\n'regionprops'\n\n\nlabel_name\nstr\nName of the labels to use for feature measurements\n'nuclei'"
   },
   {
     "objectID": "api/utils.parse_zarr_url.html",

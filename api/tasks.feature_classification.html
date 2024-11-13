@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Contributing – operetta-compose</title>
+<title>tasks.feature_classification – operetta-compose</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,60 +20,26 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./images/operetta-compose_logo.png" rel="icon" type="image/png">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../images/operetta-compose_logo.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -103,7 +69,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-fixed">
@@ -113,10 +79,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    <img src="./images/operetta-compose_logo.png" alt="" class="navbar-logo">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../images/operetta-compose_logo.png" alt="" class="navbar-logo">
     </a>
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">operetta-compose</span>
     </a>
   </div>
@@ -127,23 +93,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./installation.html"> 
+    <a class="nav-link" href="../installation.html"> 
 <span class="menu-text">Installation</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./contributing.html" aria-current="page"> 
+    <a class="nav-link" href="../contributing.html"> 
 <span class="menu-text">Contributing</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./napari.html"> 
+    <a class="nav-link" href="../napari.html"> 
 <span class="menu-text">View in Napari</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./vizarr.html"> 
+    <a class="nav-link" href="../vizarr.html"> 
 <span class="menu-text">View in Vizarr</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./api/index.html"> 
+    <a class="nav-link" href="../api/index.html"> 
 <span class="menu-text">API</span></a>
   </li>  
 </ul>
@@ -168,73 +134,94 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#package-development-and-installation-in-fractal" id="toc-package-development-and-installation-in-fractal" class="nav-link active" data-scroll-target="#package-development-and-installation-in-fractal">Package development and installation in Fractal</a></li>
-  <li><a href="#updating-the-documentation" id="toc-updating-the-documentation" class="nav-link" data-scroll-target="#updating-the-documentation">Updating the documentation</a></li>
+  <li><a href="#operetta_compose.tasks.feature_classification" id="toc-operetta_compose.tasks.feature_classification" class="nav-link active" data-scroll-target="#operetta_compose.tasks.feature_classification">tasks.feature_classification</a>
+  <ul class="collapse">
+  <li><a href="#functions" id="toc-functions" class="nav-link" data-scroll-target="#functions">Functions</a>
+  <ul class="collapse">
+  <li><a href="#operetta_compose.tasks.feature_classification.feature_classification" id="toc-operetta_compose.tasks.feature_classification.feature_classification" class="nav-link" data-scroll-target="#operetta_compose.tasks.feature_classification.feature_classification">feature_classification</a></li>
+  </ul></li>
+  </ul></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/leukemia-kispi/operetta-compose/edit/main/contributing.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/leukemia-kispi/operetta-compose/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/leukemia-kispi/operetta-compose/edit/main/api/tasks.feature_classification.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/leukemia-kispi/operetta-compose/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Contributing</h1>
-</div>
 
 
 
-<div class="quarto-title-meta">
+<section id="operetta_compose.tasks.feature_classification" class="level1">
+<h1>tasks.feature_classification</h1>
+<p><code>tasks.feature_classification</code></p>
+<section id="functions" class="level2">
+<h2 class="anchored" data-anchor-id="functions">Functions</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="#operetta_compose.tasks.feature_classification.feature_classification">feature_classification</a></td>
+<td>Classify cells using the <a href="https://github.com/fractal-napari-plugins-collection/napari-feature-classifier">napari-feature-classifier</a> and write them to the OME-ZARR</td>
+</tr>
+</tbody>
+</table>
+<section id="operetta_compose.tasks.feature_classification.feature_classification" class="level3">
+<h3 class="anchored" data-anchor-id="operetta_compose.tasks.feature_classification.feature_classification">feature_classification</h3>
+<p><code>tasks.feature_classification.feature_classification(zarr_url, classifier_path, table_name='regionprops', label_name='nuclei')</code></p>
+<p>Classify cells using the <a href="https://github.com/fractal-napari-plugins-collection/napari-feature-classifier">napari-feature-classifier</a> and write them to the OME-ZARR</p>
+<section id="parameters" class="level4">
+<h4 class="anchored" data-anchor-id="parameters">Parameters</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 19%">
+<col style="width: 8%">
+<col style="width: 54%">
+<col style="width: 17%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>zarr_url</code></td>
+<td>str</td>
+<td>Path to an OME-ZARR Image</td>
+<td><em>required</em></td>
+</tr>
+<tr class="even">
+<td><code>classifier_path</code></td>
+<td>str</td>
+<td>Path to the pickled scikit-learn classifier</td>
+<td><em>required</em></td>
+</tr>
+<tr class="odd">
+<td><code>table_name</code></td>
+<td>str</td>
+<td>Folder name of the measured regionprobs features</td>
+<td><code>'regionprops'</code></td>
+</tr>
+<tr class="even">
+<td><code>label_name</code></td>
+<td>str</td>
+<td>Name of the labels to use for feature measurements</td>
+<td><code>'nuclei'</code></td>
+</tr>
+</tbody>
+</table>
 
-    
-  
-    
-  </div>
-  
 
-
-</header>
-
-
-<section id="package-development-and-installation-in-fractal" class="level3">
-<h3 class="anchored" data-anchor-id="package-development-and-installation-in-fractal">Package development and installation in Fractal</h3>
-<ol type="1">
-<li>Install the package in dev mode with <code>python -m pip install -e ".[dev]"</code></li>
-<li>Develop the function according to the <a href="https://fractal-analytics-platform.github.io/version_2/">Fractal API</a></li>
-<li>Update the image list and the Fractal manifest with <code>python src/operetta_compose/dev/create_manifest.py</code></li>
-<li>Build a wheel file in the <code>dist</code> folder of the package with <code>python -m build</code></li>
-<li>Collect the tasks on a Fractal server</li>
-</ol>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>As Fractal task are Python function they can also be execute independently of Fractal e.g.&nbsp;by running</p>
-<div id="b85f664d" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> operetta_compose.tasks.harmony_to_ome_zarr <span class="im">import</span> harmony_to_ome_zarr</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>harmony_to_ome_zarr(</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  img_path<span class="op">=</span><span class="st">"operetta_plate/Images"</span>,</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  zarr_dir<span class="op">=</span><span class="st">"operetta_plate.zarr"</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-</div>
 </section>
-<section id="updating-the-documentation" class="level3">
-<h3 class="anchored" data-anchor-id="updating-the-documentation">Updating the documentation</h3>
-<ol type="1">
-<li>Make your changes to the documentation under <code>/docs</code></li>
-<li>Update the function API with <code>quartodoc build</code></li>
-<li>Preview the documentation with <code>quarto preview</code></li>
-</ol>
-
-
+</section>
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -666,7 +653,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
 <p>© 2024, DRP-Kispi</p>
-<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/leukemia-kispi/operetta-compose/edit/main/contributing.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/leukemia-kispi/operetta-compose/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/leukemia-kispi/operetta-compose/edit/main/api/tasks.feature_classification.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/leukemia-kispi/operetta-compose/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
