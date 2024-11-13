@@ -24,7 +24,7 @@ def feature_classification(
     table_name: str = "regionprops",
     label_name: str = "nuclei",
 ) -> None:
-    """Make predictions on the selected wells and write them to the OME-ZARR
+    """Classify cells using the [napari-feature-classifier](https://github.com/fractal-napari-plugins-collection/napari-feature-classifier) and write them to the OME-ZARR
 
     Args:
         zarr_url: Path to an OME-ZARR Image

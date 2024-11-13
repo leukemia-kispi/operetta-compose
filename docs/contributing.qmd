@@ -24,5 +24,9 @@ harmony_to_ome_zarr(
   zarr_dir="operetta_plate.zarr"
 )
 ```
-
 :::
+
+### Updating the documentation
+1. Make your changes to the documentation under `/docs`
+2. Update the function API with `quartodoc build`
+3. Preview the documentation with `quarto preview`

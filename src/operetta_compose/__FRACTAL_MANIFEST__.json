@@ -330,7 +330,7 @@
         "type": "object",
         "title": "FeatureClassification"
       },
-      "docs_info": "## feature_classification\nMake predictions on the selected wells and write them to the OME-ZARR\n",
+      "docs_info": "## feature_classification\nClassify cells using the [napari-feature-classifier](https://github.com/fractal-napari-plugins-collection/napari-feature-classifier)\nand write them to the OME-ZARR\n",
       "docs_link": "https://leukemia-kispi.github.io/operetta-compose/"
     },
     {
