@@ -44,6 +44,8 @@ jobs:
       - test-deploy
     permissions:
       id-token: write
+      # This permission allows writing releases
+      contents: write
     environment:
       name: pypi
       url: https://pypi.org/p/operetta-compose
