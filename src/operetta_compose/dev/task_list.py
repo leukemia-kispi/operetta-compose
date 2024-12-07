@@ -20,19 +20,19 @@ TASK_LIST = [
         executable="tasks/regionprops_measurement.py",
         meta={"cpus_per_task": 1, "mem": 4000},
         category="Measurement",
-        tags=["regionprops", "intensity", "morphology"]
+        tags=["regionprops", "intensity", "morphology"],
     ),
     ParallelTask(
         name="Feature classification",
         executable="tasks/feature_classification.py",
         meta={"cpus_per_task": 1, "mem": 4000},
-        tags=["napari feature classifier", "object classification"]
+        tags=["napari feature classifier", "object classification"],
     ),
     ParallelTask(
         name="Condition registration",
         executable="tasks/condition_registration.py",
         meta={"cpus_per_task": 1, "mem": 4000},
         modality="HCS",
-        tags=["Metadata", "Treatment conditions"]
+        tags=["metadata", "well conditions", "perturbation", "treatment"],
     ),
 ]
