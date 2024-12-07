@@ -3,6 +3,13 @@
   "task_list": [
     {
       "name": "Harmony to OME-Zarr",
+      "category": "Conversion",
+      "modality": "HCS",
+      "tags": [
+        "Opera",
+        "Operetta",
+        "Perkin Elmer"
+      ],
       "executable_non_parallel": "tasks/harmony_to_ome_zarr.py",
       "meta_non_parallel": {
         "cpus_per_task": 1,
@@ -146,6 +153,7 @@
     },
     {
       "name": "Stardist segmentation",
+      "category": "Segmentation",
       "executable_parallel": "tasks/stardist_segmentation.py",
       "meta_parallel": {
         "cpus_per_task": 4,
@@ -243,6 +251,12 @@
     },
     {
       "name": "Regionprops measurement",
+      "category": "Measurement",
+      "tags": [
+        "regionprops",
+        "intensity",
+        "morphology"
+      ],
       "executable_parallel": "tasks/regionprops_measurement.py",
       "meta_parallel": {
         "cpus_per_task": 1,
@@ -292,6 +306,10 @@
     },
     {
       "name": "Feature classification",
+      "tags": [
+        "napari feature classifier",
+        "object classification"
+      ],
       "executable_parallel": "tasks/feature_classification.py",
       "meta_parallel": {
         "cpus_per_task": 1,
@@ -330,11 +348,16 @@
         "type": "object",
         "title": "FeatureClassification"
       },
-      "docs_info": "## feature_classification\nClassify cells using the [napari-feature-classifier](https://github.com/fractal-napari-plugins-collection/napari-feature-classifier)\nand write them to the OME-ZARR\n",
+      "docs_info": "## feature_classification\nClassify cells using the [napari-feature-classifier](https://github.com/fractal-napari-plugins-collection/napari-feature-classifier) and write them to the OME-ZARR\n",
       "docs_link": "https://leukemia-kispi.github.io/operetta-compose/"
     },
     {
       "name": "Condition registration",
+      "modality": "HCS",
+      "tags": [
+        "Metadata",
+        "Treatment conditions"
+      ],
       "executable_parallel": "tasks/condition_registration.py",
       "meta_parallel": {
         "cpus_per_task": 1,
@@ -378,5 +401,6 @@
     }
   ],
   "has_args_schemas": true,
-  "args_schema_version": "pydantic_v2"
+  "args_schema_version": "pydantic_v2",
+  "authors": "Fabio Steffen"
 }
