@@ -14,7 +14,7 @@ Currently the following tasks are available:
 | harmony_to_ome_zarr | Convert TIFFs which were exported from Harmony (Operetta/Opera, Perkin-Elmer) to OME-ZARR |
 | stardist_segmentation | Segment cells with Stardist |
 | regionprops_measurement | Take measurements using regionprops and write the features to the OME-ZARR |
-| label_prediction | Make predictions on the selected wells and write them to the OME-ZARR |
+| feature_classification | Make predictions on the selected wells and write them to the OME-ZARR |
 | condition_registration | Register the experimental conditions in the OME-ZARR |
 
 ## Development and installation in Fractal
