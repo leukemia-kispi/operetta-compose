@@ -333,12 +333,6 @@
             "title": "Table Name",
             "type": "string",
             "description": "Folder name of the measured regionprobs features"
-          },
-          "label_name": {
-            "default": "nuclei",
-            "title": "Label Name",
-            "type": "string",
-            "description": "Name of the labels to use for feature measurements"
           }
         },
         "required": [
@@ -355,8 +349,10 @@
       "name": "Condition registration",
       "modality": "HCS",
       "tags": [
-        "Metadata",
-        "Treatment conditions"
+        "metadata",
+        "well conditions",
+        "perturbation",
+        "treatment"
       ],
       "executable_parallel": "tasks/condition_registration.py",
       "meta_parallel": {
