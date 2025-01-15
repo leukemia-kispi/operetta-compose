@@ -82,7 +82,6 @@ def test_predict():
         zarr_url=str(ZARR_DIR.joinpath(PLATE_ZARR, "C", "3", "0")),
         classifier_path=str(Path(TEST_DIR).joinpath("fixtures", "classifier.pkl")),
         table_name="regionprops",
-        label_name="nuclei",
     )
 
 
