@@ -43,10 +43,10 @@ def feature_classification(
         remove_roi_id_column = True
 
     # Select feature subset in expected order
-    features = features[clf.get_feature_names() + index_columns]
+    features_subset = features[clf.get_feature_names() + index_columns]
 
     # Run predictions
-    predictions = clf.predict(features).reset_index()
+    predictions = clf.predict(features_subset).reset_index()
 
     # Fuse into existing feature table
     features_with_predictions = features.merge(
