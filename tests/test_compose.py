@@ -1,6 +1,7 @@
 import pytest
 from pathlib import Path
 import zarr
+import ngio
 
 from fractal_tasks_core.channels import ChannelInputModel
 
@@ -78,12 +79,24 @@ def test_measure():
 @pytest.mark.dependency(depends=["test_converter", "test_stardist", "test_measure"])
 # @pytest.mark.skip
 def test_predict():
+    zarr_url = str(ZARR_DIR.joinpath(PLATE_ZARR, "C", "3", "0"))
+    table_name = "regionprops"
+    img_pre = ngio.NgffImage(zarr_url)
+    table_pre = img_pre.tables.get_table(table_name)
+    initial_shape = table_pre.table.shape
+    target_table_shape = (initial_shape[0], initial_shape[1] + 1)
+
     feature_classification(
-        zarr_url=str(ZARR_DIR.joinpath(PLATE_ZARR, "C", "3", "0")),
+        zarr_url=zarr_url,
         classifier_path=str(Path(TEST_DIR).joinpath("fixtures", "classifier.pkl")),
-        table_name="regionprops",
-        label_name="nuclei",
+        table_name=table_name,
     )
+
+    # Check that the task adds exactly 1 column named prediction to the table
+    img = ngio.NgffImage(zarr_url)
+    new_table = img.tables.get_table(table_name).table
+    assert new_table.shape==target_table_shape
+    assert 'prediction' in new_table.columns
 
 
 @pytest.mark.dependency(depends=["test_converter"])
