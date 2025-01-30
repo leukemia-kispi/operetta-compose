@@ -333,6 +333,11 @@
             "title": "Table Name",
             "type": "string",
             "description": "Folder name of the measured regionprobs features"
+          },
+          "classifier_name": {
+            "title": "Classifier Name",
+            "type": "string",
+            "description": "Name of the classification results to be written to the feature table. It will default to the name of the classifier + \"_prediction\" when left unset."
           }
         },
         "required": [
