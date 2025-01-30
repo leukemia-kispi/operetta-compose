@@ -29,11 +29,26 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Test package
+      - name: Install dependencies
         run: |
           pip install -e .[dev]
           pytest
 
+      - name: Regenerate the manifest
+        run: python src/operetta_compose/dev/create_manifest.py
+
+      - name: Check if manifest has changed
+        run: |
+          if [ -n "$(git diff --exit-code ./src/operetta_compose/__FRACTAL_MANIFEST__.json)" ]; then
+          echo "__FRACTAL_MANIFEST__.json has changed. Please run 'python src/fractal_helper_tasks/dev/create_manifest.py' and commit the changes."
+            exit 1
+          else
+            echo "__FRACTAL_MANIFEST__.json has not changed."
+          fi
+
+      - name: Runt ests
+        run: |
+          pytest
 
 
   pypi-publish:
