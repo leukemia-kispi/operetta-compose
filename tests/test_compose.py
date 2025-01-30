@@ -95,8 +95,24 @@ def test_predict():
     # Check that the task adds exactly 1 column named prediction to the table
     img = ngio.NgffImage(zarr_url)
     new_table = img.tables.get_table(table_name).table
+    assert set(['Viable leukemia cells', 'MSC', 'Dead cells']) == set(new_table["classifier_prediction"].unique())
     assert new_table.shape==target_table_shape
-    assert 'prediction' in new_table.columns
+
+    # Run a second classifier with a defined output name
+    target_table_shape = (initial_shape[0], initial_shape[1] + 2)
+
+    feature_classification(
+        zarr_url=zarr_url,
+        classifier_path=str(Path(TEST_DIR).joinpath("fixtures", "classifier.pkl")),
+        table_name=table_name,
+        classifier_name="cell_classifier_result"
+    )
+
+    # Check that the task adds exactly 1 column named prediction to the table
+    img = ngio.NgffImage(zarr_url)
+    new_table = img.tables.get_table(table_name).table
+    assert set(['Viable leukemia cells', 'MSC', 'Dead cells']) == set(new_table["cell_classifier_result"].unique())
+    assert new_table.shape==target_table_shape
 
 
 @pytest.mark.dependency(depends=["test_converter"])
