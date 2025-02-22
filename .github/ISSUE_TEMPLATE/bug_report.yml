@@ -1,0 +1,12 @@
+name: Bug report
+description: Create a report to help fix the issue
+title: "❗ "
+labels: bug
+
+body:
+    - type: textarea
+      id: description
+      attributes:
+        label: Describe the bug
+        description: A concise summary of the bug and what would actually be expected to happen.
+        placeholder: Please describe the bug.

@@ -1,0 +1,18 @@
+name: Feature request
+description: Suggest an new feature or enhancement
+title: "💡 "
+labels: enhancement
+
+body:
+    - type: textarea
+      id: objective
+      attributes:
+        label: Rational and objective of the new feature
+        description: A concise description *why* the new feature is important and *what* the feature should ideally look like.
+        placeholder: Please describe your request
+    - type: textarea
+      id: implementation
+      attributes:
+        label: Possible implementation steps
+        description: Details about *how* the feature could be implemented.
+        placeholder: Optional
