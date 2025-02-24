@@ -84,7 +84,6 @@ def stardist_segmentation(
 
     labels = np.empty(
         (
-            1,
             roi_idx["e_z"].max(),
             roi_idx["e_y"].max(),
             roi_idx["e_x"].max(),
@@ -108,7 +107,6 @@ def stardist_segmentation(
         roi_labels[roi_labels != 0] += curr_roi_max
 
         labels[
-            channel_idx,
             roi_idx["s_z"].loc[f"{roi}"] : roi_idx["e_z"].loc[f"{roi}"],
             roi_idx["s_y"].loc[f"{roi}"] : roi_idx["e_y"].loc[f"{roi}"],
             roi_idx["s_x"].loc[f"{roi}"] : roi_idx["e_x"].loc[f"{roi}"],
