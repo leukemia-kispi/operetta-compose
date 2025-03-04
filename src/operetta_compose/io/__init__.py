@@ -265,8 +265,6 @@ def load_label_roi(
     roi_idx: pd.DataFrame,
     roi: int = 0,
     name: str = "nuclei",
-    channel: int = 0,
-    timepoint: int = 0,
 ) -> np.ndarray:
     """Load the label array of the selected ROI
 
@@ -288,13 +286,7 @@ def load_label_roi(
         raise FileNotFoundError(
             "No labels exist at the specified zarr URL. Did you run a segmentation?"
         )
-    if label_data_zyx.ndim == 5:
-        label_roi = np.array(
-            label_data_zyx[timepoint, channel, s_z:e_z, s_y:e_y, s_x:e_x]
-        )
-    elif label_data_zyx.ndim == 4:
-        label_roi = np.array(label_data_zyx[channel, s_z:e_z, s_y:e_y, s_x:e_x])
-    elif label_data_zyx.ndim == 3:
+    if label_data_zyx.ndim == 3:
         label_roi = np.array(label_data_zyx[s_z:e_z, s_y:e_y, s_x:e_x])
     else:
         label_roi = np.array(label_data_zyx[s_y:e_y, s_x:e_x])
@@ -315,7 +307,7 @@ def labels_to_ome_zarr(
     """
     field_group = zarr.group(parse_url(f"{zarr_url}", mode="w").store)
     ds = load_NgffImageMeta(f"{zarr_url}").datasets
-    scl_c, scl_z, scl_y, scl_x = ds[0].coordinateTransformations[0].scale
+    scl_z, scl_y, scl_x = ds[0].coordinateTransformations[0].scale[:3]
     coarsening_xy = (
         ds[1].coordinateTransformations[0].scale[-1]
         / ds[0].coordinateTransformations[0].scale[-1]
@@ -325,7 +317,6 @@ def labels_to_ome_zarr(
         group=field_group,
         name=name,
         axes=[
-            {"name": "c", "type": "channel"},
             {"name": "z", "type": "space", "unit": "micrometer"},
             {"name": "y", "type": "space", "unit": "micrometer"},
             {"name": "x", "type": "space", "unit": "micrometer"},
@@ -334,7 +325,6 @@ def labels_to_ome_zarr(
             [
                 {
                     "scale": [
-                        scl_c,
                         scl_z,
                         scl_y * coarsening_xy**level,
                         scl_x * coarsening_xy**level,
