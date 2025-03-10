@@ -307,7 +307,7 @@ def labels_to_ome_zarr(
     """
     field_group = zarr.group(parse_url(f"{zarr_url}", mode="w").store)
     ds = load_NgffImageMeta(f"{zarr_url}").datasets
-    scl_z, scl_y, scl_x = ds[0].coordinateTransformations[0].scale[:3]
+    scl_z, scl_y, scl_x = ds[0].coordinateTransformations[0].scale[-3:]
     coarsening_xy = (
         ds[1].coordinateTransformations[0].scale[-1]
         / ds[0].coordinateTransformations[0].scale[-1]
