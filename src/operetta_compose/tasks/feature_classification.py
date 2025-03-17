@@ -57,7 +57,6 @@ def feature_classification(
 
     # Run predictions & save name of prediction in dataframe
     predictions = clf.predict(features_subset).reset_index()
-    # predictions[classifier_name] = predictions['prediction'].map(lambda x: clf._class_names[x - 1])
     predictions[classifier_name] = predictions['prediction'].map(
         lambda x: clf._class_names[int(x) - 1] if pd.notna(x) else "NaN"
     )
