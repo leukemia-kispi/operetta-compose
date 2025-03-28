@@ -228,9 +228,6 @@ def _create_ome_zarr(
     """
     store = parse_url(zarr_url, mode="w").store
     root = zarr.group(store=store, overwrite=overwrite)
-
-    rows = df_wells["row"].unique()
-    cols = df_wells["col"].unique()
     dataset = 0
 
     unique_wells = df_wells.drop_duplicates()
@@ -445,8 +442,8 @@ def _create_ome_zarr(
     rows, cols = zip(*[well.split("/") for well in actual_wells])
     write_plate_metadata(
         group=root,
-        rows=list(set(rows)),
-        columns=list(set(cols)),
+        rows=list(pd.unique(rows)),
+        columns=list(pd.unique(cols)),
         wells=actual_wells,
         name=zarr_url.name,
         field_count=df_imgs["field"].max(),
