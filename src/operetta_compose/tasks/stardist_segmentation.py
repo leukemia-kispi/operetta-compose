@@ -52,7 +52,7 @@ def stardist_segmentation(
     """
     model_loaded = False
     count = 0
-    while not model_loaded and count < 5:
+    while not model_loaded and count < 10:
         try:
             if "3D" in stardist_model:
                 model = StarDist3D.from_pretrained(stardist_model)
@@ -64,65 +64,68 @@ def stardist_segmentation(
             time.sleep(random.uniform(2, 7))
             count += 1
 
-    roi = 0
-    curr_roi_max = 0
-    roi_url, roi_idx = io.get_roi(zarr_url, roi_table, level)
+    if model_loaded:
+        roi = 0
+        curr_roi_max = 0
+        roi_url, roi_idx = io.get_roi(zarr_url, roi_table, level)
 
-    try:
-        channel_idx = get_channel_from_image_zarr(
-            image_zarr_path=zarr_url,
-            wavelength_id=channel.wavelength_id,
-            label=channel.label,
-        ).index
-    except ChannelNotFoundError as e:
-        logger.warning(
-            f"Channel with wavelength_id: {channel.wavelength_id} "
-            f"and label: {channel.label} not found, exit from the task.\n"
-            f"Original error: {str(e)}"
-        )
-        return None
-
-    labels = np.empty(
-        (
-            roi_idx["e_z"].max(),
-            roi_idx["e_y"].max(),
-            roi_idx["e_x"].max(),
-        ),
-        dtype=np.uint16,
-    )
-    while True:
         try:
-            img = io.load_intensity_roi(roi_url, roi_idx, roi, channel_idx)
-        except KeyError:
-            break
-        if not "3D" in stardist_model:
-            img = img[0]
-        roi_labels, _ = model.predict_instances(
-            normalize(img),
-            prob_thresh=prob_thresh,
-            nms_thresh=nms_thresh,
-            scale=scale,
-        )
-        roi_max = roi_labels.max()
-        roi_labels[roi_labels != 0] += curr_roi_max
+            channel_idx = get_channel_from_image_zarr(
+                image_zarr_path=zarr_url,
+                wavelength_id=channel.wavelength_id,
+                label=channel.label,
+            ).index
+        except ChannelNotFoundError as e:
+            logger.warning(
+                f"Channel with wavelength_id: {channel.wavelength_id} "
+                f"and label: {channel.label} not found, exit from the task.\n"
+                f"Original error: {str(e)}"
+            )
+            return None
 
-        labels[
-            roi_idx["s_z"].loc[f"{roi}"] : roi_idx["e_z"].loc[f"{roi}"],
-            roi_idx["s_y"].loc[f"{roi}"] : roi_idx["e_y"].loc[f"{roi}"],
-            roi_idx["s_x"].loc[f"{roi}"] : roi_idx["e_x"].loc[f"{roi}"],
-        ] = roi_labels
-        roi += 1
-        curr_roi_max += roi_max
-
-    label_dir = Path(f"{zarr_url}/labels")
-    if label_dir.is_dir() & overwrite:
-        shutil.rmtree(label_dir)
-    try:
-        io.labels_to_ome_zarr(labels, zarr_url, label_name)
-    except ContainsArrayError:
-        raise FileExistsError(
-            f"{zarr_url} already contains labels in the OME-ZARR fileset. To ignore the existing dataset set `overwrite = True`."
+        labels = np.empty(
+            (
+                roi_idx["e_z"].max(),
+                roi_idx["e_y"].max(),
+                roi_idx["e_x"].max(),
+            ),
+            dtype=np.uint16,
         )
+        while True:
+            try:
+                img = io.load_intensity_roi(roi_url, roi_idx, roi, channel_idx)
+            except KeyError:
+                break
+            if not "3D" in stardist_model:
+                img = img[0]
+            roi_labels, _ = model.predict_instances(
+                normalize(img),
+                prob_thresh=prob_thresh,
+                nms_thresh=nms_thresh,
+                scale=scale,
+            )
+            roi_max = roi_labels.max()
+            roi_labels[roi_labels != 0] += curr_roi_max
+
+            labels[
+                roi_idx["s_z"].loc[f"{roi}"] : roi_idx["e_z"].loc[f"{roi}"],
+                roi_idx["s_y"].loc[f"{roi}"] : roi_idx["e_y"].loc[f"{roi}"],
+                roi_idx["s_x"].loc[f"{roi}"] : roi_idx["e_x"].loc[f"{roi}"],
+            ] = roi_labels
+            roi += 1
+            curr_roi_max += roi_max
+
+        label_dir = Path(f"{zarr_url}/labels")
+        if label_dir.is_dir() & overwrite:
+            shutil.rmtree(label_dir)
+        try:
+            io.labels_to_ome_zarr(labels, zarr_url, label_name)
+        except ContainsArrayError:
+            raise FileExistsError(
+                f"{zarr_url} already contains labels in the OME-ZARR fileset. To ignore the existing dataset set `overwrite = True`."
+            )
+    else:
+        logger.error("Stardist model did not load after 10 attempts. Exiting task.")
 
 
 if __name__ == "__main__":
