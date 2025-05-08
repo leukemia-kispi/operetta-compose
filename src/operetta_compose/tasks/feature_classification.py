@@ -37,7 +37,17 @@ def feature_classification(
         classifier_name = re.sub(r'[\W]+', '_', classifier_filename) + "_prediction"
 
     with open(classifier_path, "rb") as f:
-        clf = pd.read_pickle(f)
+        try:
+            clf = pd.read_pickle(f)
+        except ModuleNotFoundError as e:
+            raise ModuleNotFoundError(
+                "The classifier was trained with a different classifier "
+                "plugin version (likely napari-feature-classifier >= 0.3.0)."
+                "This version of the operetta-compose task is not compatible "
+                "with that classifier version. Use a newer version like "
+                "operetta-compose 0.2.13."
+                f"Original error: {e}"
+            )
 
     zarr_img = ngio.NgffImage(zarr_url)
     feature_table = zarr_img.tables.get_table(name=table_name)

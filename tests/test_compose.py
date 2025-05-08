@@ -115,6 +115,24 @@ def test_predict():
     assert new_table.shape==target_table_shape
 
 
+@pytest.mark.dependency(depends=["test_converter", "test_stardist", "test_measure"])
+# @pytest.mark.skip
+def test_predict_classifier_version_issue():
+    # Addresses https://github.com/leukemia-kispi/operetta-compose/issues/22
+    zarr_url = str(ZARR_DIR.joinpath(PLATE_ZARR, "C", "3", "0"))
+    table_name = "regionprops"
+
+    with pytest.raises(ModuleNotFoundError) as e:
+        feature_classification(
+            zarr_url=zarr_url,
+            classifier_path=str(Path(TEST_DIR).joinpath("fixtures", "classifier_030.clf")),
+            table_name=table_name,
+        )
+
+    assert "operetta-compose 0.2.13." in str(e.value)
+
+
+
 @pytest.mark.dependency(depends=["test_converter"])
 def test_register_layout():
     condition_registration(
