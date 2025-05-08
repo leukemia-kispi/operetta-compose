@@ -39,13 +39,14 @@ def feature_classification(
     with open(classifier_path, "rb") as f:
         try:
             clf = pd.read_pickle(f)
-        except ModuleNotFoundError as e:
-            raise ModuleNotFoundError(
+        except AttributeError as e:
+            raise AttributeError(
+                "Loading the classifier failed. The most likely reason is: "
                 "The classifier was trained with a different classifier "
-                "plugin version (likely napari-feature-classifier >= 0.3.0)."
+                "plugin version (likely napari-feature-classifier <= 0.2.1)."
                 "This version of the operetta-compose task is not compatible "
-                "with that classifier version. Use a newer version like "
-                "operetta-compose 0.2.13."
+                "with that classifier version. Use an older version like "
+                "operetta-compose 0.2.12."
                 f"Original error: {e}"
             )
 
