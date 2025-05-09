@@ -88,14 +88,15 @@ def test_predict():
 
     feature_classification(
         zarr_url=zarr_url,
-        classifier_path=str(Path(TEST_DIR).joinpath("fixtures", "classifier.pkl")),
+        classifier_path=str(Path(TEST_DIR).joinpath("fixtures", "classifier_030.clf")),
         table_name=table_name,
     )
 
     # Check that the task adds exactly 1 column named prediction to the table
     img = ngio.NgffImage(zarr_url)
     new_table = img.tables.get_table(table_name).table
-    assert set(['Viable leukemia cells', 'MSC', 'Dead cells']) == set(new_table["classifier_prediction"].unique())
+    print(new_table)
+    assert set(['Class_1', 'Class_2']) == set(new_table["classifier_030_prediction"].unique())
     assert new_table.shape==target_table_shape
 
     # Run a second classifier with a defined output name
@@ -103,7 +104,7 @@ def test_predict():
 
     feature_classification(
         zarr_url=zarr_url,
-        classifier_path=str(Path(TEST_DIR).joinpath("fixtures", "classifier.pkl")),
+        classifier_path=str(Path(TEST_DIR).joinpath("fixtures", "classifier_030.clf")),
         table_name=table_name,
         classifier_name="cell_classifier_result"
     )
@@ -111,7 +112,7 @@ def test_predict():
     # Check that the task adds exactly 1 column named prediction to the table
     img = ngio.NgffImage(zarr_url)
     new_table = img.tables.get_table(table_name).table
-    assert set(['Viable leukemia cells', 'MSC', 'Dead cells']) == set(new_table["cell_classifier_result"].unique())
+    assert set(['Class_1', 'Class_2']) == set(new_table["cell_classifier_result"].unique())
     assert new_table.shape==target_table_shape
 
 
@@ -122,14 +123,14 @@ def test_predict_classifier_version_issue():
     zarr_url = str(ZARR_DIR.joinpath(PLATE_ZARR, "C", "3", "0"))
     table_name = "regionprops"
 
-    with pytest.raises(ModuleNotFoundError) as e:
+    with pytest.raises(AttributeError) as e:
         feature_classification(
             zarr_url=zarr_url,
-            classifier_path=str(Path(TEST_DIR).joinpath("fixtures", "classifier_030.clf")),
+            classifier_path=str(Path(TEST_DIR).joinpath("fixtures", "classifier.pkl")),
             table_name=table_name,
         )
 
-    assert "operetta-compose 0.2.13." in str(e.value)
+    assert "operetta-compose 0.2.12." in str(e.value)
 
 
 
