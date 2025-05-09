@@ -23,7 +23,7 @@ dependencies = ["fractal-tasks-core",
                 "tensorflow",
                 "tensorflow-metal ; platform_system == 'Darwin'",
                 "napari-feature-classifier>=0.3.0",
-                "ngio>=0.2.4",
+                "ngio>=0.2.4,<0.3",
                ]
 
 
