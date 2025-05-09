@@ -1,3 +1,4 @@
+import ngio.tables
 import pandas as pd
 import logging
 import ngio
@@ -50,10 +51,16 @@ def feature_classification(
                 f"Original error: {e}"
             )
 
-    zarr_img = ngio.NgffImage(zarr_url)
-    feature_table = zarr_img.tables.get_table(name=table_name)
+    ome_zarr_container = ngio.open_ome_zarr_container(zarr_url)
+    feature_table = ome_zarr_container.get_table(name=table_name, check_type="feature_table")
+    features = feature_table.dataframe
+    features = features.reset_index()
+    if "label" not in features.columns:
+        raise ValueError(
+            "The feature table does not contain a label column. "
+            "Please check the table name and the feature table."
+        )
 
-    features = feature_table.table.reset_index()
     if classifier_name in features.columns:
         features = features.drop(columns=[classifier_name])
 
@@ -82,15 +89,16 @@ def feature_classification(
     if remove_roi_id_column:
         features_with_predictions = features_with_predictions.drop(columns="roi_id")
 
+    new_feature_table = ngio.tables.FeatureTable(
+        dataframe=features_with_predictions,
+        reference_label=feature_table.reference_label
+    )
     # Write the table to disk again
-    new_table = zarr_img.tables.new(
+    ome_zarr_container.add_table(
         name=table_name,
-        table_type="feature_table",
-        label_image=f"../{feature_table.source_label()}",
+        table = new_feature_table,
         overwrite=True
     )
-    new_table.set_table(features_with_predictions)
-    new_table.consolidate()
 
 
 if __name__ == "__main__":
