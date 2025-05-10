@@ -125,7 +125,7 @@ def stardist_segmentation(
                 f"{zarr_url} already contains labels in the OME-ZARR fileset. To ignore the existing dataset set `overwrite = True`."
             )
     else:
-        logger.error("Stardist model did not load after 10 attempts. Exiting task.")
+        raise OSError("Stardist model did not load after 10 attempts. Exiting task.")
 
 
 if __name__ == "__main__":
