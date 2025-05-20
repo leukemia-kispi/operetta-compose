@@ -101,9 +101,13 @@ def _parse_harmony_index(harmony_img_path: Path) -> tuple[pd.DataFrame]:
         Tuple of DataFrames df_wells ("row", "col")
         and df_imgs ("row", "col", "pos_x/y/z", "len_x/y/z", "res_x/y/z", "field", "channel", "timepoint", "img_name")
     """
+    
+    if not harmony_img_path.is_dir():
+        raise ValueError(f"Path {harmony_img_path} is not a directory")
+    
     xml_file = sorted(harmony_img_path.glob("*.xml"))
     if not xml_file:
-        raise ValueError(f"Cannot file .xml file in path {harmony_img_path}")
+        raise ValueError(f"Cannot find .xml file in path {harmony_img_path}")
     else:
         xml_file = xml_file[0]
     with open(xml_file, "r") as f:
