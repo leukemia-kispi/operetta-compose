@@ -15,7 +15,7 @@ import anndata as ad
 from pydantic import BaseModel
 from typing import Optional
 
-from fractal_tasks_core.ngff import load_NgffImageMeta
+from operetta_compose.ngff import load_NgffImageMeta
 
 
 COLORS = ["20adf8", "f8ad20", "942094", "00ffff", "ffff00", "ff00ff", "ffffff"]

@@ -4,12 +4,11 @@ from pathlib import Path
 import logging
 from skimage.measure import regionprops_table
 
-import fractal_tasks_core
 from pydantic import validate_call
 
 from operetta_compose import io
 
-__OME_NGFF_VERSION__ = fractal_tasks_core.__OME_NGFF_VERSION__
+__OME_NGFF_VERSION__ = "0.4"
 
 logger = logging.getLogger(__name__)
 
@@ -129,7 +128,7 @@ def feature_table(
 
 
 if __name__ == "__main__":
-    from fractal_tasks_core.tasks._utils import run_fractal_task
+    from fractal_task_tools.task_wrapper import run_fractal_task
 
     run_fractal_task(
         task_function=regionprops_measurement,

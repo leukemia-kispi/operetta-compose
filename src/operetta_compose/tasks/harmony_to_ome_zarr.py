@@ -21,14 +21,12 @@ import anndata as ad
 from pydantic import validate_call
 from typing import Any
 
-import fractal_tasks_core
-
 
 from operetta_compose import io
 from operetta_compose.io import OmeroNgffChannel, OmeroNgffWindow
 from operetta_compose import utils
 
-__OME_NGFF_VERSION__ = fractal_tasks_core.__OME_NGFF_VERSION__
+__OME_NGFF_VERSION__ = "0.4"
 
 logger = logging.getLogger(__name__)
 
@@ -458,7 +456,7 @@ def _create_ome_zarr(
 
 
 if __name__ == "__main__":
-    from fractal_tasks_core.tasks._utils import run_fractal_task
+    from fractal_task_tools.task_wrapper import run_fractal_task
 
     run_fractal_task(
         task_function=harmony_to_ome_zarr,

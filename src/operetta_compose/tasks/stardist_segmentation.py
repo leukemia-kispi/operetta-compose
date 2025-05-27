@@ -11,13 +11,12 @@ from stardist.models import StarDist2D, StarDist3D
 from typing import Optional
 from pydantic import validate_call
 
-import fractal_tasks_core
-from fractal_tasks_core.channels import ChannelInputModel, ChannelNotFoundError
-from fractal_tasks_core.channels import get_channel_from_image_zarr
+from operetta_compose.tasks._channels import ChannelInputModel, ChannelNotFoundError
+from operetta_compose.tasks._channels import get_channel_from_image_zarr
 
 from operetta_compose import io
 
-__OME_NGFF_VERSION__ = fractal_tasks_core.__OME_NGFF_VERSION__
+__OME_NGFF_VERSION__ = "0.4"
 
 logger = logging.getLogger(__name__)
 
@@ -129,7 +128,7 @@ def stardist_segmentation(
 
 
 if __name__ == "__main__":
-    from fractal_tasks_core.tasks._utils import run_fractal_task
+    from fractal_task_tools.task_wrapper import run_fractal_task
 
     run_fractal_task(
         task_function=stardist_segmentation,

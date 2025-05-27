@@ -5,40 +5,42 @@ version = "0.2.13"
 description = "Fractal tasks for the Opera/Operetta microscope and drug response profiling"
 readme = "README.md"
 license = { text = "BSD-3-Clause" }
-authors = [
-    { name = "Fabio Steffen", email = "fabio.steffen@uzh.ch" },
-]
+authors = [{ name = "Fabio Steffen", email = "fabio.steffen@uzh.ch" }]
 
 # Required Python version and dependencies
-requires-python = ">=3.10"
-dependencies = ["fractal-tasks-core",
-                "ome-zarr",
-                "imagecodecs",
-                "tqdm",
-                "xmltodict",
-                "pydantic",
-                "csbdeep",
-                "stardist",
-                "numpy<2",
-                "tensorflow",
-                "tensorflow-metal ; platform_system == 'Darwin'",
-                "napari-feature-classifier>=0.3.0",
-                "ngio==0.1.6",
-               ]
+requires-python = ">=3.11,<3.14"
+dependencies = [
+    # "fractal-tasks-core",
+    "ome-zarr",
+    "imagecodecs",
+    "tqdm",
+    "xmltodict",
+    "pydantic",
+    "csbdeep",
+    "stardist",
+    "numpy<2",
+    "tensorflow",
+    "tensorflow-metal ; platform_system == 'Darwin'",
+    "napari-feature-classifier>=0.3.0",
+    "ngio<=0.3.0",
+    "fractal-converters-tools>=0.6.0,<0.7.0",
+    "fractal-task-tools==0.0.12",
+]
 
 
 # Optional dependencies (e.g. for `pip install -e ".[dev]"`
 [project.optional-dependencies]
-dev = ["devtools",
-       "pytest",
-       "requests",
-       "build",
-       "jsonschema",
-       "bumpver",
-       "pre-commit",
-       "pytest-cov",
-       "pytest-dependency"
-      ]
+dev = [
+    "devtools",
+    "pytest",
+    "requests",
+    "build",
+    "jsonschema",
+    "bumpver",
+    "pre-commit",
+    "pytest-cov",
+    "pytest-dependency",
+]
 
 [project.urls]
 Documentation = "https://leukemia-kispi.github.io/operetta-compose/"
@@ -66,9 +68,7 @@ tag = true
 push = true
 
 [tool.bumpver.file_patterns]
-"pyproject.toml" = [
-    'version = "{version}"$',
-]
+"pyproject.toml" = ['version = "{version}"$']
 
 [tool.coverage.run]
 branch = true

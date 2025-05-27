@@ -3,8 +3,7 @@ from pathlib import Path
 import zarr
 import ngio
 
-from fractal_tasks_core.channels import ChannelInputModel
-
+from operetta_compose.tasks._channels import ChannelInputModel
 from operetta_compose.tasks.harmony_to_ome_zarr import harmony_to_ome_zarr
 from operetta_compose.tasks.stardist_segmentation import stardist_segmentation
 from operetta_compose.tasks.regionprops_measurement import regionprops_measurement
