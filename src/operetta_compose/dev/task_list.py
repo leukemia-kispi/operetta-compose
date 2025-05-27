@@ -1,13 +1,41 @@
-from fractal_tasks_core.dev.task_models import NonParallelTask, ParallelTask
+from fractal_task_tools.task_models import ConverterNonParallelTask, ConverterCompoundTask, ParallelTask
+
+AUTHORS="Fabio Steffen"
+DOCS_LINK = "https://leukemia-kispi.github.io/operetta-compose/"
+INPUT_MODELS = [
+    ("operetta_compose.io", "__init__.py", "OmeroNgffWindow"),
+    ("operetta_compose.io", "__init__.py", "OmeroNgffChannel"),
+    (
+        "operetta_compose",
+        "tasks/harmony_to_ome_zarr_init.py",
+        "AcquisitionInputModel",
+    ),
+    #(
+    #    "fractal_converters_tools",
+    #    "__init__.py",
+    #    "AdvancedComputeOptions",
+    #),
+]
 
 TASK_LIST = [
-    NonParallelTask(
+    ConverterNonParallelTask(
         name="Harmony to OME-Zarr",
         executable="tasks/harmony_to_ome_zarr.py",
         meta={"cpus_per_task": 1, "mem": 4000},
         category="Conversion",
         modality="HCS",
         tags=["Opera", "Operetta", "Perkin Elmer"],
+    ),
+    ConverterCompoundTask(
+        name="Convert Harmony to OME-Zarr V2",
+        executable_init="tasks/harmony_to_ome_zarr_init.py",
+        executable="tasks/harmony_to_ome_zarr_compute.py",
+        meta_init={"cpus_per_task": 1, "mem": 4000},
+        meta={"cpus_per_task": 1, "mem": 12000},
+        category="Conversion",
+        modality="HCS",
+        tags=["Opera", "Operetta", "Perkin Elmer"],
+        # docs_info="file:docs_info/scanr_task.md",
     ),
     ParallelTask(
         name="Stardist segmentation",

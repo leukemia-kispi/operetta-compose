@@ -36,7 +36,6 @@ COLORS = ["20adf8", "f8ad20", "942094", "00ffff", "ffff00", "ff00ff", "ffffff"]
 @validate_call
 def harmony_to_ome_zarr(
     *,
-    zarr_urls: list[str],
     zarr_dir: str,
     img_paths: list[str],
     omero_channels: list[OmeroNgffChannel],
@@ -72,6 +71,7 @@ def harmony_to_ome_zarr(
             plate = "plate.zarr"
         zarr_path = Path(zarr_dir).joinpath(plate)
         df_wells, df_imgs = _parse_harmony_index(img_path)
+        assert False, (df_wells.columns, df_imgs.columns)
         msg = f"Converting Harmony TIFFs from {img_path.parent.name} to OME-ZARR"
         img_list = _create_ome_zarr(
             img_path,

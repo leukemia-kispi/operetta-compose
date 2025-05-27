@@ -10,6 +10,7 @@
         "Operetta",
         "Perkin Elmer"
       ],
+      "type": "converter_non_parallel",
       "executable_non_parallel": "tasks/harmony_to_ome_zarr.py",
       "meta_non_parallel": {
         "cpus_per_task": 1,
@@ -31,11 +32,7 @@
                 "description": "Name of the channel"
               },
               "window": {
-                "allOf": [
-                  {
-                    "$ref": "#/$defs/OmeroNgffWindow"
-                  }
-                ],
+                "$ref": "#/$defs/OmeroNgffWindow",
                 "title": "Window",
                 "description": "Optional `Window` object to set the display settings"
               },
@@ -91,14 +88,6 @@
         },
         "additionalProperties": false,
         "properties": {
-          "zarr_urls": {
-            "items": {
-              "type": "string"
-            },
-            "title": "Zarr Urls",
-            "type": "array",
-            "description": "List of zarr urls to be processed (not used by converter task)"
-          },
           "zarr_dir": {
             "title": "Zarr Dir",
             "type": "string",
@@ -140,7 +129,6 @@
           }
         },
         "required": [
-          "zarr_urls",
           "zarr_dir",
           "img_paths",
           "omero_channels"
@@ -152,8 +140,283 @@
       "docs_link": "https://leukemia-kispi.github.io/operetta-compose/"
     },
     {
+      "name": "Convert Harmony to OME-Zarr V2",
+      "category": "Conversion",
+      "modality": "HCS",
+      "tags": [
+        "Opera",
+        "Operetta",
+        "Perkin Elmer"
+      ],
+      "type": "converter_compound",
+      "executable_non_parallel": "tasks/harmony_to_ome_zarr_init.py",
+      "executable_parallel": "tasks/harmony_to_ome_zarr_compute.py",
+      "meta_non_parallel": {
+        "cpus_per_task": 1,
+        "mem": 4000
+      },
+      "meta_parallel": {
+        "cpus_per_task": 1,
+        "mem": 12000
+      },
+      "args_schema_non_parallel": {
+        "$defs": {
+          "AdvancedComputeOptions": {
+            "description": "Advanced options for the conversion.",
+            "properties": {
+              "num_levels": {
+                "default": 5,
+                "minimum": 1,
+                "title": "Num Levels",
+                "type": "integer"
+              },
+              "tiling_mode": {
+                "default": "auto",
+                "enum": [
+                  "auto",
+                  "grid",
+                  "free",
+                  "none"
+                ],
+                "title": "Tiling Mode",
+                "type": "string"
+              },
+              "swap_xy": {
+                "default": false,
+                "title": "Swap Xy",
+                "type": "boolean"
+              },
+              "invert_x": {
+                "default": false,
+                "title": "Invert X",
+                "type": "boolean"
+              },
+              "invert_y": {
+                "default": false,
+                "title": "Invert Y",
+                "type": "boolean"
+              },
+              "max_xy_chunk": {
+                "default": 4096,
+                "minimum": 1,
+                "title": "Max Xy Chunk",
+                "type": "integer"
+              },
+              "z_chunk": {
+                "default": 10,
+                "minimum": 1,
+                "title": "Z Chunk",
+                "type": "integer"
+              },
+              "c_chunk": {
+                "default": 1,
+                "minimum": 1,
+                "title": "C Chunk",
+                "type": "integer"
+              },
+              "t_chunk": {
+                "default": 1,
+                "minimum": 1,
+                "title": "T Chunk",
+                "type": "integer"
+              }
+            },
+            "title": "AdvancedComputeOptions",
+            "type": "object"
+          }
+        },
+        "additionalProperties": false,
+        "properties": {
+          "zarr_dir": {
+            "title": "Zarr Dir",
+            "type": "string",
+            "description": "Path to the new OME-ZARR output directory where the zarr plates should be saved. The zarr plates are extracted from the image paths"
+          },
+          "img_paths": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Img Paths",
+            "type": "array",
+            "description": "Paths to the input directories with the image files"
+          },
+          "omero_channels": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Omero Channels",
+            "type": "array",
+            "description": "List of Omero channels"
+          },
+          "wavelengths_id": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Wavelengths Id",
+            "type": "array",
+            "description": "Missing description"
+          },
+          "overwrite": {
+            "default": false,
+            "title": "Overwrite",
+            "type": "boolean",
+            "description": "Whether to overwrite any existing OME-ZARR directory"
+          },
+          "coarsening_xy": {
+            "default": 2,
+            "title": "Coarsening Xy",
+            "type": "integer",
+            "description": "Coarsening factor in XY to use for downsampling when building the pyramids"
+          },
+          "compute": {
+            "default": true,
+            "title": "Compute",
+            "type": "boolean",
+            "description": "Wether to compute a numpy array from the dask array while saving the image to the zarr fileset (compute = TRUE is faster given that images fit into memory)"
+          },
+          "advanced_options": {
+            "$ref": "#/$defs/AdvancedComputeOptions",
+            "default": {
+              "num_levels": 5,
+              "tiling_mode": "auto",
+              "swap_xy": false,
+              "invert_x": false,
+              "invert_y": false,
+              "max_xy_chunk": 4096,
+              "z_chunk": 10,
+              "c_chunk": 1,
+              "t_chunk": 1
+            },
+            "title": "Advanced Options",
+            "description": "Missing description"
+          }
+        },
+        "required": [
+          "zarr_dir",
+          "img_paths",
+          "omero_channels",
+          "wavelengths_id"
+        ],
+        "type": "object",
+        "title": "HarmonyToOmeZarrInit"
+      },
+      "args_schema_parallel": {
+        "$defs": {
+          "AdvancedComputeOptions": {
+            "description": "Advanced options for the conversion.",
+            "properties": {
+              "num_levels": {
+                "default": 5,
+                "minimum": 1,
+                "title": "Num Levels",
+                "type": "integer"
+              },
+              "tiling_mode": {
+                "default": "auto",
+                "enum": [
+                  "auto",
+                  "grid",
+                  "free",
+                  "none"
+                ],
+                "title": "Tiling Mode",
+                "type": "string"
+              },
+              "swap_xy": {
+                "default": false,
+                "title": "Swap Xy",
+                "type": "boolean"
+              },
+              "invert_x": {
+                "default": false,
+                "title": "Invert X",
+                "type": "boolean"
+              },
+              "invert_y": {
+                "default": false,
+                "title": "Invert Y",
+                "type": "boolean"
+              },
+              "max_xy_chunk": {
+                "default": 4096,
+                "minimum": 1,
+                "title": "Max Xy Chunk",
+                "type": "integer"
+              },
+              "z_chunk": {
+                "default": 10,
+                "minimum": 1,
+                "title": "Z Chunk",
+                "type": "integer"
+              },
+              "c_chunk": {
+                "default": 1,
+                "minimum": 1,
+                "title": "C Chunk",
+                "type": "integer"
+              },
+              "t_chunk": {
+                "default": 1,
+                "minimum": 1,
+                "title": "T Chunk",
+                "type": "integer"
+              }
+            },
+            "title": "AdvancedComputeOptions",
+            "type": "object"
+          },
+          "ConvertParallelInitArgs": {
+            "description": "Arguments for the compute task.",
+            "properties": {
+              "tiled_image_pickled_path": {
+                "title": "Tiled Image Pickled Path",
+                "type": "string"
+              },
+              "overwrite": {
+                "title": "Overwrite",
+                "type": "boolean"
+              },
+              "advanced_compute_options": {
+                "$ref": "#/$defs/AdvancedComputeOptions",
+                "title": "Advanced_Compute_Options"
+              }
+            },
+            "required": [
+              "tiled_image_pickled_path",
+              "overwrite",
+              "advanced_compute_options"
+            ],
+            "title": "ConvertParallelInitArgs",
+            "type": "object"
+          }
+        },
+        "additionalProperties": false,
+        "properties": {
+          "zarr_url": {
+            "title": "Zarr Url",
+            "type": "string",
+            "description": "URL to the OME-Zarr file."
+          },
+          "init_args": {
+            "$ref": "#/$defs/ConvertParallelInitArgs",
+            "title": "Init Args",
+            "description": "Arguments for the compute task."
+          }
+        },
+        "required": [
+          "zarr_url",
+          "init_args"
+        ],
+        "type": "object",
+        "title": "HarmonyToOmeZarrCompute"
+      },
+      "docs_info": "## harmony_to_ome_zarr_init\nConvert TIFFs which were exported from Harmony (Operetta/Opera, Perkin-Elmer) to OME-ZARR\n## harmony_to_ome_zarr_compute\nConvert a single ScanR acquisition to OME-Zarr.\n",
+      "docs_link": "https://leukemia-kispi.github.io/operetta-compose/"
+    },
+    {
       "name": "Stardist segmentation",
       "category": "Segmentation",
+      "type": "parallel",
       "executable_parallel": "tasks/stardist_segmentation.py",
       "meta_parallel": {
         "cpus_per_task": 4,
@@ -167,13 +430,11 @@
             "properties": {
               "wavelength_id": {
                 "title": "Wavelength Id",
-                "type": "string",
-                "description": "Unique ID for the channel wavelength, e.g. `A01_C01`. Can only be specified if label is not set."
+                "type": "string"
               },
               "label": {
                 "title": "Label",
-                "type": "string",
-                "description": "Name of the channel. Can only be specified if wavelength_id is not set."
+                "type": "string"
               }
             },
             "title": "ChannelInputModel",
@@ -257,6 +518,7 @@
         "intensity",
         "morphology"
       ],
+      "type": "parallel",
       "executable_parallel": "tasks/regionprops_measurement.py",
       "meta_parallel": {
         "cpus_per_task": 1,
@@ -310,6 +572,7 @@
         "napari feature classifier",
         "object classification"
       ],
+      "type": "parallel",
       "executable_parallel": "tasks/feature_classification.py",
       "meta_parallel": {
         "cpus_per_task": 1,
@@ -359,6 +622,7 @@
         "perturbation",
         "treatment"
       ],
+      "type": "parallel",
       "executable_parallel": "tasks/condition_registration.py",
       "meta_parallel": {
         "cpus_per_task": 1,

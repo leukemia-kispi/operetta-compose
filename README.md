@@ -35,3 +35,9 @@ Currently the following tasks are available:
 ---
 
 [Fractal](https://fractal-analytics-platform.github.io/fractal-tasks-core/) is developed by the [UZH BioVisionCenter](https://www.biovisioncenter.uzh.ch/de.html) under the lead of [@jluethi](https://github.com/jluethi) and under contract with [eXact lab S.r.l.](https://www.exact-lab.it).
+
+## Create manifest
+
+```
+fractal-manifest create --package operetta_compose
+```
