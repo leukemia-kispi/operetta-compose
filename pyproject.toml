@@ -22,8 +22,8 @@ dependencies = [
     "tensorflow",
     "tensorflow-metal ; platform_system == 'Darwin'",
     "napari-feature-classifier>=0.3.0",
-    "ngio<=0.3.0",
-    "fractal-converters-tools>=0.6.0,<0.7.0",
+    "ngio>=0.3.2,<0.4.0",
+    "fractal-converters-tools>=0.6.1,<0.7.0",
     "fractal-task-tools==0.0.12",
 ]
 
