@@ -81,9 +81,9 @@ def test_measure():
 def test_predict():
     zarr_url = str(ZARR_DIR.joinpath(PLATE_ZARR, "C", "3", "0"))
     table_name = "regionprops"
-    img_pre = ngio.NgffImage(zarr_url)
-    table_pre = img_pre.tables.get_table(table_name)
-    initial_shape = table_pre.table.shape
+    img_pre = ngio.open_ome_zarr_container(zarr_url)
+    table_pre = img_pre.get_table(table_name)
+    initial_shape = table_pre.dataframe.shape
     target_table_shape = (initial_shape[0], initial_shape[1] + 1)
 
     feature_classification(
@@ -93,9 +93,8 @@ def test_predict():
     )
 
     # Check that the task adds exactly 1 column named prediction to the table
-    img = ngio.NgffImage(zarr_url)
-    new_table = img.tables.get_table(table_name).table
-    print(new_table)
+    img = ngio.open_ome_zarr_container(zarr_url)
+    new_table = img.get_table(table_name).dataframe
     assert set(['Class_1', 'Class_2']) == set(new_table["classifier_030_prediction"].unique())
     assert new_table.shape==target_table_shape
 
@@ -110,8 +109,8 @@ def test_predict():
     )
 
     # Check that the task adds exactly 1 column named prediction to the table
-    img = ngio.NgffImage(zarr_url)
-    new_table = img.tables.get_table(table_name).table
+    img = ngio.open_ome_zarr_container(zarr_url)
+    new_table = img.get_table(table_name).dataframe
     assert set(['Class_1', 'Class_2']) == set(new_table["cell_classifier_result"].unique())
     assert new_table.shape==target_table_shape
 
