@@ -59,6 +59,15 @@ only_2d = [
     "axis_minor_length",
 ]
 
+# define which props are purely intensity‐based (others could also be added which use the image_intensity table)
+INTENSITY_PROPS = [
+    "intensity_mean",
+    "intensity_max",
+    "intensity_min",
+    "intensity_std",
+]
+
+
 
 @validate_call
 def regionprops_measurement(
@@ -83,13 +92,52 @@ def regionprops_measurement(
         roi_url, roi_idx = io.get_roi(zarr_url, "well_ROI_table", level)
         img = io.load_intensity_roi(roi_url, roi_idx)
         labels = io.load_label_roi(roi_url, roi_idx, name=label_name)
-        if img.shape[0] == 1:
-            img = img[0]
-            labels = labels[0]
-            properties = PROPS
+
+        # drop the singleton Z slice (edit here if we have multiple z-slices)
+        if img.ndim == 4 and img.shape[1] == 1:
+            img = img[:, 0, ...]        # → (C, Y, X)
+        if labels.ndim == 4 and labels.shape[1] == 1:
+            labels = labels[:, 0, ...]  # → (1, Y, X)
+
+        #  move channel axis to last on both
+        #    img:    (C, Y, X) → (Y, X, C)
+        #    labels: (1, Y, X) → (Y, X, 1)
+        img    = np.moveaxis(img, 0, -1)
+        labels = np.moveaxis(labels, 0, -1)
+        base_props = [p for p in PROPS if p not in INTENSITY_PROPS]
+
+        #for multi‑channel images
+        if img.ndim == 3 and img.shape[-1] > 1:
+            # always strip out that singleton label channel when calling feature_table
+            label2d = labels[..., 0]   # shape (Y, X)
+
+            # channel‑0: do morphology + intensity
+            tbl = feature_table(
+                label2d,
+                img[..., 0],
+                base_props + INTENSITY_PROPS
+            )
+            tbl = tbl.rename({p: f"{p}_ch0" for p in INTENSITY_PROPS}, axis=1)
+
+            # channels 1…C–1: only intensity
+            for c in range(1, img.shape[-1]):
+                # include 'label' so we can merge
+                props = ["label"] + INTENSITY_PROPS
+                ch_tbl = feature_table(label2d, img[..., c], props)
+                ch_tbl = ch_tbl.rename(
+                    {p: f"{p}_ch{c}" for p in INTENSITY_PROPS},
+                    axis=1
+                )
+                tbl = tbl.merge(ch_tbl, on="label", how="outer")
+        # for single channel images    
         else:
-            properties = [p for p in PROPS if p not in only_2d]
-        tbl = feature_table(labels, img, properties)
+            if img.shape[-1] == 1:
+                img = img[0]
+                labels = labels[0]
+                properties = PROPS
+            else:
+                properties = [p for p in PROPS if p not in only_2d]
+            tbl = feature_table(labels, img, properties)
         io.features_to_ome_zarr(zarr_url, tbl, table_name, label_name)
     else:
         raise FileExistsError(
@@ -122,6 +170,8 @@ def feature_table(
     Returns:
         A feature dataframe including a column with the label index
     """
+    if labels.ndim == img.ndim + 1 and labels.shape[-1] == 1:
+       labels = labels[..., 0]
     props = regionprops_table(labels, img, properties=properties)
     features = pd.DataFrame(props)
     features.insert(0, "label", features.pop("label"))

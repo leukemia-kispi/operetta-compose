@@ -229,7 +229,7 @@ def load_intensity_roi(
     roi_url: Path,
     roi_idx: pd.DataFrame,
     roi: int = 0,
-    channel: int = 0,
+    channel: int | None = None,
     timepoint: int = 0,
 ) -> np.ndarray:
     """Load the intensity array of the selected ROI
@@ -248,15 +248,36 @@ def load_intensity_roi(
         s_z, e_z, s_y, e_y, s_x, e_x = roi_idx.loc[f"{roi}"]
     except KeyError as e:
         raise KeyError(f'ROI named "{roi}" not found in the anndata table.')
-    img_data_zyx = da.from_zarr(roi_url)
-    if img_data_zyx.ndim == 5:
-        img_roi = np.array(img_data_zyx[timepoint, channel, s_z:e_z, s_y:e_y, s_x:e_x])
-    elif img_data_zyx.ndim == 4:
-        img_roi = np.array(img_data_zyx[channel, s_z:e_z, s_y:e_y, s_x:e_x])
-    elif img_data_zyx.ndim == 3:
-        img_roi = np.array(img_data_zyx[s_z:e_z, s_y:e_y, s_x:e_x])
+    img_data = da.from_zarr(roi_url)
+    if img_data.ndim == 5:
+        # (T, C, Z, Y, X)
+        if channel is None:
+            block = img_data[timepoint, :, s_z:e_z, s_y:e_y, s_x:e_x]
+        else:
+            block = img_data[timepoint, channel, s_z:e_z, s_y:e_y, s_x:e_x]
+    elif img_data.ndim == 4:
+        # (C, Z, Y, X)
+        if channel is None:
+            block = img_data[:, s_z:e_z, s_y:e_y, s_x:e_x]
+        else:
+            block = img_data[channel, s_z:e_z, s_y:e_y, s_x:e_x]
+    elif img_data.ndim == 3:
+        # (Z, Y, X)
+        block = img_data[s_z:e_z, s_y:e_y, s_x:e_x]
     else:
-        img_roi = np.array(img_data_zyx[s_y:e_y, s_x:e_x])
+        # (Y, X)
+        block = img_data[s_y:e_y, s_x:e_x]
+
+    img_roi = np.array(block)
+
+    # drop the singleton Z dimension if present
+    if img_roi.ndim == 4 and img_roi.shape[1] == 1:
+        # now (C, Y, X)
+        img_roi = img_roi[:, 0, ...]
+    elif img_roi.ndim == 3 and channel is None:
+        # might be (1, Y, X) if there was just one channel; drop it:
+        if img_roi.shape[0] == 1:
+            img_roi = img_roi[0]
     return img_roi
 
 
