@@ -1,7 +1,20 @@
-from fractal_tasks_core.dev.task_models import NonParallelTask, ParallelTask
+from fractal_task_tools.task_models import ConverterNonParallelTask
+from fractal_task_tools.task_models import ParallelTask
+
+AUTHORS = "Fabio Steffen"
+DOCS_LINK = "https://leukemia-kispi.github.io/operetta-compose/"
+INPUT_MODELS = [
+    ["operetta_compose.io", "__init__.py", "OmeroNgffWindow"],
+    ["operetta_compose.io", "__init__.py", "OmeroNgffChannel"],
+    ["fractal_tasks_core", "channels.py", "ChannelInputModel"],
+]
+
+
+
+
 
 TASK_LIST = [
-    NonParallelTask(
+    ConverterNonParallelTask(
         name="Harmony to OME-Zarr",
         executable="tasks/harmony_to_ome_zarr.py",
         meta={"cpus_per_task": 1, "mem": 4000},
