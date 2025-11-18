@@ -1,6 +1,6 @@
 # tasks.harmony_to_ome_zarr.harmony_to_ome_zarr { #operetta_compose.tasks.harmony_to_ome_zarr.harmony_to_ome_zarr }
 
-`tasks.harmony_to_ome_zarr.harmony_to_ome_zarr(zarr_urls, zarr_dir, img_path, overwrite=False, coarsening_xy=2, compute=True)`
+`tasks.harmony_to_ome_zarr.harmony_to_ome_zarr(zarr_dir, img_path, overwrite=False, coarsening_xy=2, compute=True)`
 
 Convert TIFFs which were exported from Harmony (Operetta/Opera, Perkin-Elmer) to OME-ZARR
 
@@ -8,7 +8,6 @@ Convert TIFFs which were exported from Harmony (Operetta/Opera, Perkin-Elmer) to
 
 | Name            | Type        | Description                                                                                                                                                      | Default    |
 |-----------------|-------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|
-| `zarr_urls`     | list\[str\] | List of zarr urls to be processed (not used by converter task)                                                                                                   | _required_ |
 | `zarr_dir`      | str         | Path to the new OME-ZARR output directory                                                                                                                        | _required_ |
 | `img_path`      | str         | Path to the input directory with the image files                                                                                                                 | _required_ |
 | `overwrite`     | bool        | Whether to overwrite any existing OME-ZARR directory                                                                                                             | `False`    |
