@@ -33,7 +33,6 @@ def _make_test_zarr(zarr_url):
 @pytest.mark.dependency()
 def test_converter(_make_output_dir):
     harmony_to_ome_zarr(
-        zarr_urls=[],
         zarr_dir=str(ZARR_DIR),
         img_paths=[str(Path(TEST_DIR).joinpath(PLATE, "Images"))],
         omero_channels=[
