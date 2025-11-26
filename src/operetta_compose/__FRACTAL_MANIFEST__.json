@@ -10,6 +10,7 @@
         "Operetta",
         "Perkin Elmer"
       ],
+      "type": "converter_non_parallel",
       "executable_non_parallel": "tasks/harmony_to_ome_zarr.py",
       "meta_non_parallel": {
         "cpus_per_task": 1,
@@ -91,14 +92,6 @@
         },
         "additionalProperties": false,
         "properties": {
-          "zarr_urls": {
-            "items": {
-              "type": "string"
-            },
-            "title": "Zarr Urls",
-            "type": "array",
-            "description": "List of zarr urls to be processed (not used by converter task)"
-          },
           "zarr_dir": {
             "title": "Zarr Dir",
             "type": "string",
@@ -140,7 +133,6 @@
           }
         },
         "required": [
-          "zarr_urls",
           "zarr_dir",
           "img_paths",
           "omero_channels"
@@ -154,6 +146,7 @@
     {
       "name": "Stardist segmentation",
       "category": "Segmentation",
+      "type": "parallel",
       "executable_parallel": "tasks/stardist_segmentation.py",
       "meta_parallel": {
         "cpus_per_task": 4,
@@ -257,6 +250,7 @@
         "intensity",
         "morphology"
       ],
+      "type": "parallel",
       "executable_parallel": "tasks/regionprops_measurement.py",
       "meta_parallel": {
         "cpus_per_task": 1,
@@ -310,6 +304,7 @@
         "napari feature classifier",
         "object classification"
       ],
+      "type": "parallel",
       "executable_parallel": "tasks/feature_classification.py",
       "meta_parallel": {
         "cpus_per_task": 1,
@@ -359,6 +354,7 @@
         "perturbation",
         "treatment"
       ],
+      "type": "parallel",
       "executable_parallel": "tasks/condition_registration.py",
       "meta_parallel": {
         "cpus_per_task": 1,

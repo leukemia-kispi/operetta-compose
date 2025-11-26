@@ -38,7 +38,6 @@ COLORS = ["20adf8", "f8ad20", "942094", "00ffff", "ffff00", "ff00ff", "ffffff"]
 @validate_call
 def harmony_to_ome_zarr(
     *,
-    zarr_urls: list[str],
     zarr_dir: str,
     img_paths: list[str],
     omero_channels: list[OmeroNgffChannel],
@@ -51,7 +50,6 @@ def harmony_to_ome_zarr(
 
 
     Args:
-        zarr_urls: List of zarr urls to be processed (not used by converter task)
         zarr_dir: Path to the new OME-ZARR output directory where the zarr plates should be saved.
             The zarr plates are extracted from the image paths
         img_paths: Paths to the input directories with the image files
@@ -101,10 +99,10 @@ def _parse_harmony_index(harmony_img_path: Path) -> tuple[pd.DataFrame]:
         Tuple of DataFrames df_wells ("row", "col")
         and df_imgs ("row", "col", "pos_x/y/z", "len_x/y/z", "res_x/y/z", "field", "channel", "timepoint", "img_name")
     """
-    
+
     if not harmony_img_path.is_dir():
         raise ValueError(f"Path {harmony_img_path} is not a directory")
-    
+
     xml_file = sorted(harmony_img_path.glob("*.xml"))
     if not xml_file:
         raise ValueError(f"Cannot find .xml file in path {harmony_img_path}")
@@ -458,7 +456,7 @@ def _create_ome_zarr(
 
 
 if __name__ == "__main__":
-    from fractal_tasks_core.tasks._utils import run_fractal_task
+    from fractal_task_tools.task_wrapper import run_fractal_task
 
     run_fractal_task(
         task_function=harmony_to_ome_zarr,
