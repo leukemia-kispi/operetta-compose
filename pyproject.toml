@@ -1,83 +1,111 @@
 # Project metadata (see https://packaging.python.org/en/latest/guides/writing-pyproject-toml/)
 [project]
 name = "operetta-compose"
-version = "0.2.14"
+dynamic = ["version"]
 description = "Fractal tasks for the Opera/Operetta microscope and drug response profiling"
 readme = "README.md"
-license = { text = "BSD-3-Clause" }
+license = "BSD-3-Clause"
 authors = [
     { name = "Fabio Steffen", email = "fabio.steffen@uzh.ch" },
 ]
 
-# Required Python version and dependencies
-requires-python = ">=3.10"
-dependencies = ["fractal-tasks-core",
-                "ome-zarr",
-                "imagecodecs",
-                "tqdm",
-                "xmltodict",
-                "pydantic",
-                "csbdeep",
-                "stardist",
-                "numpy<2",
-                "tensorflow",
-                "tensorflow-metal ; platform_system == 'Darwin'",
-                "napari-feature-classifier>=0.3.0",
-                "ngio>=0.2.4,<0.3",
-                "fractal-task-tools==0.1.0",
-               ]
+# Required Python version and runtime dependencies
+requires-python = ">=3.11,<3.15"
+dependencies = [
+    "ngio>=0.5,<0.6",
+    "fractal-task-tools>=0.5.0,<0.6.0",
+    "pandas>=2",
+    "pydantic>=2",
+]
 
-
-# Optional dependencies (e.g. for `pip install -e ".[dev]"`
 [project.optional-dependencies]
-dev = ["devtools",
-       "pytest",
-       "requests",
-       "build",
-       "jsonschema",
-       "bumpver",
-       "pre-commit",
-       "pytest-cov",
-       "pytest-dependency"
-      ]
+# Only required to run the `feature_classification` task (pulls in napari).
+classifier = ["napari-feature-classifier>=0.3.0"]
+# Only required to run the `spot_detection` task (pulls in torch via spotiflow).
+spotiflow = ["spotiflow"]
+dev = [
+    "hatch",
+    "hatch-vcs",
+    "pytest",
+    "pytest-cov",
+    "requests",
+    "jsonschema",
+    "ruff",
+    "pre-commit",
+]
 
 [project.urls]
 Documentation = "https://leukemia-kispi.github.io/operetta-compose/"
 Repository = "https://github.com/leukemia-kispi/operetta-compose.git"
 Issues = "https://github.com/leukemia-kispi/operetta-compose/issues"
 
+# Build backend: hatchling with a git-tag-driven version (hatch-vcs), matching
+# the fractal-tasks-template / ngio conventions.
 [build-system]
-requires = ["setuptools"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
 
-[tool.setuptools.packages.find]
-where = ["src"]
-include = ["operetta_compose", "operetta_compose.io", "operetta_compose.tasks"]
+# The version is derived from git tags (e.g. the `0.2.14` tag). Release by
+# tagging a commit instead of editing a static version string.
+[tool.hatch.version]
+source = "vcs"
 
-# Always include the __FRACTAL_MANIFEST__.json file in the package
-[tool.setuptools.package-data]
-"*" = ["__FRACTAL_MANIFEST__.json"]
+# Ship the whole package directory (including __FRACTAL_MANIFEST__.json, which
+# hatchling includes automatically as it lives inside the package).
+[tool.hatch.build.targets.wheel]
+packages = ["src/operetta_compose"]
 
-[tool.bumpver]
-current_version = "0.2.14"
-version_pattern = "MAJOR.MINOR.PATCH"
-commit_message = "bump version {old_version} -> {new_version}"
-commit = true
-tag = true
-push = true
-
-[tool.bumpver.file_patterns]
-"pyproject.toml" = [
-    'version = "{version}"$',
+[tool.hatch.build.targets.sdist]
+exclude = [
+    "tests",
+    "docs",
+    ".github",
+    "**/*.ipynb_checkpoints",
+    "**/*.ipynb",
 ]
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+src = ["src"]
+# Keep the doc notebooks out of lint/format runs.
+extend-exclude = ["docs", "*.ipynb"]
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "UP", "B", "C4", "SIM", "RUF"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["B", "SIM"]
+# Re-export of `tasks` and metadata bootstrap intentionally follow module code.
+"src/operetta_compose/__init__.py" = ["E402", "F401"]
+
+[tool.ruff.format]
+docstring-code-format = true
 
 [tool.coverage.run]
 branch = true
 parallel = true
 relative_files = true
 source = ["src/operetta_compose"]
-omit = ["tests/*", "operetta_compose/dev/*"]
-
+omit = ["tests/*", "src/operetta_compose/dev/*"]
 
 [tool.pytest.ini_options]
 addopts = "--cov=operetta_compose"
+
+# Pixi environment and task runner (see https://pixi.sh)
+[tool.pixi.workspace]
+channels = ["conda-forge"]
+platforms = ["osx-arm64", "linux-64"]
+
+[tool.pixi.pypi-dependencies]
+operetta-compose = { path = ".", editable = true, extras = ["dev"] }
+
+[tool.pixi.environments]
+default = { solve-group = "default" }
+
+[tool.pixi.tasks]
+test = "pytest"
+lint = "ruff check ."
+format = "ruff format ."
+manifest = "fractal-manifest create --package operetta-compose"
+build = "hatch build"

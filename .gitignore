@@ -3,6 +3,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Pixi environment (the lock file `pixi.lock` should be committed)
+.pixi/
+
 # C extensions
 *.so
 
