@@ -2,304 +2,8 @@
   "manifest_version": "2",
   "task_list": [
     {
-      "name": "Harmony to OME-Zarr",
-      "category": "Conversion",
-      "modality": "HCS",
-      "tags": [
-        "Opera",
-        "Operetta",
-        "Perkin Elmer"
-      ],
-      "type": "converter_non_parallel",
-      "executable_non_parallel": "tasks/harmony_to_ome_zarr.py",
-      "meta_non_parallel": {
-        "cpus_per_task": 1,
-        "mem": 4000
-      },
-      "args_schema_non_parallel": {
-        "$defs": {
-          "OmeroNgffChannel": {
-            "description": "Pydantic model for an Omero channel based on OME-NFGG v0.4",
-            "properties": {
-              "wavelength_id": {
-                "title": "Wavelength Id",
-                "type": "string",
-                "description": "Unique ID for the channel wavelength"
-              },
-              "label": {
-                "title": "Label",
-                "type": "string",
-                "description": "Name of the channel"
-              },
-              "window": {
-                "allOf": [
-                  {
-                    "$ref": "#/$defs/OmeroNgffWindow"
-                  }
-                ],
-                "title": "Window",
-                "description": "Optional `Window` object to set the display settings"
-              },
-              "color": {
-                "title": "Color",
-                "type": "string",
-                "description": "Optional HEX color string of the channel (e.g. 00FFFF)"
-              },
-              "active": {
-                "default": true,
-                "title": "Active",
-                "type": "boolean",
-                "description": "Boolean indicating whether to enable the channel"
-              }
-            },
-            "required": [
-              "wavelength_id"
-            ],
-            "title": "OmeroNgffChannel",
-            "type": "object"
-          },
-          "OmeroNgffWindow": {
-            "description": "Pydantic model for an Omero channel window based on OME-NGFF v0.4.",
-            "properties": {
-              "min": {
-                "title": "Min",
-                "type": "integer",
-                "description": "Minimum intensity, defaults to 0"
-              },
-              "max": {
-                "title": "Max",
-                "type": "integer",
-                "description": "Maximum intensity depending on bit-depth (e.g. 65535 for 16-bit image)"
-              },
-              "start": {
-                "title": "Start",
-                "type": "integer",
-                "description": "Lower bound intensity for visualization"
-              },
-              "end": {
-                "title": "End",
-                "type": "integer",
-                "description": "Upper bound intensity for visualization"
-              }
-            },
-            "required": [
-              "start",
-              "end"
-            ],
-            "title": "OmeroNgffWindow",
-            "type": "object"
-          }
-        },
-        "additionalProperties": false,
-        "properties": {
-          "zarr_dir": {
-            "title": "Zarr Dir",
-            "type": "string",
-            "description": "Path to the new OME-ZARR output directory where the zarr plates should be saved. The zarr plates are extracted from the image paths"
-          },
-          "img_paths": {
-            "items": {
-              "type": "string"
-            },
-            "title": "Img Paths",
-            "type": "array",
-            "description": "Paths to the input directories with the image files"
-          },
-          "omero_channels": {
-            "items": {
-              "$ref": "#/$defs/OmeroNgffChannel"
-            },
-            "title": "Omero Channels",
-            "type": "array",
-            "description": "List of Omero channels"
-          },
-          "overwrite": {
-            "default": false,
-            "title": "Overwrite",
-            "type": "boolean",
-            "description": "Whether to overwrite any existing OME-ZARR directory"
-          },
-          "coarsening_xy": {
-            "default": 2,
-            "title": "Coarsening Xy",
-            "type": "integer",
-            "description": "Coarsening factor in XY to use for downsampling when building the pyramids"
-          },
-          "compute": {
-            "default": true,
-            "title": "Compute",
-            "type": "boolean",
-            "description": "Wether to compute a numpy array from the dask array while saving the image to the zarr fileset (compute = TRUE is faster given that images fit into memory)"
-          }
-        },
-        "required": [
-          "zarr_dir",
-          "img_paths",
-          "omero_channels"
-        ],
-        "type": "object",
-        "title": "HarmonyToOmeZarr"
-      },
-      "docs_info": "## harmony_to_ome_zarr\nConvert TIFFs which were exported from Harmony (Operetta/Opera, Perkin-Elmer) to OME-ZARR\n",
-      "docs_link": "https://leukemia-kispi.github.io/operetta-compose/"
-    },
-    {
-      "name": "Stardist segmentation",
-      "category": "Segmentation",
-      "type": "parallel",
-      "executable_parallel": "tasks/stardist_segmentation.py",
-      "meta_parallel": {
-        "cpus_per_task": 4,
-        "mem": 16000,
-        "needs_gpu": true
-      },
-      "args_schema_parallel": {
-        "$defs": {
-          "ChannelInputModel": {
-            "description": "A channel which is specified by either `wavelength_id` or `label`.",
-            "properties": {
-              "wavelength_id": {
-                "title": "Wavelength Id",
-                "type": "string",
-                "description": "Unique ID for the channel wavelength, e.g. `A01_C01`. Can only be specified if label is not set."
-              },
-              "label": {
-                "title": "Label",
-                "type": "string",
-                "description": "Name of the channel. Can only be specified if wavelength_id is not set."
-              }
-            },
-            "title": "ChannelInputModel",
-            "type": "object"
-          }
-        },
-        "additionalProperties": false,
-        "properties": {
-          "zarr_url": {
-            "title": "Zarr Url",
-            "type": "string",
-            "description": "Path to an OME-ZARR Image"
-          },
-          "channel": {
-            "$ref": "#/$defs/ChannelInputModel",
-            "title": "Channel",
-            "description": "Channel for segmentation; requires either `wavelength_id` (e.g. `A01_C01`) or `label` (e.g. `DAPI`) but not both"
-          },
-          "roi_table": {
-            "default": "FOV_ROI_table",
-            "title": "Roi Table",
-            "type": "string",
-            "description": "Name of the ROI table"
-          },
-          "stardist_model": {
-            "default": "2D_versatile_fluo",
-            "title": "Stardist Model",
-            "type": "string",
-            "description": "Name of the Stardist model (\"2D_versatile_fluo\", \"2D_versatile_he\", \"2D_demo\", \"3D_demo\")"
-          },
-          "label_name": {
-            "default": "nuclei",
-            "title": "Label Name",
-            "type": "string",
-            "description": "Name of the labels folder"
-          },
-          "prob_thresh": {
-            "title": "Prob Thresh",
-            "type": "number",
-            "description": "prob_thresh: Only consider objects with predicted object probability above this threshold"
-          },
-          "nms_thresh": {
-            "title": "Nms Thresh",
-            "type": "number",
-            "description": "Perform non-maximum suppression (NMS) that considers two objects to be the same when their area/surface overlap exceeds this threshold"
-          },
-          "scale": {
-            "default": 1,
-            "title": "Scale",
-            "type": "integer",
-            "description": "Scale the input image internally by a factor and rescale the output accordingly."
-          },
-          "level": {
-            "default": 0,
-            "title": "Level",
-            "type": "integer",
-            "description": "Resolution level (0 = full resolution)"
-          },
-          "overwrite": {
-            "default": false,
-            "title": "Overwrite",
-            "type": "boolean",
-            "description": "Whether to overwrite any existing OME-ZARR segmentations"
-          }
-        },
-        "required": [
-          "zarr_url",
-          "channel"
-        ],
-        "type": "object",
-        "title": "StardistSegmentation"
-      },
-      "docs_info": "## stardist_segmentation\nSegment cells with Stardist\n",
-      "docs_link": "https://leukemia-kispi.github.io/operetta-compose/"
-    },
-    {
-      "name": "Regionprops measurement",
-      "category": "Measurement",
-      "tags": [
-        "regionprops",
-        "intensity",
-        "morphology"
-      ],
-      "type": "parallel",
-      "executable_parallel": "tasks/regionprops_measurement.py",
-      "meta_parallel": {
-        "cpus_per_task": 1,
-        "mem": 4000
-      },
-      "args_schema_parallel": {
-        "additionalProperties": false,
-        "properties": {
-          "zarr_url": {
-            "title": "Zarr Url",
-            "type": "string",
-            "description": "Path to an OME-ZARR Image"
-          },
-          "table_name": {
-            "default": "regionprops",
-            "title": "Table Name",
-            "type": "string",
-            "description": "Folder name of the measured regionprobs features"
-          },
-          "label_name": {
-            "default": "nuclei",
-            "title": "Label Name",
-            "type": "string",
-            "description": "Name of the labels to use for feature measurements"
-          },
-          "level": {
-            "default": 0,
-            "title": "Level",
-            "type": "integer",
-            "description": "Resolution level (0 = full resolution)"
-          },
-          "overwrite": {
-            "default": false,
-            "title": "Overwrite",
-            "type": "boolean",
-            "description": "Whether to overwrite any existing OME-ZARR feature table"
-          }
-        },
-        "required": [
-          "zarr_url"
-        ],
-        "type": "object",
-        "title": "RegionpropsMeasurement"
-      },
-      "docs_info": "## regionprops_measurement\nTake measurements using regionprobs and write the features to the OME-ZARR\n",
-      "docs_link": "https://leukemia-kispi.github.io/operetta-compose/"
-    },
-    {
       "name": "Feature classification",
+      "category": "Measurement",
       "tags": [
         "napari feature classifier",
         "object classification"
@@ -330,8 +34,16 @@
             "description": "Folder name of the measured regionprobs features"
           },
           "classifier_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
             "title": "Classifier Name",
-            "type": "string",
             "description": "Name of the classification results to be written to the feature table. It will default to the name of the classifier + \"_prediction\" when left unset."
           }
         },
@@ -342,7 +54,7 @@
         "type": "object",
         "title": "FeatureClassification"
       },
-      "docs_info": "## feature_classification\nClassify cells using the [napari-feature-classifier](https://github.com/fractal-napari-plugins-collection/napari-feature-classifier) and write them to the OME-ZARR\n",
+      "docs_info": "## feature_classification\nClassify cells with the napari-feature-classifier and write them to the OME-Zarr.\n\nSee https://github.com/fractal-napari-plugins-collection/napari-feature-classifier.\n",
       "docs_link": "https://leukemia-kispi.github.io/operetta-compose/"
     },
     {
@@ -354,11 +66,155 @@
         "perturbation",
         "treatment"
       ],
-      "type": "parallel",
-      "executable_parallel": "tasks/condition_registration.py",
-      "meta_parallel": {
+      "type": "non_parallel",
+      "executable_non_parallel": "tasks/condition_registration.py",
+      "meta_non_parallel": {
         "cpus_per_task": 1,
         "mem": 4000
+      },
+      "args_schema_non_parallel": {
+        "additionalProperties": false,
+        "properties": {
+          "zarr_urls": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Zarr Urls",
+            "type": "array",
+            "description": "List of paths to the OME-Zarr images of the plate (provided by Fractal for a non-parallel task)."
+          },
+          "zarr_dir": {
+            "title": "Zarr Dir",
+            "type": "string",
+            "description": "Path to the directory containing the plate (provided by Fractal; unused, kept for the Fractal non-parallel task signature)."
+          },
+          "layout_path": {
+            "title": "Layout Path",
+            "type": "string",
+            "description": "Path to a layout file (e.g. ``.csv``) with at least the columns row and column (or col)."
+          },
+          "condition_table_name": {
+            "default": "condition",
+            "title": "Condition Table Name",
+            "type": "string",
+            "description": "Name of the plate-level condition table to write."
+          },
+          "overwrite": {
+            "default": false,
+            "title": "Overwrite",
+            "type": "boolean",
+            "description": "Whether to overwrite an existing condition table."
+          }
+        },
+        "required": [
+          "zarr_urls",
+          "zarr_dir",
+          "layout_path"
+        ],
+        "type": "object",
+        "title": "ConditionRegistration"
+      },
+      "docs_info": "## condition_registration\nRegister the experimental layout as a plate-level condition table.\n\nThe layout file must contain at least the columns ``row`` and ``column``\n(or ``col``) identifying the well and can have an arbitrary number of\nadditional metadata columns (e.g. drug, concentration, medium, sample).\nOnly the wells that are actually present in the plate are registered.\n",
+      "docs_link": "https://leukemia-kispi.github.io/operetta-compose/"
+    },
+    {
+      "name": "Cell count aggregation",
+      "category": "Measurement",
+      "modality": "HCS",
+      "tags": [
+        "drug response profiling",
+        "cell count",
+        "aggregation"
+      ],
+      "type": "non_parallel",
+      "executable_non_parallel": "tasks/cell_count_aggregation.py",
+      "meta_non_parallel": {
+        "cpus_per_task": 1,
+        "mem": 4000
+      },
+      "args_schema_non_parallel": {
+        "additionalProperties": false,
+        "properties": {
+          "zarr_urls": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Zarr Urls",
+            "type": "array",
+            "description": "List of paths to the OME-Zarr images of the plate (provided by Fractal for a non-parallel task)."
+          },
+          "zarr_dir": {
+            "title": "Zarr Dir",
+            "type": "string",
+            "description": "Path to the directory containing the plate (provided by Fractal). The output CSV is written here."
+          },
+          "feature_table_name": {
+            "default": "regionprops",
+            "title": "Feature Table Name",
+            "type": "string",
+            "description": "Name of the per-image feature table to aggregate."
+          },
+          "condition_table_name": {
+            "default": "condition",
+            "title": "Condition Table Name",
+            "type": "string",
+            "description": "Name of the plate-level condition table to join (written by the `condition_registration` task)."
+          },
+          "readout_column": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Readout Column",
+            "description": "Optional column in the feature table to break the counts down by (e.g. a classifier prediction). Counts total cells per well when left unset."
+          },
+          "output_table_name": {
+            "default": "cell_counts",
+            "title": "Output Table Name",
+            "type": "string",
+            "description": "Name of the plate-level table (and CSV file) to write."
+          },
+          "write_csv": {
+            "default": true,
+            "title": "Write Csv",
+            "type": "boolean",
+            "description": "Whether to also export the aggregated counts as a CSV file next to the plate."
+          },
+          "overwrite": {
+            "default": true,
+            "title": "Overwrite",
+            "type": "boolean",
+            "description": "Whether to overwrite an existing output table."
+          }
+        },
+        "required": [
+          "zarr_urls",
+          "zarr_dir"
+        ],
+        "type": "object",
+        "title": "CellCountAggregation"
+      },
+      "docs_info": "## cell_count_aggregation\nAggregate cell counts per experimental condition across an OME-Zarr plate.\n\nThis task reads the per-image feature and condition tables of a whole plate,\ncounts the number of cells per well (optionally broken down by a readout\ncolumn such as a classifier prediction), joins the experimental conditions\nand writes the aggregated counts back as a plate-level table (and optionally\na CSV file).\n\nIt is resilient to conditions for which no cell was measured: every well\npresent in the condition table appears in the output with a ``cell_count``\nof 0 in that case.\n",
+      "docs_link": "https://leukemia-kispi.github.io/operetta-compose/"
+    },
+    {
+      "name": "Spot detection",
+      "category": "Measurement",
+      "tags": [
+        "spotiflow",
+        "spot detection",
+        "object features"
+      ],
+      "type": "parallel",
+      "executable_parallel": "tasks/spot_detection.py",
+      "meta_parallel": {
+        "cpus_per_task": 1,
+        "mem": 8000
       },
       "args_schema_parallel": {
         "additionalProperties": false,
@@ -366,38 +222,56 @@
           "zarr_url": {
             "title": "Zarr Url",
             "type": "string",
-            "description": "Path to an OME-ZARR Image"
+            "description": "Path to an OME-Zarr image (provided by Fractal)."
           },
-          "layout_path": {
-            "title": "Layout Path",
+          "channel_name": {
+            "title": "Channel Name",
             "type": "string",
-            "description": "Path to a drug layout file (.csv) with at least the columns: row, col"
+            "description": "Name of the channel to detect spots in."
           },
-          "condition_name": {
-            "default": "condition",
-            "title": "Condition Name",
+          "label_image_name": {
+            "title": "Label Image Name",
             "type": "string",
-            "description": "Name of the condition table"
+            "description": "Name of the label image the spots are counted over."
+          },
+          "roi_table_name": {
+            "default": "FOV_ROI_table",
+            "title": "Roi Table Name",
+            "type": "string",
+            "description": "Name of the ROI table to iterate over."
+          },
+          "model_name": {
+            "default": "general",
+            "title": "Model Name",
+            "type": "string",
+            "description": "Name of the pretrained Spotiflow model to use."
+          },
+          "output_table_name": {
+            "default": "spots",
+            "title": "Output Table Name",
+            "type": "string",
+            "description": "Name of the feature table to write."
           },
           "overwrite": {
-            "default": false,
+            "default": true,
             "title": "Overwrite",
             "type": "boolean",
-            "description": "Whether to overwrite any existing OME-ZARR condition table"
+            "description": "Whether to overwrite an existing output table."
           }
         },
         "required": [
           "zarr_url",
-          "layout_path"
+          "channel_name",
+          "label_image_name"
         ],
         "type": "object",
-        "title": "ConditionRegistration"
+        "title": "SpotDetection"
       },
-      "docs_info": "## condition_registration\nRegister the experimental (drug layout) in the OME-ZARR.\nThe table should contain at least the columns `row` and `col` identifying the well.\nIt can have an arbitrary number of additional metadata columns (e.g. drug, concentration, medium, sample).\nDrug combinations can be specified by two entries pointing to the same `row` / `col`\n",
+      "docs_info": "## spot_detection\nDetect spots with Spotiflow and count them per segmented object.\n\nFor every ROI in ``roi_table_name`` the selected channel is run through a\npretrained Spotiflow model. Each detected spot is assigned to the label it\nfalls on and the per-label spot counts are written back as a feature table.\n\nRequires the optional ``spotiflow`` dependency (``pip install\n\"operetta-compose[spotiflow]\"``).\n",
       "docs_link": "https://leukemia-kispi.github.io/operetta-compose/"
     }
   ],
   "has_args_schemas": true,
-  "args_schema_version": "pydantic_v2",
+  "args_schema_version": "fractal_schema_v1",
   "authors": "Fabio Steffen"
 }

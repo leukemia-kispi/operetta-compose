@@ -11,19 +11,39 @@ Currently the following tasks are available:
 
 | Task  | Description |
 |---|---|
-| harmony_to_ome_zarr | Convert TIFFs which were exported from Harmony (Operetta/Opera, Perkin-Elmer) to OME-ZARR |
-| stardist_segmentation | Segment cells with Stardist |
-| regionprops_measurement | Take measurements using regionprops and write the features to the OME-ZARR |
-| feature_classification | Classify cells using the [napari-feature-classifier](https://github.com/fractal-napari-plugins-collection/napari-feature-classifier) and write them to the OME-ZARR |
-| condition_registration | Register the experimental conditions in the OME-ZARR |
+| condition_registration | Register the experimental layout as a plate-level condition table in the OME-Zarr, aligned with the [fractal-uzh-converters](https://github.com/fractal-analytics-platform/fractal-uzh-converters) Operetta converter |
+| feature_classification | Classify cells using the [napari-feature-classifier](https://github.com/fractal-napari-plugins-collection/napari-feature-classifier) and write them to the OME-Zarr |
+| cell_count_aggregation | Aggregate cell counts per experimental condition across a plate and write a plate-level table (and CSV) for drug response profiling |
+| spot_detection | Detect spots with [Spotiflow](https://github.com/weigertlab/spotiflow) and count them per segmented object, writing a per-label feature table |
+
+### Migrated (legacy) tasks
+
+The following tasks have been removed from this package. They are superseded by
+the maintained, up-to-date implementations linked below (built on modern
+[ngio](https://github.com/fractal-analytics-platform/ngio)):
+
+| Removed task | Replacement |
+|---|---|
+| harmony_to_ome_zarr | [fractal-uzh-converters (Operetta converter)](https://github.com/fractal-analytics-platform/fractal-uzh-converters/tree/main/src/fractal_uzh_converters/operetta) |
+| condition_registration (old, per-well) | now part of the [fractal-uzh-converters Operetta converter](https://github.com/fractal-analytics-platform/fractal-uzh-converters/tree/main/src/fractal_uzh_converters/operetta); a plate-level version is kept in this package |
+| stardist_segmentation | [fractal-stardist-segmentation-task](https://github.com/fractal-analytics-platform/fractal-stardist-segmentation-task) |
+| regionprops_measurement | [`measure_features` in fractal-tasks-core](https://github.com/fractal-analytics-platform/fractal-tasks-core/blob/main/fractal_tasks_core/measure_features.py) |
 
 ## Development and installation in Fractal
 
-1. Install the package in dev mode with `python -m pip install -e ".[dev]"`
+This project uses [pixi](https://pixi.sh) to manage the environment.
+
+1. Install the environment and the package (editable) with `pixi install`
 2. Develop the function according to the [Fractal API](https://fractal-analytics-platform.github.io/version_2/)
-3. Update the image list and the Fractal manifest with `fractal-manifest create --package operetta-compose`
-4. Build a wheel file in the `dist` folder of the package with `python -m build`
-5. Collect the tasks on a Fractal server
+3. Run the tests with `pixi run test`
+4. Update the image list and the Fractal manifest with `pixi run manifest`
+5. Build a wheel file in the `dist` folder of the package with `pixi run build`
+6. Collect the tasks on a Fractal server
+
+Some tasks pull in heavy, task-specific dependencies that are shipped as optional extras:
+
+- `feature_classification` needs the napari-feature-classifier: `pip install -e ".[classifier]"`
+- `spot_detection` needs Spotiflow (and torch): `pip install -e ".[spotiflow]"`
 
 
 ## Updating docs

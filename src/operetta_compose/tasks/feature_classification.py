@@ -1,16 +1,10 @@
+import logging
+import re
+
+import ngio
 import ngio.tables
 import pandas as pd
-import logging
-import ngio
-import re
-from typing import Optional
-
-import fractal_tasks_core
 from pydantic import validate_call
-
-
-
-__OME_NGFF_VERSION__ = fractal_tasks_core.__OME_NGFF_VERSION__
 
 logger = logging.getLogger(__name__)
 
@@ -21,9 +15,11 @@ def feature_classification(
     zarr_url: str,
     classifier_path: str,
     table_name: str = "regionprops",
-    classifier_name: Optional[str] = None,
+    classifier_name: str | None = None,
 ) -> None:
-    """Classify cells using the [napari-feature-classifier](https://github.com/fractal-napari-plugins-collection/napari-feature-classifier) and write them to the OME-ZARR
+    """Classify cells with the napari-feature-classifier and write them to the OME-Zarr.
+
+    See https://github.com/fractal-napari-plugins-collection/napari-feature-classifier.
 
     Args:
         zarr_url: Path to an OME-ZARR Image
@@ -35,7 +31,7 @@ def feature_classification(
     """
     if classifier_name is None:
         classifier_filename = classifier_path.split("/")[-1].split(".")[0]
-        classifier_name = re.sub(r'[\W]+', '_', classifier_filename) + "_prediction"
+        classifier_name = re.sub(r"[\W]+", "_", classifier_filename) + "_prediction"
 
     with open(classifier_path, "rb") as f:
         try:
@@ -49,10 +45,12 @@ def feature_classification(
                 "with that classifier version. Use an older version like "
                 "operetta-compose 0.2.12."
                 f"Original error: {e}"
-            )
+            ) from e
 
     ome_zarr_container = ngio.open_ome_zarr_container(zarr_url)
-    feature_table = ome_zarr_container.get_table(name=table_name, check_type="feature_table")
+    feature_table = ome_zarr_container.get_table(
+        name=table_name, check_type="feature_table"
+    )
     features = feature_table.dataframe
     features = features.reset_index()
     if "label" not in features.columns:
@@ -75,29 +73,25 @@ def feature_classification(
 
     # Run predictions & save name of prediction in dataframe
     predictions = clf.predict(features_subset).reset_index()
-    predictions[classifier_name] = predictions['prediction'].map(
+    predictions[classifier_name] = predictions["prediction"].map(
         lambda x: clf._class_names[int(x) - 1] if pd.notna(x) else "NaN"
     )
     predictions = predictions.drop(columns="prediction")
 
     # Fuse into existing feature table
     features_with_predictions = features.merge(
-        predictions,
-        on=index_columns,
-        how="outer"
+        predictions, on=index_columns, how="outer"
     )
     if remove_roi_id_column:
         features_with_predictions = features_with_predictions.drop(columns="roi_id")
 
     new_feature_table = ngio.tables.FeatureTable(
         dataframe=features_with_predictions,
-        reference_label=feature_table.reference_label
+        reference_label=feature_table.reference_label,
     )
     # Write the table to disk again
     ome_zarr_container.add_table(
-        name=table_name,
-        table = new_feature_table,
-        overwrite=True
+        name=table_name, table=new_feature_table, overwrite=True
     )
 
 

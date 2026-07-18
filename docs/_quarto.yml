@@ -42,27 +42,7 @@ quartodoc:
     - title: Fractal tasks
       desc: "Modular processing tasks for the Opera/Operetta microscope and drug response profiling"
       contents:
-        - tasks.harmony_to_ome_zarr
-        - tasks.stardist_segmentation
-        - tasks.regionprops_measurement
-        - tasks.feature_classification
         - tasks.condition_registration
-    - title: Input/Output
-      desc: "OME-ZARR reader and writer functions"
-      contents:
-        - io.OmeZarrUrl
-        - io.read_ome_zarr
-        - io.parse_zarr_url
-        - io.convert_ROI_table_to_indices
-        - io.get_roi
-        - io.load_intensity_roi
-        - io.load_label_roi
-        - io.labels_to_ome_zarr
-        - io.features_to_ome_zarr
-        - io.condition_to_ome_zarr
-    - title: Utils
-      desc: "Utility functions"
-      contents:
-        - utils.colorbrewer
-        - utils.alpha_to_numeric
-        - utils.numeric_to_alpha
+        - tasks.feature_classification
+        - tasks.cell_count_aggregation
+        - tasks.spot_detection
