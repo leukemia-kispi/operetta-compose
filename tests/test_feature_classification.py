@@ -9,6 +9,7 @@ import ngio
 import numpy as np
 import pandas as pd
 import pytest
+from feature_classifier_core import Classifier
 from ngio.tables import FeatureTable
 
 from operetta_compose.tasks.feature_classification import feature_classification
@@ -53,6 +54,31 @@ def test_feature_classification(plate_url, build_plate, image_urls, fixtures_dir
 
     predictions = set(result["classifier_prediction"])
     assert predictions <= CLASS_NAMES  # only valid class names, all rows classified
+
+
+def test_feature_classification_accepts_clf(
+    plate_url, build_plate, image_urls, fixtures_dir, tmp_path
+):
+    # A full `.clf` (a pickled Classifier) must load headlessly through
+    # feature-classifier-core, without napari-feature-classifier installed.
+    clf_path = tmp_path / "classifier.clf"
+    Classifier.load(str(fixtures_dir / "classifier.joblib")).save(str(clf_path))
+
+    plate = build_plate(plate_url, [("C", "3")])
+    n = 6
+    rng = np.random.default_rng(0)
+    df = pd.DataFrame({f: rng.uniform(0.1, 100.0, n) for f in CLASSIFIER_FEATURES})
+    df["label"] = np.arange(1, n + 1)
+    plate.get_image(row="C", column="3", image_path="0").add_table(
+        "regionprops", FeatureTable(df), overwrite=True
+    )
+
+    image_url = image_urls(plate_url, [("C", "3")])[0]
+    feature_classification(zarr_url=image_url, classifier_path=str(clf_path))
+
+    result = ngio.open_ome_zarr_container(image_url).get_table("regionprops").dataframe
+    assert "classifier_prediction" in result.columns
+    assert set(result["classifier_prediction"]) <= CLASS_NAMES
 
 
 def test_feature_classification_missing_feature_raises(

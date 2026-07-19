@@ -1,10 +1,10 @@
 import logging
 import re
 
-import joblib
 import ngio
 import ngio.tables
 import pandas as pd
+from feature_classifier_core import Classifier
 from pydantic import validate_call
 
 logger = logging.getLogger(__name__)
@@ -20,11 +20,11 @@ def feature_classification(
 ) -> None:
     """Classify cells with a trained classifier and write them to the OME-Zarr.
 
-    The classifier is a neutral joblib bundle with three keys: ``estimator`` (a
-    fitted scikit-learn classifier), ``feature_names`` (the feature columns it
-    expects) and ``class_names`` (the human-readable label per class). Convert a
-    napari-feature-classifier classifier into this format once with
-    ``scripts/convert_classifier.py``.
+    The classifier can be a full `.clf` file or a neutral joblib bundle
+    with following three keys
+     - ``estimator``: the fitted scikit-learn model
+     - ``feature_names``: the feature columns
+     - ``class_names``: the human-readable label per class
 
     Args:
         zarr_url: Path to an OME-ZARR Image
@@ -38,10 +38,12 @@ def feature_classification(
         classifier_filename = classifier_path.split("/")[-1].split(".")[0]
         classifier_name = re.sub(r"[\W]+", "_", classifier_filename) + "_prediction"
 
-    bundle = joblib.load(classifier_path)
-    estimator = bundle["estimator"]
-    feature_names = bundle["feature_names"]
-    class_names = bundle["class_names"]
+    # feature-classifier-core loads either a neutral bundle or a full `.clf`
+    # and validates the bundle format, so that logic lives in one place.
+    clf = Classifier.load(classifier_path)
+    estimator = clf.get_estimator()
+    feature_names = clf.get_feature_names()
+    class_names = clf.get_class_names()
 
     ome_zarr_container = ngio.open_ome_zarr_container(zarr_url)
     feature_table = ome_zarr_container.get_table(

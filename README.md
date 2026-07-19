@@ -41,9 +41,8 @@ This project uses [pixi](https://pixi.sh) to manage the environment.
 6. Collect the tasks on a Fractal server
 
 `feature_classification` runs a trained scikit-learn classifier loaded from a neutral joblib
-bundle. Classifiers trained in the [napari-feature-classifier](https://github.com/fractal-napari-plugins-collection/napari-feature-classifier)
-must be converted once with `python scripts/convert_classifier.py <classifier.clf> classifier.joblib`
-(run in an environment that has napari-feature-classifier installed).
+bundle. Export the bundle from the [napari-feature-classifier](https://github.com/fractal-napari-plugins-collection/napari-feature-classifier)
+plugin using its "Export Model" button.
 
 Some tasks pull in heavy, task-specific dependencies that are shipped as optional extras:
 
