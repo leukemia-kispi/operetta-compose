@@ -1,6 +1,7 @@
 import logging
 import re
 
+import joblib
 import ngio
 import ngio.tables
 import pandas as pd
@@ -17,14 +18,18 @@ def feature_classification(
     table_name: str = "regionprops",
     classifier_name: str | None = None,
 ) -> None:
-    """Classify cells with the napari-feature-classifier and write them to the OME-Zarr.
+    """Classify cells with a trained classifier and write them to the OME-Zarr.
 
-    See https://github.com/fractal-napari-plugins-collection/napari-feature-classifier.
+    The classifier is a neutral joblib bundle with three keys: ``estimator`` (a
+    fitted scikit-learn classifier), ``feature_names`` (the feature columns it
+    expects) and ``class_names`` (the human-readable label per class). Convert a
+    napari-feature-classifier classifier into this format once with
+    ``scripts/convert_classifier.py``.
 
     Args:
         zarr_url: Path to an OME-ZARR Image
-        classifier_path: Path to the pickled scikit-learn classifier
-        table_name: Folder name of the measured regionprobs features
+        classifier_path: Path to the joblib classifier bundle
+        table_name: Folder name of the measured regionprops features
         classifier_name: Name of the classification results to be written to
             the feature table. It will default to the name of the classifier +
             "_prediction" when left unset.
@@ -33,60 +38,41 @@ def feature_classification(
         classifier_filename = classifier_path.split("/")[-1].split(".")[0]
         classifier_name = re.sub(r"[\W]+", "_", classifier_filename) + "_prediction"
 
-    with open(classifier_path, "rb") as f:
-        try:
-            clf = pd.read_pickle(f)
-        except AttributeError as e:
-            raise AttributeError(
-                "Loading the classifier failed. The most likely reason is: "
-                "The classifier was trained with a different classifier "
-                "plugin version (likely napari-feature-classifier <= 0.2.1)."
-                "This version of the operetta-compose task is not compatible "
-                "with that classifier version. Use an older version like "
-                "operetta-compose 0.2.12."
-                f"Original error: {e}"
-            ) from e
+    bundle = joblib.load(classifier_path)
+    estimator = bundle["estimator"]
+    feature_names = bundle["feature_names"]
+    class_names = bundle["class_names"]
 
     ome_zarr_container = ngio.open_ome_zarr_container(zarr_url)
     feature_table = ome_zarr_container.get_table(
         name=table_name, check_type="feature_table"
     )
-    features = feature_table.dataframe
-    features = features.reset_index()
+    features = feature_table.dataframe.reset_index()
     if "label" not in features.columns:
         raise ValueError(
             "The feature table does not contain a label column. "
             "Please check the table name and the feature table."
         )
 
-    if classifier_name in features.columns:
-        features = features.drop(columns=[classifier_name])
+    missing = [f for f in feature_names if f not in features.columns]
+    if missing:
+        raise ValueError(
+            f"The feature table is missing columns required by the classifier: "
+            f"{missing}. Available columns: {sorted(features.columns)}"
+        )
 
-    remove_roi_id_column = False
-    index_columns = ["roi_id", "label"]
-    if "roi_id" not in features.columns:
-        features["roi_id"] = zarr_url
-        remove_roi_id_column = True
-
-    # Select feature subset in expected order
-    features_subset = features[clf.get_feature_names() + index_columns]
-
-    # Run predictions & save name of prediction in dataframe
-    predictions = clf.predict(features_subset).reset_index()
-    predictions[classifier_name] = predictions["prediction"].map(
-        lambda x: clf._class_names[int(x) - 1] if pd.notna(x) else "NaN"
-    )
-    predictions = predictions.drop(columns="prediction")
-
-    # Fuse into existing feature table
-    features_with_predictions = features.merge(
-        predictions, on=index_columns, how="outer"
-    )
-    if remove_roi_id_column:
-        features_with_predictions = features_with_predictions.drop(columns="roi_id")
+    # Rows with missing feature values cannot be classified; label them "NaN"
+    # rather than dropping them (matches the napari-feature-classifier behavior).
+    feature_matrix = features[feature_names]
+    valid = feature_matrix.notna().all(axis=1)
+    predictions = pd.Series("NaN", index=features.index, dtype=object)
+    if valid.any():
+        classes = estimator.predict(feature_matrix[valid])
+        predictions.loc[valid] = [class_names[int(c) - 1] for c in classes]
+    features[classifier_name] = predictions.to_numpy()
 
     new_feature_table = ngio.tables.FeatureTable(
-        dataframe=features_with_predictions,
+        features,
         reference_label=feature_table.reference_label,
     )
     # Write the table to disk again

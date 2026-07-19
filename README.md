@@ -12,7 +12,7 @@ Currently the following tasks are available:
 | Task  | Description |
 |---|---|
 | condition_registration | Register the experimental layout as a plate-level condition table in the OME-Zarr, aligned with the [fractal-uzh-converters](https://github.com/fractal-analytics-platform/fractal-uzh-converters) Operetta converter |
-| feature_classification | Classify cells using the [napari-feature-classifier](https://github.com/fractal-napari-plugins-collection/napari-feature-classifier) and write them to the OME-Zarr |
+| feature_classification | Classify cells with a trained scikit-learn classifier (e.g. from the [napari-feature-classifier](https://github.com/fractal-napari-plugins-collection/napari-feature-classifier)) and write them to the OME-Zarr |
 | cell_count_aggregation | Aggregate cell counts per experimental condition across a plate and write a plate-level table (and CSV) for drug response profiling |
 | spot_detection | Detect spots with [Spotiflow](https://github.com/weigertlab/spotiflow) and count them per segmented object, writing a per-label feature table |
 
@@ -40,9 +40,13 @@ This project uses [pixi](https://pixi.sh) to manage the environment.
 5. Build a wheel file in the `dist` folder of the package with `pixi run build`
 6. Collect the tasks on a Fractal server
 
+`feature_classification` runs a trained scikit-learn classifier loaded from a neutral joblib
+bundle. Classifiers trained in the [napari-feature-classifier](https://github.com/fractal-napari-plugins-collection/napari-feature-classifier)
+must be converted once with `python scripts/convert_classifier.py <classifier.clf> classifier.joblib`
+(run in an environment that has napari-feature-classifier installed).
+
 Some tasks pull in heavy, task-specific dependencies that are shipped as optional extras:
 
-- `feature_classification` needs the napari-feature-classifier: `pip install -e ".[classifier]"`
 - `spot_detection` needs Spotiflow (and torch): `pip install -e ".[spotiflow]"`
 
 

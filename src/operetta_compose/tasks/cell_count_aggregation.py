@@ -1,7 +1,7 @@
 """Aggregate cell counts per experimental condition across an OME-Zarr plate."""
 
 import logging
-from pathlib import Path
+from typing import Literal
 
 import pandas as pd
 from ngio import open_ome_zarr_plate
@@ -25,8 +25,11 @@ def aggregate_cell_counts(
     """Count cells per well (and readout class) and join the experimental conditions.
 
     The counts are computed from the feature table and joined onto the condition
-    table with a left merge, so that every condition well is represented in the
-    output even when no cell was measured for it (the count is 0 in that case).
+    table so that every condition well is represented in the output even when no
+    cell was measured for it. When ``readout_column`` is given, each condition
+    well is reported against every observed readout category, so missing
+    combinations (a well/category pair with no measured cells) appear explicitly
+    with a count of 0 rather than being absent.
 
     Args:
         feature_df: Concatenated feature table with at least the columns
@@ -83,8 +86,31 @@ def aggregate_cell_counts(
         columns=[c for c in ["path_in_well"] if c in condition_df.columns]
     ).drop_duplicates(subset=key_columns)
 
-    # Left merge from the conditions keeps wells with zero measured cells.
-    aggregated = conditions.merge(counts, on=key_columns, how="left")
+    if readout_column is not None:
+        # Report every condition well against every observed readout category,
+        # defaulting to 0 where that category was not measured (e.g. a well with
+        # only viable cells still gets an explicit `dead` == 0 row, and a well
+        # with no cells at all gets a 0 row for each category).
+        categories = counts[[readout_column]].dropna().drop_duplicates()
+        if categories.empty:
+            aggregated = conditions.copy()
+        else:
+            grid = conditions.merge(categories, how="cross")
+            aggregated = grid.merge(
+                counts, on=[*key_columns, readout_column], how="left"
+            )
+        # Preserve cells whose readout class was missing (NaN), which the
+        # category grid above does not cover.
+        na_counts = counts[counts[readout_column].isna()]
+        if not na_counts.empty:
+            aggregated = pd.concat(
+                [aggregated, na_counts.merge(conditions, on=key_columns, how="left")],
+                ignore_index=True,
+            )
+    else:
+        # Left merge from the conditions keeps wells with zero measured cells.
+        aggregated = conditions.merge(counts, on=key_columns, how="left")
+
     aggregated["cell_count"] = aggregated["cell_count"].fillna(0).astype(int)
     aggregated = aggregated.drop(columns=key_columns)
     return aggregated.reset_index(drop=True)
@@ -99,7 +125,7 @@ def cell_count_aggregation(
     condition_table_name: str = "condition",
     readout_column: str | None = None,
     output_table_name: str = "cell_counts",
-    write_csv: bool = True,
+    table_backend: Literal["anndata", "json", "csv", "parquet"] = "parquet",
     overwrite: bool = True,
 ) -> None:
     """Aggregate cell counts per experimental condition across an OME-Zarr plate.
@@ -107,8 +133,7 @@ def cell_count_aggregation(
     This task reads the per-image feature and condition tables of a whole plate,
     counts the number of cells per well (optionally broken down by a readout
     column such as a classifier prediction), joins the experimental conditions
-    and writes the aggregated counts back as a plate-level table (and optionally
-    a CSV file).
+    and writes the aggregated counts back as a plate-level table.
 
     It is resilient to conditions for which no cell was measured: every well
     present in the condition table appears in the output with a ``cell_count``
@@ -118,16 +143,18 @@ def cell_count_aggregation(
         zarr_urls: List of paths to the OME-Zarr images of the plate (provided
             by Fractal for a non-parallel task).
         zarr_dir: Path to the directory containing the plate (provided by
-            Fractal). The output CSV is written here.
+            Fractal).
         feature_table_name: Name of the per-image feature table to aggregate.
         condition_table_name: Name of the plate-level condition table to join
             (written by the `condition_registration` task).
         readout_column: Optional column in the feature table to break the counts
             down by (e.g. a classifier prediction). Counts total cells per well
             when left unset.
-        output_table_name: Name of the plate-level table (and CSV file) to write.
-        write_csv: Whether to also export the aggregated counts as a CSV file
-            next to the plate.
+        output_table_name: Name of the plate-level table to write.
+        table_backend: ngio table backend used to store the output table.
+            ``parquet`` is a compact columnar default; ``csv`` keeps the table
+            human-readable inside the OME-Zarr; ``anndata`` and ``json`` are
+            also supported.
         overwrite: Whether to overwrite an existing output table.
     """
     if not zarr_urls:
@@ -160,14 +187,13 @@ def cell_count_aggregation(
     plate.add_table(
         output_table_name,
         GenericTable(aggregated),
+        backend=table_backend,
         overwrite=overwrite,
     )
-    logger.info(f"Wrote plate-level table `{output_table_name}`.")
-
-    if write_csv:
-        csv_path = Path(zarr_dir) / f"{output_table_name}.csv"
-        aggregated.to_csv(csv_path, index=False)
-        logger.info(f"Wrote CSV to {csv_path}.")
+    logger.info(
+        f"Wrote plate-level table `{output_table_name}` "
+        f"using the `{table_backend}` backend."
+    )
 
     return None
 

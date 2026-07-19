@@ -25,13 +25,13 @@
           "classifier_path": {
             "title": "Classifier Path",
             "type": "string",
-            "description": "Path to the pickled scikit-learn classifier"
+            "description": "Path to the joblib classifier bundle"
           },
           "table_name": {
             "default": "regionprops",
             "title": "Table Name",
             "type": "string",
-            "description": "Folder name of the measured regionprobs features"
+            "description": "Folder name of the measured regionprops features"
           },
           "classifier_name": {
             "anyOf": [
@@ -54,7 +54,7 @@
         "type": "object",
         "title": "FeatureClassification"
       },
-      "docs_info": "## feature_classification\nClassify cells with the napari-feature-classifier and write them to the OME-Zarr.\n\nSee https://github.com/fractal-napari-plugins-collection/napari-feature-classifier.\n",
+      "docs_info": "## feature_classification\nClassify cells with a trained classifier and write them to the OME-Zarr.\n\nThe classifier is a neutral joblib bundle with three keys: ``estimator`` (a\nfitted scikit-learn classifier), ``feature_names`` (the feature columns it\nexpects) and ``class_names`` (the human-readable label per class). Convert a\nnapari-feature-classifier classifier into this format once with\n``scripts/convert_classifier.py``.\n",
       "docs_link": "https://leukemia-kispi.github.io/operetta-compose/"
     },
     {
@@ -146,7 +146,7 @@
           "zarr_dir": {
             "title": "Zarr Dir",
             "type": "string",
-            "description": "Path to the directory containing the plate (provided by Fractal). The output CSV is written here."
+            "description": "Path to the directory containing the plate (provided by Fractal)."
           },
           "feature_table_name": {
             "default": "regionprops",
@@ -177,13 +177,19 @@
             "default": "cell_counts",
             "title": "Output Table Name",
             "type": "string",
-            "description": "Name of the plate-level table (and CSV file) to write."
+            "description": "Name of the plate-level table to write."
           },
-          "write_csv": {
-            "default": true,
-            "title": "Write Csv",
-            "type": "boolean",
-            "description": "Whether to also export the aggregated counts as a CSV file next to the plate."
+          "table_backend": {
+            "default": "parquet",
+            "enum": [
+              "anndata",
+              "json",
+              "csv",
+              "parquet"
+            ],
+            "title": "Table Backend",
+            "type": "string",
+            "description": "ngio table backend used to store the output table. ``parquet`` is a compact columnar default; ``csv`` keeps the table human-readable inside the OME-Zarr; ``anndata`` and ``json`` are also supported."
           },
           "overwrite": {
             "default": true,
@@ -199,7 +205,7 @@
         "type": "object",
         "title": "CellCountAggregation"
       },
-      "docs_info": "## cell_count_aggregation\nAggregate cell counts per experimental condition across an OME-Zarr plate.\n\nThis task reads the per-image feature and condition tables of a whole plate,\ncounts the number of cells per well (optionally broken down by a readout\ncolumn such as a classifier prediction), joins the experimental conditions\nand writes the aggregated counts back as a plate-level table (and optionally\na CSV file).\n\nIt is resilient to conditions for which no cell was measured: every well\npresent in the condition table appears in the output with a ``cell_count``\nof 0 in that case.\n",
+      "docs_info": "## cell_count_aggregation\nAggregate cell counts per experimental condition across an OME-Zarr plate.\n\nThis task reads the per-image feature and condition tables of a whole plate,\ncounts the number of cells per well (optionally broken down by a readout\ncolumn such as a classifier prediction), joins the experimental conditions\nand writes the aggregated counts back as a plate-level table.\n\nIt is resilient to conditions for which no cell was measured: every well\npresent in the condition table appears in the output with a ``cell_count``\nof 0 in that case.\n",
       "docs_link": "https://leukemia-kispi.github.io/operetta-compose/"
     },
     {

@@ -16,11 +16,13 @@ dependencies = [
     "fractal-task-tools>=0.5.0,<0.6.0",
     "pandas>=2",
     "pydantic>=2",
+    # `feature_classification` runs a trained scikit-learn classifier loaded
+    # from a neutral joblib bundle (see scripts/convert_classifier.py).
+    "scikit-learn>=1.6",
+    "joblib>=1.3",
 ]
 
 [project.optional-dependencies]
-# Only required to run the `feature_classification` task (pulls in napari).
-classifier = ["napari-feature-classifier>=0.3.0"]
 # Only required to run the `spot_detection` task (pulls in torch via spotiflow).
 spotiflow = ["spotiflow"]
 dev = [
