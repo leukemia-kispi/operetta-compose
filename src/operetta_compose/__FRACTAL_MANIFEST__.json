@@ -54,7 +54,7 @@
         "type": "object",
         "title": "FeatureClassification"
       },
-      "docs_info": "## feature_classification\nClassify cells with a trained classifier and write them to the OME-Zarr.\n\nThe classifier is a neutral joblib bundle with three keys: ``estimator`` (a\nfitted scikit-learn classifier), ``feature_names`` (the feature columns it\nexpects) and ``class_names`` (the human-readable label per class). Export it\nfrom the napari-feature-classifier plugin with its \"Export Model\" button.\n",
+      "docs_info": "## feature_classification\nClassify cells with a trained classifier and write them to the OME-Zarr.\n\nThe classifier can be a full `.clf` file or a neutral joblib bundle\nwith following three keys\n - ``estimator``: the fitted scikit-learn model\n - ``feature_names``: the feature columns\n - ``class_names``: the human-readable label per class\n",
       "docs_link": "https://leukemia-kispi.github.io/operetta-compose/"
     },
     {
@@ -98,6 +98,18 @@
             "title": "Condition Table Name",
             "type": "string",
             "description": "Name of the plate-level condition table to write."
+          },
+          "table_backend": {
+            "default": "parquet",
+            "enum": [
+              "anndata",
+              "json",
+              "csv",
+              "parquet"
+            ],
+            "title": "Table Backend",
+            "type": "string",
+            "description": "ngio table backend used to store the condition table. ``parquet`` is a compact columnar default; ``csv`` keeps the table human-readable inside the OME-Zarr; ``anndata`` and ``json`` are also supported."
           },
           "overwrite": {
             "default": false,

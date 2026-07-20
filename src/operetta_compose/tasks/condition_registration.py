@@ -1,6 +1,7 @@
 """Register experimental conditions as a plate-level table in an OME-Zarr plate."""
 
 import logging
+from typing import Literal
 
 import pandas as pd
 from ngio import open_ome_zarr_plate
@@ -61,6 +62,7 @@ def condition_registration(
     zarr_dir: str,
     layout_path: str,
     condition_table_name: str = "condition",
+    table_backend: Literal["anndata", "json", "csv", "parquet"] = "parquet",
     overwrite: bool = False,
 ) -> None:
     """Register the experimental layout as a plate-level condition table.
@@ -78,6 +80,10 @@ def condition_registration(
         layout_path: Path to a layout file (e.g. ``.csv``) with at least the
             columns row and column (or col).
         condition_table_name: Name of the plate-level condition table to write.
+        table_backend: ngio table backend used to store the condition table.
+            ``parquet`` is a compact columnar default; ``csv`` keeps the table
+            human-readable inside the OME-Zarr; ``anndata`` and ``json`` are
+            also supported.
         overwrite: Whether to overwrite an existing condition table.
     """
     if not zarr_urls:
@@ -126,11 +132,12 @@ def condition_registration(
     plate.add_table(
         condition_table_name,
         ConditionTable(condition_table),
+        backend=table_backend,
         overwrite=overwrite,
     )
     logger.info(
         f"Registered {len(condition_table)} condition(s) as plate-level table "
-        f"`{condition_table_name}`."
+        f"`{condition_table_name}` using the `{table_backend}` backend."
     )
     return None
 
