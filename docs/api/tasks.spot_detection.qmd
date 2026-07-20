@@ -1,0 +1,70 @@
+# tasks.spot_detection { #operetta_compose.tasks.spot_detection }
+
+`tasks.spot_detection`
+
+Detect spots with Spotiflow and count them per segmented object.
+
+## Functions
+
+| Name | Description |
+| --- | --- |
+| [count_spots_per_label](#operetta_compose.tasks.spot_detection.count_spots_per_label) | Assign detected spots to labels and count the spots per label. |
+| [spot_detection](#operetta_compose.tasks.spot_detection.spot_detection) | Detect spots with Spotiflow and count them per segmented object. |
+
+### count_spots_per_label { #operetta_compose.tasks.spot_detection.count_spots_per_label }
+
+```python
+tasks.spot_detection.count_spots_per_label(points, label_array)
+```
+
+Assign detected spots to labels and count the spots per label.
+
+#### Parameters {.doc-section .doc-section-parameters}
+
+| Name        | Type       | Description                                                                                                                       | Default    |
+|-------------|------------|-----------------------------------------------------------------------------------------------------------------------------------|------------|
+| points      | np.ndarray | Spot coordinates with shape ``(n_spots, ndim)`` in the same axis order as ``label_array`` (e.g. ``(y, x)`` for a 2D label image). | _required_ |
+| label_array | np.ndarray | Integer label image where ``0`` marks the background.                                                                             | _required_ |
+
+#### Returns {.doc-section .doc-section-returns}
+
+| Name   | Type         | Description                                                              |
+|--------|--------------|--------------------------------------------------------------------------|
+|        | pd.DataFrame | A dataframe indexed by ``label`` with a single ``spot_count`` column.    |
+|        | pd.DataFrame | Every non-background label is represented, with a count of ``0`` when no |
+|        | pd.DataFrame | spot was assigned to it. Spots that fall on the background are ignored.  |
+
+### spot_detection { #operetta_compose.tasks.spot_detection.spot_detection }
+
+```python
+tasks.spot_detection.spot_detection(
+    zarr_url,
+    channel_name,
+    label_image_name,
+    roi_table_name='FOV_ROI_table',
+    model_name='general',
+    output_table_name='spots',
+    overwrite=True,
+)
+```
+
+Detect spots with Spotiflow and count them per segmented object.
+
+For every ROI in ``roi_table_name`` the selected channel is run through a
+pretrained Spotiflow model. Each detected spot is assigned to the label it
+falls on and the per-label spot counts are written back as a feature table.
+
+Requires the optional ``spotiflow`` dependency (``pip install
+"operetta-compose[spotiflow]"``).
+
+#### Parameters {.doc-section .doc-section-parameters}
+
+| Name              | Type   | Description                                         | Default           |
+|-------------------|--------|-----------------------------------------------------|-------------------|
+| zarr_url          | str    | Path to an OME-Zarr image (provided by Fractal).    | _required_        |
+| channel_name      | str    | Name of the channel to detect spots in.             | _required_        |
+| label_image_name  | str    | Name of the label image the spots are counted over. | _required_        |
+| roi_table_name    | str    | Name of the ROI table to iterate over.              | `'FOV_ROI_table'` |
+| model_name        | str    | Name of the pretrained Spotiflow model to use.      | `'general'`       |
+| output_table_name | str    | Name of the feature table to write.                 | `'spots'`         |
+| overwrite         | bool   | Whether to overwrite an existing output table.      | `True`            |

@@ -1,0 +1,85 @@
+# tasks.cell_count_aggregation { #operetta_compose.tasks.cell_count_aggregation }
+
+`tasks.cell_count_aggregation`
+
+Aggregate cell counts per experimental condition across an OME-Zarr plate.
+
+## Functions
+
+| Name | Description |
+| --- | --- |
+| [aggregate_cell_counts](#operetta_compose.tasks.cell_count_aggregation.aggregate_cell_counts) | Count cells per well (and readout class) and join the experimental conditions. |
+| [cell_count_aggregation](#operetta_compose.tasks.cell_count_aggregation.cell_count_aggregation) | Aggregate cell counts per experimental condition across an OME-Zarr plate. |
+
+### aggregate_cell_counts { #operetta_compose.tasks.cell_count_aggregation.aggregate_cell_counts }
+
+```python
+tasks.cell_count_aggregation.aggregate_cell_counts(
+    feature_df,
+    condition_df,
+    readout_column=None,
+)
+```
+
+Count cells per well (and readout class) and join the experimental conditions.
+
+The counts are computed from the feature table and joined onto the condition
+table so that every condition well is represented in the output even when no
+cell was measured for it. When ``readout_column`` is given, each condition
+well is reported against every observed readout category, so missing
+combinations (a well/category pair with no measured cells) appear explicitly
+with a count of 0 rather than being absent.
+
+#### Parameters {.doc-section .doc-section-parameters}
+
+| Name           | Type         | Description                                                                                                                                                                               | Default    |
+|----------------|--------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|
+| feature_df     | pd.DataFrame | Concatenated feature table with at least the columns ``row`` and ``column`` (added by ``concatenate_image_tables``).                                                                      | _required_ |
+| condition_df   | pd.DataFrame | Concatenated condition table with at least the columns ``row`` and ``column``.                                                                                                            | _required_ |
+| readout_column | str \| None  | Optional column in the feature table used to break the counts down further (e.g. a classifier prediction like viable/dead). When ``None``, the total number of cells per well is counted. | `None`     |
+
+#### Returns {.doc-section .doc-section-returns}
+
+| Name   | Type         | Description                                                             |
+|--------|--------------|-------------------------------------------------------------------------|
+|        | pd.DataFrame | A long-format dataframe with one row per condition well (and readout    |
+|        | pd.DataFrame | class), the experimental condition columns and a ``cell_count`` column. |
+
+### cell_count_aggregation { #operetta_compose.tasks.cell_count_aggregation.cell_count_aggregation }
+
+```python
+tasks.cell_count_aggregation.cell_count_aggregation(
+    zarr_urls,
+    zarr_dir,
+    feature_table_name='regionprops',
+    condition_table_name='condition',
+    readout_column=None,
+    output_table_name='cell_counts',
+    table_backend='parquet',
+    overwrite=True,
+)
+```
+
+Aggregate cell counts per experimental condition across an OME-Zarr plate.
+
+This task reads the per-image feature and condition tables of a whole plate,
+counts the number of cells per well (optionally broken down by a readout
+column such as a classifier prediction), joins the experimental conditions
+and writes the aggregated counts back as a plate-level table.
+
+It is resilient to conditions for which no cell was measured: every well
+present in the condition table appears in the output with a ``cell_count``
+of 0 in that case.
+
+#### Parameters {.doc-section .doc-section-parameters}
+
+| Name                 | Type                                                   | Description                                                                                                                                                                                            | Default         |
+|----------------------|--------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------|
+| zarr_urls            | list\[str\]                                            | List of paths to the OME-Zarr images of the plate (provided by Fractal for a non-parallel task).                                                                                                       | _required_      |
+| zarr_dir             | str                                                    | Path to the directory containing the plate (provided by Fractal).                                                                                                                                      | _required_      |
+| feature_table_name   | str                                                    | Name of the per-image feature table to aggregate.                                                                                                                                                      | `'regionprops'` |
+| condition_table_name | str                                                    | Name of the plate-level condition table to join (written by the `condition_registration` task).                                                                                                        | `'condition'`   |
+| readout_column       | str \| None                                            | Optional column in the feature table to break the counts down by (e.g. a classifier prediction). Counts total cells per well when left unset.                                                          | `None`          |
+| output_table_name    | str                                                    | Name of the plate-level table to write.                                                                                                                                                                | `'cell_counts'` |
+| table_backend        | Literal\[\'anndata\', \'json\', \'csv\', \'parquet\'\] | ngio table backend used to store the output table. ``parquet`` is a compact columnar default; ``csv`` keeps the table human-readable inside the OME-Zarr; ``anndata`` and ``json`` are also supported. | `'parquet'`     |
+| overwrite            | bool                                                   | Whether to overwrite an existing output table.                                                                                                                                                         | `True`          |
