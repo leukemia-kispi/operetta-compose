@@ -31,6 +31,13 @@ dev = [
     "jsonschema",
     "ruff",
     "pre-commit",
+    "quartodoc",
+    # Docs rendering: quarto's jupyter engine needs these to execute/parse the
+    # .qmd pages and notebooks (quarto itself is installed separately).
+    "nbformat",
+    "nbclient",
+    "jupyter-client",
+    "ipykernel",
 ]
 
 [project.urls]
@@ -112,3 +119,5 @@ lint = "ruff check ."
 format = "ruff format ."
 manifest = "fractal-manifest create --package operetta-compose"
 build = "hatch build"
+docs = { cmd = "quartodoc build", cwd = "docs" }
+preview = { cmd = "quarto preview", cwd = "docs" }
