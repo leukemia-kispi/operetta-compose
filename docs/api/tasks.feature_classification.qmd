@@ -8,19 +8,32 @@
 
 | Name | Description |
 | --- | --- |
-| [feature_classification](#operetta_compose.tasks.feature_classification.feature_classification) | Classify cells using the [napari-feature-classifier](https://github.com/fractal-napari-plugins-collection/napari-feature-classifier) and write them to the OME-ZARR |
+| [feature_classification](#operetta_compose.tasks.feature_classification.feature_classification) | Classify cells with a trained classifier and write them to the OME-Zarr. |
 
 ### feature_classification { #operetta_compose.tasks.feature_classification.feature_classification }
 
-`tasks.feature_classification.feature_classification(zarr_url, classifier_path, table_name='regionprops', label_name='nuclei')`
+```python
+tasks.feature_classification.feature_classification(
+    zarr_url,
+    classifier_path,
+    table_name='regionprops',
+    classifier_name=None,
+)
+```
 
-Classify cells using the [napari-feature-classifier](https://github.com/fractal-napari-plugins-collection/napari-feature-classifier) and write them to the OME-ZARR
+Classify cells with a trained classifier and write them to the OME-Zarr.
 
-#### Parameters
+The classifier can be a full `.clf` file or a neutral joblib bundle
+with following three keys
+ - ``estimator``: the fitted scikit-learn model
+ - ``feature_names``: the feature columns
+ - ``class_names``: the human-readable label per class
 
-| Name              | Type   | Description                                        | Default         |
-|-------------------|--------|----------------------------------------------------|-----------------|
-| `zarr_url`        | str    | Path to an OME-ZARR Image                          | _required_      |
-| `classifier_path` | str    | Path to the pickled scikit-learn classifier        | _required_      |
-| `table_name`      | str    | Folder name of the measured regionprobs features   | `'regionprops'` |
-| `label_name`      | str    | Name of the labels to use for feature measurements | `'nuclei'`      |
+#### Parameters {.doc-section .doc-section-parameters}
+
+| Name            | Type        | Description                                                                                                                                           | Default         |
+|-----------------|-------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------|
+| zarr_url        | str         | Path to an OME-ZARR Image                                                                                                                             | _required_      |
+| classifier_path | str         | Path to the joblib classifier bundle                                                                                                                  | _required_      |
+| table_name      | str         | Folder name of the measured regionprops features                                                                                                      | `'regionprops'` |
+| classifier_name | str \| None | Name of the classification results to be written to the feature table. It will default to the name of the classifier + "_prediction" when left unset. | `None`          |

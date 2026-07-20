@@ -2,28 +2,70 @@
 
 `tasks.condition_registration`
 
-
+Register experimental conditions as a plate-level table in an OME-Zarr plate.
 
 ## Functions
 
 | Name | Description |
 | --- | --- |
-| [condition_registration](#operetta_compose.tasks.condition_registration.condition_registration) | Register the experimental (drug layout) in the OME-ZARR. |
+| [condition_registration](#operetta_compose.tasks.condition_registration.condition_registration) | Register the experimental layout as a plate-level condition table. |
+| [read_layout](#operetta_compose.tasks.condition_registration.read_layout) | Read an experimental layout file and normalize the well identifiers. |
 
 ### condition_registration { #operetta_compose.tasks.condition_registration.condition_registration }
 
-`tasks.condition_registration.condition_registration(zarr_url, layout_path, condition_name='condition', overwrite=False)`
+```python
+tasks.condition_registration.condition_registration(
+    zarr_urls,
+    zarr_dir,
+    layout_path,
+    condition_table_name='condition',
+    table_backend='parquet',
+    overwrite=False,
+)
+```
 
-Register the experimental (drug layout) in the OME-ZARR.
-The table should contain at least the columns `row` and `col` identifying the well.
-It can have an arbitrary number of additional metadata columns (e.g. drug, concentration, medium, sample).
-Drug combinations can be specified by two entries pointing to the same `row` / `col`
+Register the experimental layout as a plate-level condition table.
 
-#### Parameters
+The layout file must contain at least the columns ``row`` and ``column``
+(or ``col``) identifying the well and can have an arbitrary number of
+additional metadata columns (e.g. drug, concentration, medium, sample).
+Only the wells that are actually present in the plate are registered.
 
-| Name             | Type   | Description                                                           | Default       |
-|------------------|--------|-----------------------------------------------------------------------|---------------|
-| `zarr_url`       | str    | Path to an OME-ZARR Image                                             | _required_    |
-| `layout_path`    | str    | Path to a drug layout file (.csv) with at least the columns: row, col | _required_    |
-| `condition_name` | str    | Name of the condition table                                           | `'condition'` |
-| `overwrite`      | bool   | Whether to overwrite any existing OME-ZARR condition table            | `False`       |
+#### Parameters {.doc-section .doc-section-parameters}
+
+| Name                 | Type                                                   | Description                                                                                                                                                                                               | Default       |
+|----------------------|--------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|
+| zarr_urls            | list\[str\]                                            | List of paths to the OME-Zarr images of the plate (provided by Fractal for a non-parallel task).                                                                                                          | _required_    |
+| zarr_dir             | str                                                    | Path to the directory containing the plate (provided by Fractal; unused, kept for the Fractal non-parallel task signature).                                                                               | _required_    |
+| layout_path          | str                                                    | Path to a layout file (e.g. ``.csv``) with at least the columns row and column (or col).                                                                                                                  | _required_    |
+| condition_table_name | str                                                    | Name of the plate-level condition table to write.                                                                                                                                                         | `'condition'` |
+| table_backend        | Literal\[\'anndata\', \'json\', \'csv\', \'parquet\'\] | ngio table backend used to store the condition table. ``parquet`` is a compact columnar default; ``csv`` keeps the table human-readable inside the OME-Zarr; ``anndata`` and ``json`` are also supported. | `'parquet'`   |
+| overwrite            | bool                                                   | Whether to overwrite an existing condition table.                                                                                                                                                         | `False`       |
+
+### read_layout { #operetta_compose.tasks.condition_registration.read_layout }
+
+```python
+tasks.condition_registration.read_layout(layout_path)
+```
+
+Read an experimental layout file and normalize the well identifiers.
+
+The layout is a delimited text file (``.csv`` / ``.tsv``) with at least a
+``row`` and a ``column`` (or ``col``) column identifying the well, plus an
+arbitrary number of metadata columns (e.g. drug, concentration, medium).
+This matches the condition-table format of the
+[fractal-uzh-converters](https://github.com/fractal-analytics-platform/fractal-uzh-converters)
+Operetta converter.
+
+#### Parameters {.doc-section .doc-section-parameters}
+
+| Name        | Type   | Description              | Default    |
+|-------------|--------|--------------------------|------------|
+| layout_path | str    | Path to the layout file. | _required_ |
+
+#### Returns {.doc-section .doc-section-returns}
+
+| Name   | Type         | Description                                                           |
+|--------|--------------|-----------------------------------------------------------------------|
+|        | pd.DataFrame | The layout with the well identifiers renamed to the canonical ``row`` |
+|        | pd.DataFrame | and ``column`` columns (as strings) placed first.                     |

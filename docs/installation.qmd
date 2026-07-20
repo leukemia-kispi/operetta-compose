@@ -7,10 +7,16 @@ jupyter: python3
 
 ### Standalone installation
 
-Install the latest version of operetta-compose from PyPI:
+Install the latest version of operetta-compose from PyPI, e.g. using [uv](https://docs.astral.sh/uv/):
 
-```{python, eva=false}
-pip install operetta-compose
+```bash
+uv pip install operetta-compose
+```
+
+The `spot_detection` task additionally needs [Spotiflow](https://github.com/weigertlab/spotiflow) (which pulls in torch). Install it via the `spotiflow` extra:
+
+```bash
+uv pip install "operetta-compose[spotiflow]"
 ```
 
 

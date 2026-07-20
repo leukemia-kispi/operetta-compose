@@ -11,11 +11,22 @@ Currently the following tasks are part of *operetta-compose*
 
 | Task  | Description |
 |---|---|
-| harmony_to_ome_zarr | Convert TIFFs which were exported from Harmony (Operetta/Opera, Perkin-Elmer) to OME-ZARR |
-| stardist_segmentation | Segment cells with Stardist |
-| regionprops_measurement | Take measurements using regionprops and write the features to the OME-ZARR |
-| feature_classification | Classify cells using the [napari-feature-classifier](https://github.com/fractal-napari-plugins-collection/napari-feature-classifier) and write them to the OME-ZARR |
-| condition_registration | Register the experimental conditions in the OME-ZARR |
+| condition_registration | Register the experimental layout as a plate-level condition table in the OME-Zarr, aligned with the [fractal-uzh-converters](https://github.com/fractal-analytics-platform/fractal-uzh-converters) Operetta converter |
+| feature_classification | Classify cells with a trained scikit-learn classifier (e.g. from the [napari-feature-classifier](https://github.com/fractal-napari-plugins-collection/napari-feature-classifier)) and write back to the feature table |
+| cell_count_aggregation | Aggregate cell counts per experimental condition across a plate and write results into a generic plate-level table |
+| spot_detection | Detect spots with [Spotiflow](https://github.com/weigertlab/spotiflow) and count them per segmented object, writing a per-label feature table |
+
+&nbsp;
+
+#### Legacy tasks
+
+The following tasks have been removed and are superseded by implementations maintained by the BioVisionCenter:
+
+| Removed task | Replacement |
+|---|---|
+| harmony_to_ome_zarr ![archived](https://img.shields.io/badge/status-archived-lightgrey) [![PyPI](https://img.shields.io/badge/pypi-v0.2.14-blue)](https://pypi.org/project/operetta-compose/0.2.14/) | [Operetta converter in fractal-uzh-converters ](https://github.com/fractal-analytics-platform/fractal-uzh-converters/tree/main/src/fractal_uzh_converters/operetta) |
+| stardist_segmentation ![archived](https://img.shields.io/badge/status-archived-lightgrey) [![PyPI](https://img.shields.io/badge/pypi-v0.2.14-blue)](https://pypi.org/project/operetta-compose/0.2.14/) | [fractal-stardist-segmentation-task](https://github.com/fractal-analytics-platform/fractal-stardist-segmentation-task) |
+| regionprops_measurement ![archived](https://img.shields.io/badge/status-archived-lightgrey) [![PyPI](https://img.shields.io/badge/pypi-v0.2.14-blue)](https://pypi.org/project/operetta-compose/0.2.14/) | [`measure_features` in fractal-tasks-core](https://github.com/fractal-analytics-platform/fractal-tasks-core/blob/main/fractal_tasks_core/measure_features.py) |
 
 &nbsp;
 
